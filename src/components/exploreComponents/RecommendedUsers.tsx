@@ -53,8 +53,7 @@ function UsersRecommendation() {
           {myId && usersList?.length !== 0 && (
             <div className={styles.wrapper}>
               <div className={styles.titleWrapper}>
-                <h2 className={styles.sectionTitle}>HI, LISTER</h2>
-                <Image src={waveEmoji} alt={commonLocale[language].waveEmoji} width="22" />
+                <h2 className={styles.sectionTitle}>추천 리스터</h2>
               </div>
               <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
                 {usersList?.map((item: UserProfileType) => {
