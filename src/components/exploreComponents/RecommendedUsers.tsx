@@ -11,7 +11,7 @@ import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
-import * as styles from './UsersRecommendation.css';
+import * as styles from './RecommendedUsers.css';
 import waveEmoji from '/public/images/wave.png';
 import { UserListsSkeleton } from './Skeleton';
 import { commonLocale } from '@/components/locale';
