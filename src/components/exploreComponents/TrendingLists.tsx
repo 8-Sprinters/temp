@@ -67,7 +67,7 @@ function TrendingList() {
       </div>
       <div className={styles.listWrapper}>
         <div className={styles.slide}>
-          {trendingLists && (
+          {trendingLists && trendingLists.length > 0 && (
             <Swiper
               slidesPerView={'auto'}
               grabCursor={true}
@@ -82,36 +82,27 @@ function TrendingList() {
               className="mySwiper"
               style={swiperStyle}
             >
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
-                <TrendingListItem item={trendingLists[0]} index={0} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
-                <TrendingListItem item={trendingLists[1]} index={1} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[2]}>
-                <TrendingListItem item={trendingLists[2]} index={2} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[3]}>
-                <TrendingListItem item={trendingLists[3]} index={3} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
-                <TrendingListItem item={trendingLists[4]} index={4} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
-                <TrendingListItem item={trendingLists[5]} index={5} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[2]}>
-                <TrendingListItem item={trendingLists[6]} index={6} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[3]}>
-                <TrendingListItem item={trendingLists[7]} index={7} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
-                <TrendingListItem item={trendingLists[8]} index={8} />
-              </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
-                <TrendingListItem item={trendingLists[9]} index={9} />
-              </SwiperSlide>
+              {trendingLists.map((item, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={styles.sliderItem}
+                  style={swiperSliderStyle[index % swiperSliderStyle.length]}
+                >
+                  <TrendingListItem item={item} index={index} />
+                </SwiperSlide>
+              ))}
+
+              {/* 슬라이드 개수가 10개 미만일 경우 추가 슬라이드를 생성 */}
+              {trendingLists.length < 10 &&
+                Array.from({ length: 10 - trendingLists.length }).map((_, index) => (
+                  <SwiperSlide
+                    key={`extra-${index}`}
+                    className={styles.sliderItem}
+                    style={swiperSliderStyle[(trendingLists.length + index) % swiperSliderStyle.length]}
+                  >
+                    <TrendingListItem item={trendingLists[index % trendingLists.length]} index={index} />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           )}
         </div>

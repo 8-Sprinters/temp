@@ -47,7 +47,7 @@ export const listWrapper = style({
   },
 });
 
-export const test = style({
+export const sliderItem = style({
   height: 'auto',
 });
 
