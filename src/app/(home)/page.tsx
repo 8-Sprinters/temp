@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 
 import TrendingList from '@/components/exploreComponents/TrendingLists';
 import RecommendedUsers from '@/components/exploreComponents/RecommendedUsers';
-import Header from '@/components/exploreComponents/Header';
+import Header from '@/app/(home)/_components/Header';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
