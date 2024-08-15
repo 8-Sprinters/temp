@@ -11,7 +11,6 @@ import Header from '@/app/(home)/_components/Header';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
-import SearchBar from '@/app/search/_components/SearchBar';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import Loading from '@/components/loading/Loading';
@@ -58,7 +57,6 @@ function LandingPage() {
             timesToShow={100}
             permanentlyHideOnDismiss={false}
           />
-          <SearchBar />
           <TrendingList />
           <RecommendedUsers />
           <FloatingContainer>
