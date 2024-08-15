@@ -8,6 +8,10 @@ globalStyle('html', {
   backgroundColor: vars.color.gray3,
 });
 
+globalStyle('body', {
+  backgroundColor: '#F5F6FA !important',
+});
+
 globalStyle('body *', {
   boxSizing: 'border-box',
   fontFamily: Pretendard,
