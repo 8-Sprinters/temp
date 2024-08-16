@@ -1,12 +1,20 @@
+interface Top3Type {
+  id: number;
+  rank: number;
+  title: string;
+}
+
 export interface TrendingListType {
   id: number;
   ownerId: number;
   ownerNickname: string;
   ownerProfileImageUrl: string;
   title: string;
+  category: string;
   description: string;
   backgroundColor: string;
   itemImageUrl: string;
+  top3: Top3Type[];
 }
 
 export interface UsersRecommendationItemType {
@@ -39,4 +47,5 @@ export interface ListRecommendationType {
   title: string;
   description: string;
   items: ListItemType[];
+  version: number;
 }

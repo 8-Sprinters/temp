@@ -6,8 +6,8 @@ import { useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import ListRecommendation from '@/components/exploreComponents/ListsRecommendation';
-import TrendingList from '@/components/exploreComponents/TrendingLists';
-import UsersRecommendation from '@/components/exploreComponents/UsersRecommendation';
+import TrendingList from '@/app/(home)/_components/TrendingLists';
+import UsersRecommendation from '@/components/exploreComponents/RecommendedUsers';
 import Header from '@/components/exploreComponents/Header';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';

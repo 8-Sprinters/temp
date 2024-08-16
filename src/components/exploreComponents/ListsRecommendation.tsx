@@ -11,15 +11,12 @@ import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { ListRecommendationType } from '@/lib/types/exploreType';
-import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
-import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
-import sparkleEmoji from '/public/images/sparkle.png';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
+import { LIST_DATA } from '@/app/(home)/mock/mockdata';
 
-import ChevronDown from '/public/icons/chevron_down.svg';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
 
@@ -64,13 +61,9 @@ function ListRecommendation() {
 
   return (
     <section className={styles.wrapperOuter}>
-      <div className={styles.titleWrapper}>
-        <div className={styles.sectionTitle}>NEW</div>
-        <Image src={sparkleEmoji} alt={commonLocale[language].sparkleEmofi} width="22" />
-      </div>
       <ul>
-        {recommendLists?.length !== 0 ? (
-          recommendLists?.map((item: ListRecommendationType, index) => {
+        {LIST_DATA?.length !== 0 &&
+          LIST_DATA?.map((item, index) => {
             return (
               <Link href={`/list/${item.id}`} key={item.id}>
                 {isFetching ? (
@@ -80,24 +73,8 @@ function ListRecommendation() {
                     className={styles.listWrapper}
                     style={assignInlineVars({ [styles.listBackground]: exploreBackgroundColors[COLOR_INDEX(index)] })}
                   >
-                    <div className={styles.categoryWrapper}>
-                      <div className={styles.labelWrapper}>
-                        <Label colorType="blue">{item.category}</Label>
-                      </div>
-                      <ul className={styles.labelsWrapper}>
-                        {item?.labels?.map((label) => {
-                          return (
-                            <div key={label.id}>
-                              <Label colorType="white">{label.name}</Label>
-                            </div>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                    <div className={styles.listInformationWrapper}>
-                      <div className={styles.listTitle}>{item.title}</div>
+                    <div className={styles.listTopWrapper}>
                       <div className={styles.ownerInformationWrapper}>
-                        <div>{`By. ${item.ownerNickname}`}</div>
                         <Link href={`/user/${item.ownerId}/mylist`} className={styles.profileImageWrapper}>
                           {item?.ownerProfileImage ? (
                             <Image
@@ -123,28 +100,23 @@ function ListRecommendation() {
                             />
                           )}
                         </Link>
+                        <div className={styles.ownerNicknameText}>{item.ownerNickname}</div>
                       </div>
+                      <div className={styles.version}>{`Ver.${item.version}`}</div>
+                    </div>
+                    <div className={styles.listInformationWrapper}>
+                      <div className={styles.listTitle}>{item.title}</div>
+
                       <div className={styles.listDescription}>{item.description}</div>
                     </div>
                     <div className={styles.simpleListWrapper}>
                       <SimpleList items={item?.items} />
                     </div>
-                    <Link href={`/list/${item.id}`}>
-                      <div className={styles.showMoreButtonWrapper}>
-                        <ChevronDown width={18} height={18} />
-                        <span className={styles.showMoreButton}>{commonLocale[language].more}</span>
-                      </div>
-                    </Link>
                   </li>
                 )}
               </Link>
             );
-          })
-        ) : (
-          <div className={styles.noData}>
-            <NoDataComponent message={commonLocale[language].noFollowingsNewList} />
-          </div>
-        )}
+          })}
         <div ref={ref}></div>
       </ul>
     </section>

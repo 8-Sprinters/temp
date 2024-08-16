@@ -5,15 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import TrendingList from '@/components/exploreComponents/TrendingLists';
-import RecommendedUsers from '@/components/exploreComponents/RecommendedUsers';
-import Header from '@/app/(home)/_components/Header';
-import FloatingContainer from '@/components/floatingButton/FloatingContainer';
-import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
-import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import Loading from '@/components/loading/Loading';
+import Feed from '@/app/(home)/_components/Feed';
 
 import * as styles from './page.css';
 
@@ -41,12 +36,11 @@ function LandingPage() {
       handleSetOn();
       router.replace('/', { scroll: false }); // 쿼리스트링 초가화
     }
-  }, [isLoginRequired, handleSetOn, router]);
+  }, [isLoginRequired, handleSetOn, router, language]);
 
   return (
     <>
       <div className={styles.wrapper}>
-        <Header />
         <Suspense fallback={<Loading />}>
           <PWAPrompt
             copyTitle="리스티웨이브 앱 설치하기"
@@ -57,12 +51,7 @@ function LandingPage() {
             timesToShow={100}
             permanentlyHideOnDismiss={false}
           />
-          <TrendingList />
-          <RecommendedUsers />
-          <FloatingContainer>
-            <PlusOptionFloatingButton />
-            <ArrowUpFloatingButton />
-          </FloatingContainer>
+          <Feed />
         </Suspense>
       </div>
       {isOn && (
