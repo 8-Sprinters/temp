@@ -1,14 +1,11 @@
+import { width } from './../../../components/Skeleton/Skeleton.css';
 import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { headlineSmall, titleMedium, caption } from '@/styles/font.css';
 
-/**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
-
 export const blackLayer = createVar();
 export const itemFontColor = createVar();
 
-export const customWidth = createVar();
-export const customPadding = createVar();
 export const customBorderRadius = createVar();
 export const customBackgroundColor = createVar();
 export const customFontColor = createVar();
@@ -33,6 +30,7 @@ export const titleWrapper = style({
 
 export const wrapper = style({
   marginTop: '50px',
+  marginBottom: '50px',
 });
 
 export const listWrapper = style({
@@ -63,9 +61,9 @@ export const testItem = style({
 export const slide = style({});
 
 export const itemWrapper = style({
-  height: '200px',
+  width: '100%',
+  height: '100%',
   padding: '0 40px',
-  width: customWidth,
   borderRadius: customBorderRadius,
 
   position: 'relative',
@@ -114,6 +112,7 @@ export const itemInformationWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  zIndex: 4,
 });
 
 export const ownerProfileWrapper = style({
@@ -123,58 +122,66 @@ export const ownerProfileWrapper = style({
   gap: '8px',
 });
 
-export const itemTitle = style([
-  titleMedium,
-  {
-    marginBottom: '16px',
-    color: customFontColor,
-    textAlign: 'center',
-    zIndex: 1,
-    overflow: 'hidden',
-    whiteSpace: 'normal',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-    wordBreak: 'keep-all',
-  },
-]);
+export const itemTitle = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+
+  marginBottom: '16px',
+  color: customFontColor,
+  textAlign: 'center',
+  zIndex: 1,
+  overflow: 'hidden',
+  whiteSpace: 'normal',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: 3,
+  WebkitBoxOrient: 'vertical',
+  wordBreak: 'keep-all',
+});
 
 export const itemTitleContent = style({
   display: 'inline',
+  fontWeight: '600',
+  fontSize: '1.8rem',
 });
 
-export const profileImageWrapper = style({
-  width: '32px',
-  height: '32px',
+export const category = style({
+  padding: '6px 12px',
+  marginBottom: '16px',
 
-  position: 'relative',
+  backgroundColor: '#3D95FF',
+  color: '#fff',
+  fontSize: '1.4rem',
+  borderRadius: '20px',
+});
 
+export const listOwner = style({
+  fontSize: '1.6rem',
+  fontWeight: '400',
+  letterSpacing: '-3%',
+});
+
+export const top3ItemNoImage = style({
+  padding: '5px 7px',
+
+  backgroundColor: '#F5FAFF',
+  color: '#3D95FF',
+  borderRadius: '20px',
+});
+
+export const top3ItemWithImage = style({
+  padding: '5px 7px',
+
+  color: '#ffffff',
+  borderRadius: '20px',
+  backgroundColor: '#F5FAFF4D',
+});
+
+export const top3Wrapper = style({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center',
+  gap: '7px',
+
+  fontSize: '1rem',
 });
-
-export const profileImage = style({
-  background: vars.color.gray5,
-  borderRadius: '50px',
-  border: `2px solid ${vars.color.white}`,
-});
-
-export const profileTransparentBlack = style({
-  width: '100%',
-  height: '100%',
-
-  border: `2px solid ${vars.color.white}`,
-  borderRadius: '50px',
-  backgroundColor: 'rgba(0, 0, 0, 0.1)',
-  zIndex: 1,
-});
-
-export const ownerNickname = style([
-  caption,
-  {
-    color: customFontColor,
-    zIndex: 1,
-  },
-]);

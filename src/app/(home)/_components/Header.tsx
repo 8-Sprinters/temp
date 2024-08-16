@@ -28,7 +28,7 @@ function Header() {
   };
 
   return (
-    <div className={styles.headerWrapper}>
+    <header className={styles.headerWrapper}>
       {isSearchBarOpened && <SearchBarComponent handleCancel={handleInactivateSearchBar} />}
       {!isSearchBarOpened && (
         <div className={styles.entireWrapper}>
@@ -57,7 +57,7 @@ function Header() {
           </div>
         </div>
       )}
-    </div>
+    </header>
   );
 }
 
