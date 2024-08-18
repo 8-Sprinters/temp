@@ -51,6 +51,14 @@ export const topic = style({
   color: '#292929',
 });
 
+export const topicButton = style([
+  topic,
+  {
+    backgroundColor: '#3D95FF',
+    color: vars.color.white,
+  },
+]);
+
 export const showMoreButton = style({
   color: '#637587',
   fontWeight: '400',
