@@ -21,6 +21,7 @@ function TopicsRecommendation() {
             </li>
           );
         })}
+        <button className={styles.topicButton}>주제 요청하기→</button>
       </ul>
     </section>
   );
