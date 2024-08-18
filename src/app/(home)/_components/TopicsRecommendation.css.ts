@@ -41,6 +41,7 @@ export const topic = style({
   padding: '14px',
 
   flexShrink: 0,
+  textWrap: 'nowrap',
 
   backgroundColor: vars.color.white,
   borderRadius: '20px',
