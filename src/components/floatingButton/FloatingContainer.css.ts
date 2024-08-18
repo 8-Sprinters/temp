@@ -26,9 +26,9 @@ export const basicButton = style({
   height: '56px',
   padding: '1rem',
 
-  background: vars.color.blue,
+  background: vars.color.white,
   borderRadius: '50%',
-  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  boxShadow: '0px 0px 4px 0px rgba(142, 142, 142, 0.04), 0px 8px 16px 0px rgba(116, 116, 116, 0.08)',
   cursor: 'pointer',
 
   transition: 'all 0.1s linear',
@@ -54,7 +54,7 @@ export const variant = styleVariants({
     basicButton,
     {
       animation: `${fadeIn} 500ms ease`,
-      filter: `opacity(0.5)`,
+      // filter: `opacity(0.5)`,
     },
   ],
 });
@@ -69,7 +69,7 @@ const dropdown = keyframes({
 });
 
 export const icon = style({
-  transform: 'translate(25%, 25%);',
+  transform: 'translate(45%, 45%);',
 });
 
 export const menuButtons = style({

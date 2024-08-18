@@ -3,9 +3,9 @@
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-import HomeIcon from '/public/icons/ver3/house.svg';
-import MyFeedIcon from '/public/icons/ver3/square_pencil.svg';
-import AddIcon from '/public/icons/ver3/add.svg';
+import ExploreIcon from '/public/icons/explore.svg';
+import MyFeedIcon from '/public/icons/my_feed.svg';
+import CollectionIcon from '/public/icons/collection.svg';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
@@ -47,6 +47,8 @@ export default function BottomNav() {
       return 'explore';
     } else if (pathname === `/user/${userId}/mylist` || pathname === `/user/${userId}/collabolist`) {
       return 'my-feed';
+    } else if (pathname.startsWith('/collection')) {
+      return 'collection';
     } else {
       return null;
     }
@@ -63,23 +65,16 @@ export default function BottomNav() {
 
   return (
     <>
-      <nav className={styles.navDiv}>
-        <ul className={styles.ulDiv}>
+      <nav>
+        <ul className={styles.navDiv}>
           <li className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
-            <HomeIcon fill={selectedItem === 'explore' ? '#53A0FF' : vars.color.gray7} />
-            <span className={selectedItem === 'explore' ? `${styles.selectedMenuName}` : `${styles.menuName}`}>홈</span>
-          </li>
-          <li className={styles.buttonDiv}>
-            <div className={styles.createButtonWrapper}>
-              <div className={styles.listCreateButton}></div>
-              <AddIcon className={styles.addIcon} />
-            </div>
+            <ExploreIcon fill={selectedItem === 'explore' ? vars.color.blue : vars.color.gray7} />
           </li>
           <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('my-feed')}>
-            <MyFeedIcon fill={selectedItem === 'my-feed' ? '#53A0FF' : vars.color.gray7} />
-            <span className={selectedItem === 'my-feed' ? `${styles.selectedMenuName}` : `${styles.menuName}`}>
-              마이피드
-            </span>
+            <MyFeedIcon fill={selectedItem === 'my-feed' ? vars.color.blue : vars.color.gray7} />
+          </li>
+          <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('collection')}>
+            <CollectionIcon fill={selectedItem === 'collection' ? vars.color.blue : vars.color.gray7} />
           </li>
         </ul>
       </nav>
