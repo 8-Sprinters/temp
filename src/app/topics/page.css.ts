@@ -16,6 +16,10 @@ export const body = style({
   rowGap: '12px',
 });
 
+export const goBackButton = style({
+  width: '18px',
+});
+
 export const title = style([
   fonts.Subtitle,
   {
