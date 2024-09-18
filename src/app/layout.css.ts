@@ -1,4 +1,4 @@
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/__font.css';
 import { style } from '@vanilla-extract/css';
 
@@ -10,7 +10,7 @@ export const body = style({
 
   position: 'relative',
 
-  backgroundColor: vars.color.white,
+  backgroundColor: vars.color.whiteblue,
 });
 
 export const toastContainer = style([fonts.labelMedium]);
