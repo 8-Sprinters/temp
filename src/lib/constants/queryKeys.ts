@@ -7,6 +7,8 @@ export const QUERY_KEYS = {
   getCategories: 'getCategories',
   getComments: 'getComments',
   getRecommendedLists: 'getRecommendedLists',
+  getRecentLists: 'getRecentLists',
+  getFollowingLists: 'getFollowingLists',
   getRecommendedUsers: 'getRecommendedUsers',
   getTrendingLists: 'getTrendingLists',
   getNotificationAllChecked: 'getNotificationOnAllChecked',

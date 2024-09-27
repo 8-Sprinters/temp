@@ -10,6 +10,8 @@ export const listEndWrapper = style({
   flexDirection: 'column',
   gap: '8px',
 
+  marginBottom: '90px',
+
   alignItems: 'center',
   justifyContent: 'center',
 });

@@ -29,7 +29,6 @@ function HomeTab() {
           팔로잉
         </button>
       </div>
-      {currentTab === 'recommendation' && <div>1/10</div>}
     </nav>
   );
 }

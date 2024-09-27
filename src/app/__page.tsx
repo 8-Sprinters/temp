@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import ListRecommendation from '@/components/exploreComponents/ListsRecommendation';
+import FeedLists from '@/components/exploreComponents/FeedLists';
 import TrendingList from '@/app/(home)/_components/TrendingLists';
 import UsersRecommendation from '@/components/exploreComponents/RecommendedUsers';
 import Header from '@/components/exploreComponents/Header';
@@ -62,7 +62,7 @@ function LandingPage() {
           <SearchBar />
           <TrendingList />
           <UsersRecommendation />
-          <ListRecommendation />
+          <FeedLists />
           <FloatingContainer>
             <PlusOptionFloatingButton />
             <ArrowUpFloatingButton />

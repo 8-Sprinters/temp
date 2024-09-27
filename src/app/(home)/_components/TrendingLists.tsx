@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 
-import getTrendingLists from '@/app/_api/explore/getTrendingLists';
+import getTrendingLists from '@/app/_api/home/getTrendingLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { TRENDINGLISTS_DATA } from '../mock/mockdata';

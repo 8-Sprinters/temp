@@ -10,7 +10,11 @@ import getCategories from '@/app/_api/category/getCategories';
 import * as styles from './Categories.css';
 import ChevronDown from '/public/icons/ver3/chevron_down.svg';
 
-function Categories() {
+interface CategoriesType {
+  onClick: (name: string) => void;
+}
+
+function Categories({ onClick }: CategoriesType) {
   const [selectedCategoryCode, setSelectedCategoryCode] = useState('0');
 
   const { data, isFetching } = useQuery<CategoryType[]>({
@@ -18,7 +22,10 @@ function Categories() {
     queryFn: getCategories,
   });
 
-  console.log(data);
+  const handleClickCategory = (codeNum: string, name: string) => {
+    setSelectedCategoryCode(codeNum);
+    onClick(name);
+  };
 
   return (
     <div className={styles.gridContainer}>
@@ -26,17 +33,20 @@ function Categories() {
         {data?.map((el) => {
           return (
             <li key={el.code}>
-              <button className={selectedCategoryCode === el.code ? `${styles.selectedItem}` : `${styles.item}`}>
+              <button
+                className={selectedCategoryCode === el.code ? `${styles.selectedItem}` : `${styles.item}`}
+                onClick={() => handleClickCategory(el.code, el.engName)}
+              >
                 {el.korName}
               </button>
             </li>
           );
         })}
       </ul>
-      <div className={styles.orderDropdown}>
+      {/* <div className={styles.orderDropdown}>
         <span className={styles.order}>정렬</span>
         <ChevronDown />
-      </div>
+      </div> */}
     </div>
   );
 }

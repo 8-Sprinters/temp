@@ -3,11 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { useMemo } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import SimpleList from '@/components/SimpleList/SimpleList';
-import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
+import getRecentLists from '@/app/_api/home/getRecentLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { ListRecommendationType } from '@/lib/types/exploreType';
@@ -20,8 +21,9 @@ import { LIST_DATA } from '@/app/(home)/mock/mockdata';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
 
-function ListRecommendation() {
+function FeedLists() {
   const { language } = useLanguage();
+
   const COLOR_INDEX = (num: number) => num % 5;
 
   //리스트 무한스크롤 리액트 쿼리 함수
@@ -31,9 +33,9 @@ function ListRecommendation() {
     fetchNextPage,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: [QUERY_KEYS.getRecommendedLists],
+    queryKey: [QUERY_KEYS.getRecentLists],
     queryFn: ({ pageParam: cursorUpdatedDate }) => {
-      return getRecommendedLists({ cursorUpdatedDate: cursorUpdatedDate });
+      return getRecentLists({ cursorUpdatedDate: cursorUpdatedDate });
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorUpdatedDate : null),
@@ -123,4 +125,4 @@ function ListRecommendation() {
   );
 }
 
-export default ListRecommendation;
+export default FeedLists;
