@@ -87,14 +87,14 @@ export const followButtonDefault = style({
   alignItems: 'center',
   justifyContent: 'center',
 
-  backgroundColor: vars.color.white,
+  backgroundColor: '#3D95FF',
   borderRadius: '20px',
-  color: '#8599AD',
+  color: vars.color.white,
   fontSize: '1.2rem',
   fontWeight: '400',
 });
 
 export const followButtonFollowing = style({
-  backgroundColor: '#3D95FF',
-  color: vars.color.white,
+  backgroundColor: vars.color.white,
+  color: '#8599AD',
 });

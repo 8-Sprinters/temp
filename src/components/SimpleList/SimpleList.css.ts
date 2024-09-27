@@ -1,6 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import { titleMedium, bodyRegular } from '@/styles/__font.css';
 
 export const simpleItemWrapper = style({
   width: '100%',
@@ -37,7 +35,7 @@ export const rankText = style({
   fontSize: '1.8rem',
   fontWeight: '500',
   letterSpacing: '-0.6px',
-  zIndex: 3,
+  zIndex: 1,
 });
 
 export const rank1 = style([

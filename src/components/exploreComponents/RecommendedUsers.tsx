@@ -5,14 +5,13 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
+import getRecommendedUsers from '@/app/_api/home/getRecommendedUsers';
 import { useUser } from '@/store/useUser';
 import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import * as styles from './RecommendedUsers.css';
-import waveEmoji from '/public/images/wave.png';
 import { UserListsSkeleton } from './Skeleton';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';

@@ -1,9 +1,9 @@
-import ListRecommendation from '@/components/exploreComponents/ListsRecommendation';
+import FeedLists from '@/app/(home)/_components/FeedLists';
 
 function FollowingFeed() {
   return (
     <div>
-      <ListRecommendation />
+      <FeedLists tab="following" />
     </div>
   );
 }
