@@ -4,7 +4,7 @@ import LinkIcon from '/public/icons/link.svg';
 
 import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import { useLanguage } from '@/store/useLanguage';
 import { itemLocale } from '@/app/list/create/locale';
 import { itemPlaceholder } from '@/lib/constants/placeholder';

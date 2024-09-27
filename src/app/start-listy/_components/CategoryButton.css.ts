@@ -1,6 +1,6 @@
 import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
-import { titleLarge, titleMedium } from '@/styles/font.css';
-import { vars } from '@/styles/theme.css';
+import { titleLarge, titleMedium } from '@/styles/__font.css';
+import { vars } from '@/styles/__theme.css';
 
 export const container = style({
   width: '80%',

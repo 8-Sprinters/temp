@@ -63,7 +63,7 @@ function ListRecommendation() {
     <section className={styles.wrapperOuter}>
       <ul>
         {LIST_DATA?.length !== 0 &&
-          LIST_DATA?.map((item: ListRecommendationType, index) => {
+          LIST_DATA?.map((item, index) => {
             return (
               <Link href={`/list/${item.id}`} key={item.id}>
                 {isFetching ? (

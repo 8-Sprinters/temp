@@ -30,17 +30,26 @@ export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
   const router = useRouter();
   const { logoutUser } = useUser();
 
+  const logoutUserInfo = () => {
+    logoutUser();
+    removeCookie('accessToken');
+    removeCookie('refreshToken');
+
+    toasting({ type: 'success', txt: toastMessage[language].loggedOut });
+    router.push('/');
+  };
+
   const handleLogout = async () => {
     try {
+      if (process.env.NODE_ENV === 'development') {
+        logoutUserInfo();
+        return;
+      }
+
       const result = await axiosInstance.patch(`/auth/${oauthType.kakao}`);
 
       if (result.status === 204) {
-        logoutUser();
-        removeCookie('accessToken'); // TODO removeCookieAll
-        removeCookie('refreshToken');
-
-        toasting({ type: 'success', txt: toastMessage[language].loggedOut });
-        router.push('/');
+        logoutUserInfo();
       }
     } catch (error) {
       if (error instanceof AxiosError) {

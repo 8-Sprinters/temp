@@ -80,7 +80,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   return (
     <>
       <button
-        className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
+        className={`${isFollowed ? styles.variant.white : styles.variant.primary}`}
         onClick={handleFollowUser(isFollowed)}
         disabled={followUserMutation.isPending}
       >

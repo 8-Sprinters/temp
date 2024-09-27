@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { bodyMedium, labelLarge, titleMedium } from '@/styles/font.css';
-import { vars } from '@/styles/theme.css';
+import { bodyMedium, labelLarge, titleMedium } from '@/styles/__font.css';
+import { vars } from '@/styles/__theme.css';
 
 export const container = style({
   width: '100%',

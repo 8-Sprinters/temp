@@ -1,88 +1,99 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-import HomeIcon from '/public/icons/ver3/house.svg';
-import MyFeedIcon from '/public/icons/ver3/square_pencil.svg';
-import AddIcon from '/public/icons/ver3/add.svg';
+import HomeIcon from '/public/icons/new/bottom_nav_home.svg';
+import AddIcon from '/public/icons/new/bottom_nav_add.svg';
+import MyFeedIcon from '/public/icons/new/bottom_nav_feed.svg';
 
-import useMoveToPage from '@/hooks/useMoveToPage';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-
 import { useUser } from '@/store/useUser';
 
 import { vars } from '@/styles/theme.css';
 import * as styles from './BottomNav.css';
 
-import Modal from '../Modal/Modal';
-import LoginModal from '../login/LoginModal';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+
+type BottomNavTapPathType = 'home' | 'feed' | 'list';
+
+const home = 'home';
+const feed = 'my-feed';
+const list = 'create-list';
+
+const bottomNavTapPath: Record<BottomNavTapPathType, string> = {
+  home,
+  feed,
+  list,
+};
 
 export default function BottomNav() {
   const { user } = useUser();
   const router = useRouter();
-  const userId = user.id;
-  const pathname = usePathname() as string;
-  const { onClickMoveToPage } = useMoveToPage();
+  const pathname = usePathname();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
-  // 숨기고 싶은 경로 패턴 배열
-  const hiddenPaths = [
-    '/list',
-    '/intro',
-    '/start-listy',
-    '/account',
-    '/followings',
-    '/followers',
-    '/notification',
-    '/withdrawn-account',
-  ];
-  const isHidden = hiddenPaths.some((path) => pathname.includes(path));
+  const userId = user.id;
 
-  if (isHidden) return;
+  const visiblePaths = ['/', '/mylist', 'collection'];
+  const isVisible = visiblePaths.some((path) => pathname?.endsWith(path));
 
-  //파란색 선택 표시를 위한 분기처리
-  const selectedItem = (() => {
-    if (pathname === '/' || pathname.includes('/search')) {
-      return 'explore';
-    } else if (pathname === `/user/${userId}/mylist` || pathname === `/user/${userId}/collabolist`) {
-      return 'my-feed';
-    } else {
-      return null;
+  if (!isVisible) {
+    return <></>;
+  }
+
+  // 네브바 탭 현재위치를 표시하기 위한 분기처리
+  const selectedTap = (() => {
+    switch (pathname) {
+      case '/':
+        return bottomNavTapPath.home;
+      case `/user/${userId}/mylist`:
+        return bottomNavTapPath.feed;
+      default:
+        return bottomNavTapPath.home;
     }
   })();
 
-  // 로그인한 사용자 검증
+  // 로그인한 사용자 검증 후, 마이피드로 이동
   const handleMoveToPageOnLogin = (path: string) => () => {
     if (!userId) {
       handleSetOn();
       return;
     }
-    path === 'my-feed' ? router.push(`/user/${userId}/mylist`) : router.push('/collection');
+    path === bottomNavTapPath.feed ? router.push(`/user/${userId}/mylist`) : router.push('/list/create');
+  };
+
+  // 탭 아이콘 색상을 정하는 함수
+  const getIconColor = (selectedTap: string, path: string) => {
+    return selectedTap === path ? vars.color.blue : vars.color.lightgray;
+  };
+
+  // 탭 text 스타일을 정하는 함수
+  const getTextStyle = (selectedTap: string, path: string) => {
+    return selectedTap === path ? styles.bottomTapText.variant : styles.bottomTapText.default;
   };
 
   return (
     <>
-      <nav className={styles.navDiv}>
-        <ul className={styles.ulDiv}>
-          <li className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
-            <HomeIcon fill={selectedItem === 'explore' ? '#53A0FF' : vars.color.gray7} />
-            <span className={selectedItem === 'explore' ? `${styles.selectedMenuName}` : `${styles.menuName}`}>홈</span>
-          </li>
-          <li className={styles.buttonDiv}>
-            <div className={styles.createButtonWrapper}>
-              <div className={styles.listCreateButton}></div>
-              <AddIcon className={styles.addIcon} />
-            </div>
-          </li>
-          <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('my-feed')}>
-            <MyFeedIcon fill={selectedItem === 'my-feed' ? '#53A0FF' : vars.color.gray7} />
-            <span className={selectedItem === 'my-feed' ? `${styles.selectedMenuName}` : `${styles.menuName}`}>
-              마이피드
-            </span>
-          </li>
-        </ul>
+      <nav>
+        <div className={styles.bottomTapContainer}>
+          <Link href="/" className={styles.bottomTapVariant.left}>
+            <HomeIcon fill={getIconColor(selectedTap, bottomNavTapPath.home)} />
+            <span className={getTextStyle(selectedTap, bottomNavTapPath.home)}>홈</span>
+          </Link>
+          <div className={styles.addButtonTap}>
+            <button className={styles.addButton} onClick={handleMoveToPageOnLogin(bottomNavTapPath.list)}>
+              <AddIcon />
+            </button>
+          </div>
+          <button className={styles.bottomTapVariant.right} onClick={handleMoveToPageOnLogin(bottomNavTapPath.feed)}>
+            <MyFeedIcon fill={getIconColor(selectedTap, bottomNavTapPath.feed)} />
+            <span className={getTextStyle(selectedTap, bottomNavTapPath.feed)}>내 피드</span>
+          </button>
+        </div>
       </nav>
+
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
           <LoginModal id="bottomNavLoginBtn" />

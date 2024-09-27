@@ -19,7 +19,7 @@ function toasting({ type = 'default', txt = '' }: ToastingProps) {
     transition: Slide,
   };
 
-  if (type !== ('success' || 'error' || 'warning')) {
+  if (type === 'default') {
     toast(txt, toastOption);
   } else {
     toast[type](txt, toastOption);

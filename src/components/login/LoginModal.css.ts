@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { bodyRegular, titleLarge } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { bodyRegular, titleLarge } from '@/styles/__font.css';
 
 export const container = style({
   width: '100%',
@@ -46,12 +46,22 @@ export const title = style([
 ]);
 
 export const buttonContainer = style({
-  padding: '2.4rem 2.8rem 0 2.8rem',
+  width: '100%',
+  paddingTop: '2.4rem',
 
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   alignItems: 'center',
-  gap: '1.8rem',
+  gap: '1rem',
 
   borderTop: `1px solid ${vars.color.gray5}`,
+});
+
+export const buttonForLocal = style({
+  height: '4.7rem',
+  padding: '0.2rem',
+
+  border: `1px solid ${vars.color.gray5}`,
+  background: vars.color.lightblue,
+  borderRadius: '1.2rem',
 });

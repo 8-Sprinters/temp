@@ -29,7 +29,7 @@ import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
 import * as styles from './ListInformation.css';
 import * as modalStyles from '@/components/Modal/ModalButton.css';
 import LockIcon from '/public/icons/lock.svg';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 
 function ListInformation() {
   const { language } = useLanguage();

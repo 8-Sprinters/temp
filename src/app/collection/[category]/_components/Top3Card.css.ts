@@ -1,5 +1,5 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 
 export const listColor = createVar();
 export const listBackgroundImage = createVar();

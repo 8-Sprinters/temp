@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { titleMedium, bodyRegular } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { titleMedium, bodyRegular } from '@/styles/__font.css';
 
 export const simpleItemWrapper = style({
   width: '100%',

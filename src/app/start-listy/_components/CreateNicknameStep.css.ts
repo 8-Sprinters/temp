@@ -1,6 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { bodyLarge, labelMedium, titleLarge, titleMedium, titleRegular } from '@/styles/font.css';
-import { vars } from '@/styles/theme.css';
+import { bodyLarge, labelMedium, titleLarge, titleMedium, titleRegular } from '@/styles/__font.css';
+import { vars } from '@/styles/__theme.css';
 
 export const background = style({
   minHeight: '100vh',

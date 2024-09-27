@@ -1,26 +1,24 @@
 import { style, createVar } from '@vanilla-extract/css';
+
+import { BodyBold, LabelSmall } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
-import { bodySmall, caption, titleMedium } from '@/styles/font.css';
 
 export const imageUrl = createVar();
 
 export const container = style({
-  padding: '2.1rem 1.9rem 6.4rem 1.5rem',
+  padding: '2.1rem 2rem 1.9rem 2rem',
   width: '100%',
-  height: '440px',
-
-  position: 'fixed',
-  top: 0,
+  height: '225px',
 
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  // 좀 더 어두운 버전
-  // background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 12%, rgba(0, 0, 0, 0.80) 100%), ${imageUrl} lightgray 50% / cover no-repeat`,
-
   background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 68%), ${imageUrl} lightgray 50% / cover no-repeat`,
   backgroundPosition: 'center',
+
+  borderBottomLeftRadius: '4.5rem',
+  borderBottomRightRadius: '4.5rem',
 });
 
 export const header = style({
@@ -28,28 +26,8 @@ export const header = style({
   justifyContent: 'flex-end',
 });
 
-export const profileContainer = style({
-  padding: '0 3.3rem',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1.5rem',
-
-  '@media': {
-    'screen and (max-width: 414px)': {
-      padding: '0 3rem',
-    },
-    'screen and (max-width: 400px)': {
-      padding: '0 2rem',
-    },
-    'screen and (max-width: 390px)': {
-      padding: '0 1.5rem',
-    },
-  },
-});
-
 export const skeletonProfileContainer = style({
-  paddingBottom: '3rem',
+  paddingBottom: '2rem',
   display: 'flex',
   alignItems: 'center',
   gap: '1.2rem',
@@ -67,20 +45,20 @@ export const icon = style({
 export const profile = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '1.6rem',
+  gap: '0.9rem',
 });
 
 export const profileImageWrapper = style({
-  width: '5rem',
-  height: '5rem',
+  width: '4.8rem',
+  height: '4.8rem',
 
   borderRadius: '50%',
   backgroundColor: vars.color.white,
 });
 
 export const profileImage = style({
-  width: '5rem',
-  height: '5rem',
+  width: '4.8rem',
+  height: '4.8rem',
   padding: '2px',
   borderRadius: '50%',
 });
@@ -88,64 +66,47 @@ export const profileImage = style({
 export const info = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.8rem',
+  gap: '0.6rem',
 });
 
 export const user = style({
   display: 'flex',
-  alignItems: 'center',
-  gap: '1.2rem',
+  alignItems: 'baseline',
+  gap: '1rem',
 });
 
 export const nickName = style([
-  titleMedium,
+  BodyBold,
   {
-    color: vars.color.white,
-
-    '@media': {
-      'screen and (max-width: 414px)': {
-        fontSize: '1.8rem',
-      },
-    },
+    color: vars.color.black,
   },
 ]);
 
 export const follow = style({
   display: 'flex',
-  gap: '1.6rem',
+  gap: '1rem',
 });
 
-export const text = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
-
-  cursor: 'pointer',
-});
-
-export const count = style([
-  bodySmall,
+export const text = style([
+  LabelSmall,
   {
-    color: vars.color.white,
-  },
-]);
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.4rem',
 
-export const captionText = style([
-  caption,
-  {
-    color: vars.color.white,
+    color: vars.color.black,
+
+    cursor: 'pointer',
   },
 ]);
 
 export const description = style([
-  bodySmall,
+  LabelSmall,
   {
-    paddingLeft: '2.5rem',
-    marginBottom: '2.5rem',
+    padding: '0.3rem 0.8rem',
+    width: 'fit-content',
 
-    width: '100%',
-    maxHeight: '80px',
-
-    color: vars.color.white,
+    borderRadius: '2rem',
+    backgroundColor: 'rgba(255, 255, 255, 0.50)',
   },
 ]);

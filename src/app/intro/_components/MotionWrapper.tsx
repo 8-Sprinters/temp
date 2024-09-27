@@ -32,7 +32,7 @@ function MotionWrapper({ children, delay, variantsType = 'vertical' }: MotionWra
 
   const ref = useIntersectionObserver(() => {
     controls.start('visible');
-  }, 0.4);
+  }, [0.4]);
 
   return (
     <motion.div

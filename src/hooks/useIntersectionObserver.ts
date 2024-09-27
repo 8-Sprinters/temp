@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
  * @returns target 요소에 전달할 ref 값
  */
 
-const useIntersectionObserver = (callback: (entry: IntersectionObserverEntry) => void, threshold = 1) => {
+const useIntersectionObserver = (callback: (entry: IntersectionObserverEntry) => void, threshold = [1]) => {
   const options = {
     root: null,
     rootMain: '0px',

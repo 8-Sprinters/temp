@@ -7,6 +7,8 @@ import { MasonryGrid } from '@egjs/react-grid';
 import { Skeleton } from '@mui/material';
 
 import * as styles from './Content.css';
+import { vars } from '@/styles/theme.css';
+import BookmarkIcon from '/public/icons/new/bookmark.svg';
 
 import Card from './Card';
 import Categories from './Categories';
@@ -31,6 +33,9 @@ interface ContentProps {
 const DEFAULT_CATEGORY = 'entire';
 
 export default function Content({ userId, type }: ContentProps) {
+  const [visibleTopGradient, setVisibleTopGradient] = useState(false);
+  const [visibleBottomGradient, setVisibleBottomGradient] = useState(true);
+
   const { language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
 
@@ -68,23 +73,55 @@ export default function Content({ userId, type }: ContentProps) {
     }
   });
 
+  /** 콘텐츠 상단 영역(sticky)이 붙어있음을 감지하여 그라데이션 스타일 적용 */
+  const stickyContainer = useIntersectionObserver(
+    (entry) => {
+      if (entry.intersectionRatio < 1) {
+        // 메뉴가 상단에 sticky 되었을 떄
+        setVisibleTopGradient(true);
+      } else if (entry.intersectionRatio === 1) {
+        // sticky가 해제되었을 뗴
+        setVisibleTopGradient(false);
+      }
+    },
+    [0, 1]
+  );
+
+  /** 스크롤이 끝났음을 감지하여 하단 영역 그라데이션 스타일 적용 */
+  const scrollBottomTarget = useIntersectionObserver(
+    (entry) => {
+      if (entry.intersectionRatio < 1) {
+        setVisibleBottomGradient(true);
+      } else {
+        setVisibleBottomGradient(false);
+      }
+    },
+    [0, 1]
+  );
+
   const handleFetchListsOnCategory = (category: string) => {
     setSelectedCategory(category);
   };
 
+  // TODO 사용자 정보 로딩중일때 스켈레톤 UI
+  if (!userData) {
+    return <></>;
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.options}>
-        <Link href={`/user/${userData?.id}/mylist`} className={styles.link}>
-          <span className={styles.button}>{userLocale[language].myList}</span>
-          <div className={type === 'my' ? styles.currentLine : styles.line}></div>
-        </Link>
-        <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
-          <button className={styles.button}>{userLocale[language].collaboList}</button>
-          <div className={type === 'collabo' ? styles.currentLine : styles.line}></div>
-        </Link>
+      <div ref={stickyContainer} className={styles.stickyContainer}>
+        <div className={styles.contentInfo}>
+          <h2 className={styles.infoTitle}>{`${userData?.nickname}님의 리스트`}</h2>
+          <Link href="/" className={styles.collectionButton}>
+            <BookmarkIcon fill={vars.color.blue} />
+            <span>콜렉션</span>
+          </Link>
+        </div>
+        <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
+        <div className={`${styles.scrollDivTop} ${visibleTopGradient ? styles.visibleScrollDivTop : ''}`}></div>
       </div>
-      <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
+
       {!isLoading && !lists.length && (
         <div className={styles.nodataContainer}>
           <NoDataComponent message={userLocale[language].noListMessage} />
@@ -104,8 +141,10 @@ export default function Content({ userId, type }: ContentProps) {
             ))}
           </MasonryGrid>
         )}
+        <div className={styles.target} ref={ref}></div>
       </div>
-      <div className={styles.target} ref={ref}></div>
+      <div ref={scrollBottomTarget} className={styles.scrollBottomTarget}></div>
+      <div className={`${styles.scrollDivBottom} ${visibleBottomGradient ? styles.visibleScrollDiv : ''}`}></div>
     </div>
   );
 }

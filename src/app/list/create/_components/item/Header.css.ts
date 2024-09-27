@@ -1,6 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { title3, body1 } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { title3, body1 } from '@/styles/__font.css';
 
 export const header = style({
   width: '100%',

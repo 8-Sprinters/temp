@@ -6,6 +6,8 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
+import * as styles from './MylistPage.css';
+
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { UserType } from '@/lib/types/userProfileType';
 import METADATA from '@/lib/constants/metadata';
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: MyListPageProps, parent: Reso
 
 export default function MyListPage({ params }: MyListPageProps) {
   return (
-    <section>
+    <section className={styles.container}>
       <Profile userId={params.userId} />
       <Content userId={params.userId} type="my" />
       <FloatingContainer>

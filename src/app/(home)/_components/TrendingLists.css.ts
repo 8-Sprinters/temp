@@ -1,5 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { headlineSmall, titleMedium, caption } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { headlineSmall, titleMedium, caption } from '@/styles/__font.css';
 
 export const blackLayer = createVar();
 export const itemFontColor = createVar();

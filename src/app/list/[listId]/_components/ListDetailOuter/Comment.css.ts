@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 
 /**@todo 공용폰트 스타일 적용 */
 

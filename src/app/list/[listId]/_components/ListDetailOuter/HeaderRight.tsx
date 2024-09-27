@@ -9,7 +9,7 @@ import HistoryButton from '/public/icons/history.svg';
 import PencilButton from '/public/icons/edit_pen.svg';
 import { listLocale } from '@/app/list/[listId]/locale';
 
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import { useLanguage } from '@/store/useLanguage';
 
 interface HeaderRightProps {

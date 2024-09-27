@@ -10,7 +10,7 @@ import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
 import Airplane from '/public/icons/airplane_send.svg';

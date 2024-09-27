@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { caption1 } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { caption1 } from '@/styles/__font.css';
 
 /**@todo 공용폰트 스타일 적용 */
 

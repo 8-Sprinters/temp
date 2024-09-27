@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { body3 } from '@/styles/font.css';
-import { vars } from '@/styles/theme.css';
+import { body3 } from '@/styles/__font.css';
+import { vars } from '@/styles/__theme.css';
 
 export const baseLabel = style([
   body3,

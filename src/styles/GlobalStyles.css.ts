@@ -1,6 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
 import { Pretendard } from './pretendardFont.css';
-import { vars } from './theme.css';
+import { vars } from './__theme.css';
 
 globalStyle('html', {
   fontSize: '62.5%',

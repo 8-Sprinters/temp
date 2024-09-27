@@ -18,6 +18,10 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     withdraw: '리스티웨이브를 탈퇴했어요.🥲 꼭 돌아와주세요!',
     withdrawError: '탈퇴에 실패했어요. 다시 시도해주세요.',
     failedCollect: '콜렉트에 실패했어요. 다시 시도해주세요.🥲',
+    deleteListSuccess: '리스트를 삭제했어요.',
+    deleteListError: '리스트 삭제에 실패했어요.',
+    visibilityListSuccess: '리스트 공개/비공개 변경을 완료했어요.',
+    visibilityListError: '리스트 공개/비공개 변경에 실패했어요.',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -36,6 +40,10 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     withdraw: "You've withdrawn from ListyWave. 🥲 Please come back soon!",
     withdrawError: 'Failed to withdraw. Please try again.',
     failedCollect: 'Failed to collect. Please try again.🥲',
+    deleteListSuccess: 'Successfully deleted the list.',
+    deleteListError: 'Failed to delete the list. Please try again.🥲',
+    visibilityListSuccess: 'List visibility updated successfully.',
+    visibilityListError: 'Failed to update list visibility. Please try again.🥲',
   },
 };
 

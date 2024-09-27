@@ -5,7 +5,7 @@ import ExpandMoreIcon from '/public/icons/chevron_down_sm.svg';
 import DndIcon from '/public/icons/dnd.svg';
 import DeleteIcon from '/public/icons/trash_bin.svg';
 import Label from '@/components/Label/Label';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import ImageUploader from './ImageUploader';
 import * as styles from './ItemLayout.css';
 import { useLanguage } from '@/store/useLanguage';

@@ -13,7 +13,7 @@ import { UserType } from '@/lib/types/userProfileType';
 import { replyLocale } from '@/app/list/[listId]/locale';
 
 import * as styles from './Replies.css';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import Line from '/public/icons/horizontal_line.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';

@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 
 interface OptionsProps {
   value: string;

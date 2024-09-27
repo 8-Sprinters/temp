@@ -1,12 +1,15 @@
 import { style } from '@vanilla-extract/css';
+
 import { vars } from '@/styles/theme.css';
+import { Label } from '@/styles/font.css';
 
 export const container = style({
-  padding: '2.1rem 1.5rem 1.5rem 1.5rem',
+  padding: '0 1.6rem',
+  paddingBottom: '1.6rem',
 
   display: 'flex',
   alignItems: 'flex-start',
-  gap: '1.2rem',
+  gap: '0.8rem',
 
   overflow: 'scroll',
   msOverflowStyle: 'none',
@@ -22,23 +25,20 @@ export const skeletonContainer = style({
   gap: '1.5rem',
 });
 
-export const button = style({
-  padding: '0.8rem 1.2rem',
+export const button = style([
+  Label,
+  {
+    padding: '0.6rem 1.2rem',
 
-  backgroundColor: vars.color.white,
-  borderRadius: '5rem',
-  border: `1px solid ${vars.color.gray5}`,
+    backgroundColor: vars.color.white,
+    borderRadius: '2rem',
 
-  /** TODO - 공용폰트 body large 적용 */
-  fontSize: '1.6rem',
-  fontWeight: '400',
-  color: vars.color.gray9,
-  letterSpacing: '-0.48px',
-  whiteSpace: 'nowrap',
-});
+    color: vars.color.bluegray8,
+    whiteSpace: 'nowrap',
+  },
+]);
 
 export const variant = style({
-  backgroundColor: vars.color.blue,
-  color: vars.color.white,
-  border: 'none',
+  backgroundColor: vars.color.lightblue,
+  color: vars.color.blue,
 });

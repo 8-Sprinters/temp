@@ -1,65 +1,69 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
-export const navDiv = style({
+export const bottomTapContainer = style({
   width: '100%',
-  height: '90px',
+  height: '8.4rem',
 
   position: 'fixed',
   bottom: 0,
 
-  backgroundColor: '#F5F6FA',
-});
-
-export const ulDiv = style({
-  padding: '9px 0 29px',
-
   display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '60px',
+
+  backgroundColor: vars.color.bggray,
 });
 
-export const buttonDiv = style({
+const bottomTap = style({
+  width: '40%',
+
+  flexGrow: 1,
+  paddingTop: '0.7rem',
+  paddingBottom: '3.3rem',
+
   display: 'flex',
   flexDirection: 'column',
-  gap: '4.36px',
-  justifyContent: 'center',
+  gap: '0.4rem',
+
+  justifyContent: 'end',
   alignItems: 'center',
 
   cursor: 'pointer',
 });
 
-export const listCreateButton = style({
-  width: '52px',
-  height: '52px',
-  background: 'linear-gradient(219deg, #5CA5FE 20.55%, #2788FF 94.24%)',
-  borderRadius: '9999px',
+export const bottomTapVariant = styleVariants({
+  left: [bottomTap, { paddingLeft: '1.5rem' }],
+  right: [bottomTap, { paddingRight: '1.5rem' }],
 });
 
-export const createButtonWrapper = style({
-  width: '52px',
-  height: '52px',
-
-  position: 'relative',
-});
-
-export const addIcon = style({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-});
-
-export const menuName = style({
-  fontSize: '1rem',
-  fontWeight: '400',
-  color: '#7A7B7D',
-});
-
-export const selectedMenuName = style([
-  menuName,
-  {
-    color: '#53A0FF',
+export const bottomTapText = styleVariants({
+  default: {
+    fontSize: '1.2rem',
+    color: vars.color.gray,
   },
-]);
+  variant: {
+    fontSize: '1.2rem',
+    color: vars.color.blue,
+  },
+});
+
+export const addButtonTap = style({
+  width: '20%',
+
+  paddingTop: '0.7rem',
+  paddingBottom: '2.1rem',
+
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+export const addButton = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  width: '5.3rem',
+  height: '5.3rem',
+
+  borderRadius: '100%',
+  background: 'linear-gradient(44deg, #428AF7 0%, #6CA5F7 100%)',
+});

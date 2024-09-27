@@ -15,7 +15,7 @@ import { useCommentId, useCommentStatus } from '@/store/useComment';
 import { commentLocale } from '@/app/list/[listId]/locale';
 
 import * as styles from './Comment.css';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';

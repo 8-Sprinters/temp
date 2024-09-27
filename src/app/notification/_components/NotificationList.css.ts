@@ -1,6 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import * as fonts from '@/styles/font.css';
-import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/__font.css';
+import { vars } from '@/styles/__theme.css';
 
 export const readAllButton = style([
   fonts.labelMedium,

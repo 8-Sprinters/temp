@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/font.css';
+import * as fonts from '@/styles/__font.css';
 
 export const header = style({
   width: '100%',

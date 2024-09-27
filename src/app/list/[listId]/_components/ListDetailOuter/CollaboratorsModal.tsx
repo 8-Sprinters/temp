@@ -4,7 +4,7 @@ import * as styles from './CollaboratorsModal.css';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import CancelButton from '/public/icons/cancel_button.svg';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import { listLocale } from '@/app/list/[listId]/locale';
 import { useLanguage } from '@/store/useLanguage';
 
