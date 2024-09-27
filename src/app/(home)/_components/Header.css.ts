@@ -47,3 +47,19 @@ export const iconWrapperForMember = style({
   alignItems: 'center',
   gap: '9px',
 });
+
+export const profileImageWrapper = style({
+  width: '20px',
+  height: '20px',
+
+  position: 'relative',
+});
+
+export const profileImage = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  backgroundColor: vars.color.white,
+  borderRadius: '9999px',
+});
