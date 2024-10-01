@@ -17,7 +17,7 @@ function TopicBox({ topic }: TopicBoxProps) {
         <div>{topic.description}</div>
       </div>
       <div className={styles.bottomWrapper}>
-        <div className={styles.author}>{topic.ownerNickname}</div>
+        <div className={styles.author}>{topic.isAnonymous ? '익명' : topic.ownerNickname}</div>
       </div>
       {/* <button className={styles.addBtn}>
         <PlusIcon />
