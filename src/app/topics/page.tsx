@@ -183,7 +183,6 @@ export default function TopicPage() {
         className={styles.floatingBox}
         onClick={() => {
           setIsBottomSheetOpen(true);
-          console.log('open');
         }}
       >
         주제 요청하기
