@@ -35,15 +35,15 @@ export const subtitle = style([
   },
 ]);
 
-export const gradient = style({
-  width: '100%',
-  height: '100px',
-
-  position: 'absolute',
-  top: '100vh',
-  left: '0',
-
+export const gradientOverlay = style({
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: '113px',
+  pointerEvents: 'none',
   background: 'linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))',
+  zIndex: 2,
 });
 
 export const floatingBox = style([

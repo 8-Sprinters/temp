@@ -195,6 +195,7 @@ export default function TopicPage() {
           }}
         />
       )}
+      <div className={styles.gradientOverlay} />
     </div>
   );
 }
