@@ -83,23 +83,26 @@ export const dropdown = style({
   position: 'absolute',
   top: '100%',
   left: 0,
-  width: '100px',
+  width: '110px',
   backgroundColor: 'white',
   border: `1px solid ${vars.color.bluegray6}`,
   borderRadius: '8px',
   marginTop: '5px',
-  zIndex: 1000,
+  zIndex: 4,
 });
 
-export const dropdownItem = style({
-  padding: '10px 20px',
-  color: vars.color.bluegray10,
+export const dropdownItem = style([
+  fonts.LabelSmall,
+  {
+    padding: '7px 20px',
+    color: vars.color.bluegray10,
 
-  cursor: 'pointer',
-  ':hover': {
-    backgroundColor: vars.color.bluegray8,
+    cursor: 'pointer',
+    ':hover': {
+      backgroundColor: vars.color.bluegray8,
+    },
   },
-});
+]);
 
 export const checkbox = style({
   appearance: 'none',
