@@ -10,11 +10,17 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getTopics from '../_api/topics/getTopics';
 import { TopicType } from '@/lib/types/topicType';
+import { useUser } from '@/store/useUser';
+import LoginModal from '@/components/login/LoginModal';
+import Modal from '@/components/Modal/Modal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
-// TODO: 그라데이션 적용
 export default function TopicPage() {
   const router = useRouter();
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
+
+  const { user } = useUser();
 
   //요청 주제목록 무한스크롤 리액트 쿼리 함수
   // const {
@@ -182,7 +188,11 @@ export default function TopicPage() {
       <button
         className={styles.floatingBox}
         onClick={() => {
-          setIsBottomSheetOpen(true);
+          if (!user.id) {
+            handleSetOn();
+          } else {
+            setIsBottomSheetOpen(true);
+          }
         }}
       >
         주제 요청하기
@@ -195,6 +205,12 @@ export default function TopicPage() {
         />
       )}
       <div className={styles.gradientOverlay} />
+
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal id="redirectedLoginBtn" />
+        </Modal>
+      )}
     </div>
   );
 }
