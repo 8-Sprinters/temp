@@ -3,7 +3,7 @@ import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const backGround = style({
-  zIndex: 999,
+  zIndex: 99,
   position: 'fixed',
   margin: 'auto',
   top: 0,
@@ -174,6 +174,10 @@ export const submitButton = style([
     borderRadius: '18px',
     cursor: 'pointer',
     textAlign: 'center',
+    ':disabled': {
+      backgroundColor: vars.color.lightgray, // Gray color when disabled
+      cursor: 'not-allowed', // Change cursor to indicate it can't be clicked
+    },
   },
 ]);
 
@@ -182,3 +186,29 @@ export const errorMessage = style({
   fontSize: '12px',
   marginTop: '5px',
 });
+
+export const modalContainer = style({
+  position: 'relative',
+});
+
+export const modalText = style([fonts.BodyBold]);
+
+export const buttonContainer = style({
+  width: '100%',
+
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: '16px',
+});
+
+export const modalButton = style([
+  fonts.BodyBold,
+  {
+    zIndex: '900',
+    width: '30%',
+    padding: '10px 30px',
+    color: 'white',
+    backgroundColor: vars.color.blue,
+    borderRadius: '13px',
+  },
+]);

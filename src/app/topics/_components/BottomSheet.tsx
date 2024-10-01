@@ -1,7 +1,7 @@
 'use client';
 
 import * as styles from './BottomSheet.css';
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -10,19 +10,21 @@ import getCategories from '@/app/_api/category/getCategories';
 import createTopic from '@/app/_api/topics/createTopic';
 import { CategoryType } from '@/lib/types/categoriesType';
 import ArrowDown from '/public/icons/down_chevron.svg';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import Modal from '@/components/Modal/Modal';
 
 interface BottomSheetProps {
   onClose: MouseEventHandler<HTMLDivElement>;
 }
 
-// TODO : 하단 그라데이션 넣기
+// TODO: 하루 요청 3건 제한
 function BottomSheet({ onClose }: BottomSheetProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -43,12 +45,14 @@ function BottomSheet({ onClose }: BottomSheetProps) {
         ownerId: user.id,
         isAnonymous,
       }),
+    //   TODO: onFail이어도 openModal됨
     onSuccess: () => {
       setIsDropdownOpen(false);
       setSelectedCategory('전체');
       setTitle('');
       setDescription('');
       setIsAnonymous(false);
+      openModal();
     },
   });
 
@@ -70,15 +74,9 @@ function BottomSheet({ onClose }: BottomSheetProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    //TODO 에러났을때랑, 제대로 생성됐을때, 토스트메시지 띄우기
-    if (!title) {
-      setError('제목을 입력해 주세요');
-      return;
-    }
-    setError(null);
-
     createTopicMutation.mutate();
+    setIsDropdownOpen(false);
+    openModal();
   };
 
   return (
@@ -126,27 +124,40 @@ function BottomSheet({ onClose }: BottomSheetProps) {
           <div className={styles.inputWrapper}>
             <input
               type="text"
-              placeholder="주제*"
+              placeholder="보고 싶은 리스트 주제를 입력해 주세요.*"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className={styles.input}
               required
             />
-            {error && <div className={styles.errorMessage}>{error}</div>}
             <input
               type="text"
-              placeholder="소개"
+              placeholder="요청 이유 또는 주제에 대한 설명을 입력해 주세요."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className={styles.input}
             />
           </div>
 
-          <button type="submit" className={styles.submitButton}>
+          <button type="submit" className={styles.submitButton} disabled={!title}>
             요청 보내기
           </button>
         </form>
       </div>
+      {isModalOn && (
+        <Modal handleModalClose={closeModal} size="large">
+          <div className={styles.modalText}>{`주제요청이 완료됐어요. 빠르게 검토할게요 :)`} </div>
+          <button
+            className={styles.modalButton}
+            onClick={() => {
+              closeModal();
+              setIsDropdownOpen(false); //실행안됨
+            }}
+          >
+            닫기
+          </button>
+        </Modal>
+      )}
     </div>
   );
 }
