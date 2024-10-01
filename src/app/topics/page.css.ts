@@ -4,11 +4,11 @@ import * as fonts from '@/styles/font.css';
 
 export const body = style({
   width: '100vw',
-  height: '100vh',
-  padding: '16px 16px 100px',
+  minHeight: '100vh',
+  padding: '16px 16px 120px',
 
   position: 'relative',
-  overflow: 'hidden',
+  overflowY: 'auto',
 
   display: 'flex',
   flexDirection: 'column',
@@ -45,3 +45,23 @@ export const gradient = style({
 
   background: 'linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))',
 });
+
+export const floatingBox = style([
+  fonts.BodyBold,
+  {
+    position: 'fixed',
+    bottom: '49px',
+    zIndex: 3,
+
+    width: 'calc(100vw - 32px)',
+    maxWidth: '398px',
+    padding: '16px 10px',
+
+    textAlign: 'center',
+
+    borderRadius: '18px',
+    color: 'white',
+    backgroundColor: vars.color.blue,
+    cursor: 'pointer',
+  },
+]);

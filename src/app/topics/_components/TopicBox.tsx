@@ -1,18 +1,23 @@
+import { TopicType } from '@/lib/types/topicType';
 import * as styles from './TopicBox.css';
 import PlusIcon from '/public/images/plus_gray.svg';
 
-function TopicBox() {
+interface TopicBoxProps {
+  topic: TopicType;
+}
+
+function TopicBox({ topic }: TopicBoxProps) {
   return (
     <div className={styles.container}>
       <div className={styles.topicWrapper}>
-        <div className={styles.category}>카테고리</div>
-        <div className={styles.topic}>제목</div>
+        <div className={styles.category}>{topic.categoryKorName}</div>
+        <div className={styles.topic}>{topic.title}</div>
       </div>
       <div className={styles.contentWrapper}>
-        <div>본문와랄랄라랸냔ㅁ냠냠냠유르릉쾅쾅짹짹삐약</div>
+        <div>{topic.description}</div>
       </div>
       <div className={styles.bottomWrapper}>
-        <div className={styles.author}>작성자</div>
+        <div className={styles.author}>{topic.ownerNickname}</div>
       </div>
       {/* <button className={styles.addBtn}>
         <PlusIcon />
