@@ -1,4 +1,17 @@
-//item
+//list-step1
+export const listTitleRules = {
+  required: '타이틀을 입력해주세요',
+  maxLength: {
+    value: 30,
+    message: '리스트 타이틀은 최대 30자까지 입력할 수 있어요.',
+  },
+};
+
+export const listDescriptionRules = {
+  maxLength: { value: 200, message: '리스트 소개는 최대 200자까지 입력할 수 있어요.' },
+};
+
+//list-step2
 export const itemTitleRules = {
   required: '아이템을 입력해주세요.',
   maxLength: {
@@ -18,19 +31,7 @@ export const itemLinkRules = {
   },
 };
 
-//list
-export const listTitleRules = {
-  required: { errorMessage: '제목을 입력해주세요' },
-  maxLength: {
-    length: 30,
-    errorMessage: '리스트 제목은 최대 30자까지 입력할 수 있어요.',
-  },
-};
-
-export const listDescriptionRules = {
-  maxLength: { length: 200, errorMessage: '리스트 소개는 최대 200자까지 입력할 수 있어요.' },
-};
-
+//list-step3
 export const listLabelRules = {
   maxNumRule: { num: 3, errorMessage: '라벨은 최대 3개까지 등록할 수 있어요.' },
   maxLengthRule: { length: 10, errorMessage: '라벨은 최대 10자까지 입력할 수 있어요.' },

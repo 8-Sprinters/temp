@@ -52,5 +52,15 @@ export default function CreatePage() {
     },
   });
 
-  return <FormProvider {...methods}>{step === 1 && <StepOne />}</FormProvider>;
+  return (
+    <FormProvider {...methods}>
+      {step === 1 && (
+        <StepOne
+          onNextClick={() => {
+            console.log('next');
+          }}
+        />
+      )}
+    </FormProvider>
+  );
 }
