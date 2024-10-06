@@ -3,7 +3,7 @@ import { TopicType } from '@/lib/types/topicType';
 export const topicsData: TopicType[] = [
   {
     categoryEngName: '음악',
-    categoryKorName: '기술',
+    categoryKorName: '음악',
     title: 'AI와 머신러닝의 미래',
     description: 'AI와 머신러닝이 앞으로 어떻게 발전할지에 대한 토론',
     ownerId: 101,
@@ -12,7 +12,7 @@ export const topicsData: TopicType[] = [
   },
   {
     categoryEngName: '장소',
-    categoryKorName: '건강',
+    categoryKorName: '장소',
     title: '헬스케어의 혁신',
     description: '첨단 기술을 활용한 헬스케어 서비스의 혁신과 미래',
     ownerId: 102,
@@ -21,7 +21,7 @@ export const topicsData: TopicType[] = [
   },
   {
     categoryEngName: '일상생활',
-    categoryKorName: '비즈니스',
+    categoryKorName: '일상생활',
     title: '비즈니스 전략 세우기',
     description: '효과적인 비즈니스 전략을 세우는 방법에 대해 논의합니다.',
     ownerId: 103,
@@ -30,7 +30,7 @@ export const topicsData: TopicType[] = [
   },
   {
     categoryEngName: '전체',
-    categoryKorName: '교육',
+    categoryKorName: '전체',
     title: '온라인 교육의 장점',
     description: '온라인 교육 플랫폼의 장점과 한계에 대해 토론',
     ownerId: 104,
@@ -39,7 +39,7 @@ export const topicsData: TopicType[] = [
   },
   {
     categoryEngName: '도서',
-    categoryKorName: '엔터테인먼트',
+    categoryKorName: '도서',
     title: '미래의 게임 기술',
     description: '가상 현실과 증강 현실을 활용한 차세대 게임 기술',
     ownerId: 105,
@@ -48,7 +48,7 @@ export const topicsData: TopicType[] = [
   },
   {
     categoryEngName: '장소',
-    categoryKorName: '과학',
+    categoryKorName: '장소',
     title: '우주 탐사 기술의 발전',
     description: '최근 우주 탐사 기술의 혁신과 가능성에 대해 논의',
     ownerId: 106,
@@ -56,8 +56,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Sports',
-    categoryKorName: '스포츠',
+    categoryEngName: '도서',
+    categoryKorName: '도서',
     title: '스포츠와 데이터 분석',
     description: '데이터 분석을 통해 스포츠 경기의 결과를 예측하는 방법',
     ownerId: 107,
@@ -65,8 +65,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: false,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '장소',
+    categoryKorName: '장소',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
@@ -74,8 +74,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '음식',
+    categoryKorName: '음식',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
@@ -83,8 +83,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '기타',
+    categoryKorName: '기타',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
@@ -92,8 +92,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '일상생활',
+    categoryKorName: '일상생활',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
@@ -101,8 +101,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '일상생활',
+    categoryKorName: '일상생활',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
@@ -110,8 +110,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '일상생활',
+    categoryKorName: '일상생활',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
@@ -119,8 +119,8 @@ export const topicsData: TopicType[] = [
     isAnonymous: true,
   },
   {
-    categoryEngName: 'Politics',
-    categoryKorName: '정치',
+    categoryEngName: '일상생활',
+    categoryKorName: '일상생활',
     title: '정치와 소셜 미디어',
     description: '소셜 미디어가 현대 정치에 미치는 영향에 대해 토론',
     ownerId: 108,
