@@ -16,11 +16,9 @@ import Modal from '@/components/Modal/Modal';
 interface BottomSheetProps {
   onClose: MouseEventHandler<HTMLDivElement>;
 }
-
 // TODO: 하루 요청 3건 제한
 function BottomSheet({ onClose }: BottomSheetProps) {
   const { user } = useUser();
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
 
@@ -46,14 +44,15 @@ function BottomSheet({ onClose }: BottomSheetProps) {
         ownerId: user.id,
         isAnonymous,
       }),
-    //   TODO: onFail이어도 openModal됨
     onSuccess: () => {
-      setIsDropdownOpen(false);
-      setSelectedCategory('전체');
       setTitle('');
       setDescription('');
+      setSelectedCategory('전체');
       setIsAnonymous(false);
       openModal();
+    },
+    onError: (error) => {
+      setErrorMessage('요청 중 오류가 발생했습니다. 다시 시도해 주세요. :(');
     },
   });
 
@@ -92,9 +91,8 @@ function BottomSheet({ onClose }: BottomSheetProps) {
       return;
     }
 
-    createTopicMutation.mutate();
     setIsDropdownOpen(false);
-    openModal();
+    createTopicMutation.mutate();
   };
 
   return (
@@ -148,7 +146,6 @@ function BottomSheet({ onClose }: BottomSheetProps) {
               className={styles.input}
               required
             />
-            {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
             <input
               type="text"
               placeholder="요청 이유 또는 주제에 대한 설명을 입력해 주세요."
@@ -156,6 +153,7 @@ function BottomSheet({ onClose }: BottomSheetProps) {
               onChange={(e) => setDescription(e.target.value)}
               className={styles.input}
             />
+            {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={!title || title.length > 30}>
