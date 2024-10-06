@@ -14,8 +14,8 @@ export const container = style({
   position: 'relative',
 
   backgroundColor: vars.color.white,
-
   borderRadius: '20px',
+  cursor: 'pointer',
 });
 
 export const topicWrapper = style({

@@ -1,14 +1,14 @@
 import { TopicType } from '@/lib/types/topicType';
 import * as styles from './TopicBox.css';
-import PlusIcon from '/public/images/plus_gray.svg';
 
 interface TopicBoxProps {
   topic: TopicType;
+  onClick: () => void;
 }
 
-function TopicBox({ topic }: TopicBoxProps) {
+function TopicBox({ topic, onClick }: TopicBoxProps) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <div className={styles.topicWrapper}>
         <div className={styles.category}>{topic.categoryKorName}</div>
         <div className={styles.topic}>{topic.title}</div>
