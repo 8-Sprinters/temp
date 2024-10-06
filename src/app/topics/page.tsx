@@ -1,7 +1,6 @@
 'use client';
 
 import TopicBox from './_components/TopicBox';
-import GoBackIcon from '/public/icons/arrow_left.svg';
 import * as styles from './page.css';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -50,7 +49,7 @@ export default function TopicPage() {
           router.back();
         }}
       >
-        <GoBackIcon alt="뒤로가기" />
+        뒤로가기
       </button>
       <div className={styles.title}>이 리스트 만들어 주세요!</div>
       <div className={styles.subtitle}>
