@@ -1,7 +1,7 @@
 'use client';
 
 import * as styles from './BottomSheet.css';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -19,15 +19,16 @@ interface BottomSheetProps {
 
 // TODO: 하루 요청 3건 제한
 function BottomSheet({ onClose }: BottomSheetProps) {
+  const { user } = useUser();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
 
-  //zustand로 관리하는 user정보 불러오기
-  const { user } = useUser();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   //카테고리 불러오기
   const { data: categories } = useQuery<CategoryType[]>({
@@ -63,6 +64,7 @@ function BottomSheet({ onClose }: BottomSheetProps) {
   const stopPropagation: MouseEventHandler<HTMLDivElement> = (event) => {
     event.stopPropagation();
   };
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -72,8 +74,24 @@ function BottomSheet({ onClose }: BottomSheetProps) {
     setIsDropdownOpen(false);
   };
 
+  // 리스트 주제(제목) 글자 수 제한 정책
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (inputValue.length > 30) {
+      setErrorMessage('리스트 주제를 30자 이내로 작성해주세요.');
+    } else {
+      setErrorMessage(null);
+    }
+    setTitle(inputValue);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (title.length > 30) {
+      return;
+    }
+
     createTopicMutation.mutate();
     setIsDropdownOpen(false);
     openModal();
@@ -126,10 +144,11 @@ function BottomSheet({ onClose }: BottomSheetProps) {
               type="text"
               placeholder="보고 싶은 리스트 주제를 입력해 주세요.*"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={handleTitleChange}
               className={styles.input}
               required
             />
+            {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
             <input
               type="text"
               placeholder="요청 이유 또는 주제에 대한 설명을 입력해 주세요."
@@ -139,7 +158,7 @@ function BottomSheet({ onClose }: BottomSheetProps) {
             />
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={!title}>
+          <button type="submit" className={styles.submitButton} disabled={!title || title.length > 30}>
             요청 보내기
           </button>
         </form>

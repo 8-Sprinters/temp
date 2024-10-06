@@ -175,17 +175,19 @@ export const submitButton = style([
     cursor: 'pointer',
     textAlign: 'center',
     ':disabled': {
-      backgroundColor: vars.color.lightgray, // Gray color when disabled
-      cursor: 'not-allowed', // Change cursor to indicate it can't be clicked
+      backgroundColor: vars.color.lightgray,
+      cursor: 'not-allowed',
     },
   },
 ]);
 
-export const errorMessage = style({
-  color: 'red',
-  fontSize: '12px',
-  marginTop: '5px',
-});
+export const errorMessage = style([
+  fonts.Label,
+  {
+    color: vars.color.red,
+    marginLeft: '12px',
+  },
+]);
 
 export const modalContainer = style({
   position: 'relative',
