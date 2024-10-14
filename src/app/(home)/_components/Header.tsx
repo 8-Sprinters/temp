@@ -26,7 +26,7 @@ import Avatar from '/public/icons/ver3/avatar.svg';
 function Header() {
   const [isSearchBarOpened, setIsSearchBarOpened] = useState(false);
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 useState 추가
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { user } = useUser();
 
@@ -51,7 +51,7 @@ function Header() {
   useEffect(() => {
     const accessToken = getCookie('accessToken');
     setIsLoggedIn(accessToken !== null && accessToken !== undefined);
-  }, []); // useEffect를 사용해 클라이언트 측에서만 실행되도록 함
+  }, []);
 
   return (
     <header className={styles.headerWrapper}>

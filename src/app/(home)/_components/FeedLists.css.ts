@@ -1,6 +1,6 @@
 import { style, createVar, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/__theme.css';
-import { headlineSmall, bodyMedium, bodySmall, labelSmall } from '@/styles/__font.css';
+import { headlineSmall } from '@/styles/__font.css';
 
 export const listBackground = createVar();
 
