@@ -1,0 +1,60 @@
+import { NoticeListItemType } from '@/lib/types/noticeType';
+
+export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
+  {
+    id: 1,
+    createdDate: '2024-10-01',
+    title: 'New Feature Release',
+    itemImageUrl: null,
+    category: '공지',
+    description: 'We have released a new feature that will enhance your experience.',
+  },
+  {
+    id: 2,
+    createdDate: '2024-09-28',
+    title: 'Scheduled Maintenance',
+    itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
+    category: '공지',
+    description: 'The system will undergo maintenance on October 5th. Please be aware of potential downtime.',
+  },
+  {
+    id: 3,
+    createdDate: '2024-09-25',
+    title: 'Holiday Event',
+    itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
+    category: '이벤트&뉴스',
+    description: 'Join our special holiday event starting October 10th with exciting offers!',
+  },
+  {
+    id: 4,
+    createdDate: '2024-09-22',
+    title: 'Security Update',
+    itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
+    category: '공지',
+    description: 'We have implemented new security protocols to better protect user data.',
+  },
+  {
+    id: 5,
+    createdDate: '2024-09-18',
+    title: '5 Tips to Maximize Productivity',
+    itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
+    category: '팁',
+    description: 'Learn how to improve your productivity with these simple tips.',
+  },
+  {
+    id: 6,
+    createdDate: '2024-09-15',
+    title: 'Server Downtime Resolved',
+    itemImageUrl: null,
+    category: '공지',
+    description: 'The recent server issue has been resolved. All systems are back online.',
+  },
+  {
+    id: 7,
+    createdDate: '2024-09-10',
+    title: 'New Blog Post Available',
+    itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
+    category: '이벤트&뉴스',
+    description: 'Check out our latest blog post on the importance of cybersecurity.',
+  },
+];
