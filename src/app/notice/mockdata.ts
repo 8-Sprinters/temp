@@ -1,4 +1,4 @@
-import { NoticeListItemType } from '@/lib/types/noticeType';
+import { NoticeListItemType, NoticeDetailType } from '@/lib/types/noticeType';
 
 export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
   {
@@ -58,3 +58,37 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     description: 'Check out our latest blog post on the importance of cybersecurity.',
   },
 ];
+
+export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
+  id: 1,
+  category: '공지',
+  title: '서비스 점검 안내',
+  description: '서비스 점검이 10월 20일에 진행될 예정입니다.',
+  content: [
+    {
+      type: '소제목',
+      description: '점검 일정',
+      imageUrl: 'https://example.com/notice-image1.jpg',
+      buttonName: '자세히 보기',
+      buttonLink: 'https://example.com/detail1',
+    },
+    {
+      type: '본문',
+      description: '10월 20일 오전 2시부터 5시까지 서비스가 일시적으로 중단됩니다.',
+      imageUrl: 'https://example.com/notice-image2.jpg',
+      buttonName: '점검 내용 확인',
+      buttonLink: 'https://example.com/detail2',
+    },
+  ],
+  createdDate: '2024-10-10',
+  prevNotice: {
+    id: 0,
+    title: '이전 공지가 없습니다.',
+    description: '',
+  },
+  nextNotice: {
+    id: 2,
+    title: '새로운 기능 출시 안내',
+    description: '곧 출시될 새로운 기능에 대해 안내드립니다.',
+  },
+};
