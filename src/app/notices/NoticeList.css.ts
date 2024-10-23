@@ -3,6 +3,7 @@ import { vars } from '@/styles/__theme.css';
 
 export const noticeListWrapper = style({
   marginTop: '14px',
+  padding: '0 16px',
 
   display: 'flex',
   flexDirection: 'column',

@@ -4,6 +4,7 @@ import { NoticeListItemType } from '@/lib/types/noticeType';
 import { NOTICE_LIST_MOCKDATA } from './mockdata';
 
 import * as styles from './NoticeList.css';
+import Link from 'next/link';
 
 function NoticeList() {
   return (
@@ -25,7 +26,7 @@ interface NoticeListItemProps {
 
 function NoticeListItem({ item }: NoticeListItemProps) {
   return (
-    <div className={styles.listItemWrapper}>
+    <Link href={`/notices/${item.id}`} className={styles.listItemWrapper}>
       <div>
         <h3 className={styles.noticeTitle}>{item.title}</h3>
         <p className={styles.noticeDescription}>{item.description}</p>
@@ -48,6 +49,6 @@ function NoticeListItem({ item }: NoticeListItemProps) {
           />
         </div>
       )}
-    </div>
+    </Link>
   );
 }
