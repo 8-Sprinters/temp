@@ -66,14 +66,14 @@ export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
   description: '서비스 점검이 10월 20일에 진행될 예정입니다.',
   content: [
     {
-      type: '소제목',
+      type: 'subtitle',
       description: '점검 일정',
       imageUrl: 'https://example.com/notice-image1.jpg',
       buttonName: '자세히 보기',
       buttonLink: 'https://example.com/detail1',
     },
     {
-      type: '본문',
+      type: 'body',
       description: '10월 20일 오전 2시부터 5시까지 서비스가 일시적으로 중단됩니다.',
       imageUrl: 'https://example.com/notice-image2.jpg',
       buttonName: '점검 내용 확인',

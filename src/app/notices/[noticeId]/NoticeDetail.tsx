@@ -74,23 +74,6 @@ function NoticeContent({ item }: NoticeContentProps) {
       )}
       {item.type === 'line' && <div className={styles.articleLine}></div>}
       {item.type === 'notice' && <p className={styles.articleNotice}></p>}
-      {/* <h4 className={styles.articleSubtitle}>{'대충 소제목'}</h4>
-      <p className={styles.articleDescription}>
-        {'대충 줄글이에요~대충 줄글이에요~대충 줄글이에요~대충 줄글이에요~대충 줄글이에요~대충 줄글이에요~'}
-      </p>
-      <div className={styles.articleImageWrapper}>
-        <Image
-          src={'https://newsimg.sedaily.com/2022/10/11/26CB5S28AA_11.png'}
-          alt={item.type}
-          fill
-          className={styles.articleImage}
-        />
-      </div>
-      <Link href={item.buttonLink}>
-        <button className={styles.articleButton}>{item.buttonName}</button>
-      </Link>
-      <div className={styles.articleLine}></div>
-      <p className={styles.articleNotice}>{'노티스예염'}</p> */}
     </>
   );
 }
