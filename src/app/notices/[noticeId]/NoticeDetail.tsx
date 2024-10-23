@@ -10,6 +10,13 @@ function NoticeDetailComponent() {
   return (
     <div>
       <section>
+        <ul>
+          {data.category.map((el, idx) => (
+            <li key={idx.toString()}>
+              <div>{el}</div>
+            </li>
+          ))}
+        </ul>
         <h3>{data.title}</h3>
         <div>{data.description}</div>
         <p>{data.createdDate}</p>

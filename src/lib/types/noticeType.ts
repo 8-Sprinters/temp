@@ -3,13 +3,13 @@ export interface NoticeListItemType {
   createdDate: string;
   title: string;
   itemImageUrl: string | null;
-  category: string;
+  category: string[];
   description: string;
 }
 
 export interface NoticeDetailType {
   id: number;
-  category: string;
+  category: string[];
   title: string;
   description: string;
   content: NoticeContentType[];
