@@ -57,6 +57,9 @@ export const textarea = style([
     resize: 'none',
     border: 'none',
     outline: 'none',
+    '::-webkit-scrollbar': {
+      width: '0', // 스크롤바 너비를 0으로 설정하여 숨김
+    },
   },
 ]);
 
