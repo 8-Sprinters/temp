@@ -84,6 +84,9 @@ export const items = style({
 const item = style({
   padding: '0.45rem 0.62rem',
   borderRadius: 18,
+  display: 'flex',
+  gap: 2,
+  alignItems: 'center',
 });
 
 export const itemVariant = styleVariants({

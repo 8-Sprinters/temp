@@ -40,12 +40,15 @@ export default function Collections({ folderId }: CollectionsProps) {
             <div className={styles.category}>{list.category}</div>
             <div className={styles.info}>
               <h3 className={styles.title[hasImage ? 'white' : 'black']}>{list.title}</h3>
-              <p className={styles.owner[hasImage ? 'white' : 'black']}>Sehui Park</p>
+              <p className={styles.owner[hasImage ? 'white' : 'black']}>{list.ownerNickname}</p>
             </div>
             <ul className={styles.items}>
               {list.listItems.map((item) => (
                 <li key={item.id} className={styles.itemVariant[hasImage ? 'blue' : 'white']}>
-                  <span>{item.rank}</span>
+                  <span>
+                    {item.rank}
+                    {`.`}
+                  </span>
                   <span>{item.title}</span>
                 </li>
               ))}
