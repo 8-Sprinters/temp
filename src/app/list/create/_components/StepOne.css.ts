@@ -8,7 +8,7 @@ export const section = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  rowGap: '32px',
+  rowGap: '3.2rem',
 });
 
 export const description = style([
@@ -32,18 +32,35 @@ export const requiredIcon = style({
   color: vars.color.blue,
 });
 
+export const inputDiv = style({
+  display: 'flex',
+  padding: '1.2rem 1.6rem',
+  borderRadius: '1.2rem',
+  color: vars.color.bluegray10,
+  background: vars.color.white,
+});
+
 export const input = style([
   fonts.BodyRegular,
   {
     width: '100%',
-    height: '4.8rem',
-    padding: '1.2rem 1.6rem',
-    borderRadius: '1.2rem',
-    color: vars.color.bluegray10,
-
     '::placeholder': { color: vars.color.bluegray6 },
   },
 ]);
+
+export const length = style([fonts.BodyRegular, { color: vars.color.bluegray6 }]);
+
+export const textarea = style([
+  input,
+  inputDiv,
+  {
+    resize: 'none',
+    border: 'none',
+    outline: 'none',
+  },
+]);
+
+export const errorMessage = style([fonts.BodyRegular, { color: vars.color.red }]);
 
 export const chipGroup = style({
   display: 'flex',

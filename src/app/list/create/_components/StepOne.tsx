@@ -1,27 +1,61 @@
 'use client';
 
+import { useState } from 'react';
 import router from 'next/router';
+import { useParams } from 'next/navigation';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
+
+import { CategoryType } from '@/lib/types/categoriesType';
+import { ListDetailType } from '@/lib/types/listType';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { listDescriptionRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
 import { useLanguage } from '@/store/useLanguage';
 import { useUser } from '@/store/useUser';
 import Header from '@/components/Header/Header';
 
-import { listLocale } from '../locale';
-import * as styles from './StepOne.css';
-import { useFormContext } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import { CategoryType } from '@/lib/types/categoriesType';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { getListDetail } from '@/app/_api/list/getLists';
 import getCategories from '@/app/_api/category/getCategories';
-import { listTitleRules } from '@/lib/constants/formInputValidationRules';
+
+import { listError, listLocale } from '../locale';
+import * as styles from './StepOne.css';
 
 interface StepOneProps {
   onNextClick: () => void;
+  type: 'create' | 'edit';
 }
 
-export default function StepOne({ onNextClick }: StepOneProps) {
+/**
+ * StepOne 컴포넌트:
+ * 리스트 생성/수정 과정 1단계
+ *
+ * @param props.onNextClick - 헤더의 '다음'버튼을 클릭했을때 동작시킬 함수
+ * @param props.type - 생성과 수정 중 택1
+ */
+export default function StepOne({ onNextClick, type }: StepOneProps) {
   const { language } = useLanguage();
   const { user: me } = useUser();
+  const param = useParams<{ listId: string }>();
+  const listId = param?.listId;
 
+  /** state */
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  /** 데이터 가져오기 */
+  //--- (수정)기존 데이터 가져오기
+  const { data: listDetailData } = useQuery<ListDetailType>({
+    queryKey: [QUERY_KEYS.getListDetail, listId],
+    queryFn: () => getListDetail(listId),
+    enabled: type === 'edit',
+  });
+
+  //--- 카테고리 가져오기
+  const { data: categories } = useQuery<CategoryType[]>({
+    queryKey: [QUERY_KEYS.getCategories],
+    queryFn: getCategories,
+  });
+
+  /** React Hook Form */
   const {
     register,
     setValue,
@@ -30,10 +64,23 @@ export default function StepOne({ onNextClick }: StepOneProps) {
     formState: { errors },
   } = useFormContext();
 
-  const { data: categories } = useQuery<CategoryType[]>({
-    queryKey: [QUERY_KEYS.getCategories],
-    queryFn: getCategories,
-  });
+  //--- 글자수 세기
+  const watchTitle = useWatch({ control, name: 'title' });
+
+  /** 카테고리 선택 */
+  const handleSelectCategory = (name: string) => {
+    setSelectedCategory(name);
+    setValue('category', name);
+  };
+
+  const isValid = !errors.title && !errors.category && !errors.description;
+
+  const handleClick = () => {
+    console.log(`title: ${getValues().title}`);
+    console.log(`description: ${getValues().description}`);
+    console.log(`category: ${getValues().category}`);
+    console.log(errors.title);
+  };
 
   return (
     <>
@@ -44,7 +91,7 @@ export default function StepOne({ onNextClick }: StepOneProps) {
           router.back();
         }}
         right={
-          <button className={styles.temp} onClick={onNextClick}>
+          <button className={styles.temp} onClick={handleClick} disabled={!isValid}>
             {listLocale[language].next}
           </button>
         }
@@ -58,18 +105,31 @@ export default function StepOne({ onNextClick }: StepOneProps) {
           <label className={styles.label}>
             타이틀 <span className={styles.requiredIcon}>*</span>
           </label>
-          <input
-            className={styles.input}
-            placeholder="리스트 제목을 적어주세요."
-            autoComplete="off"
-            maxLength={31}
-            {...register('title', listTitleRules)}
-          />
+          <div className={styles.inputDiv}>
+            <input
+              className={styles.input}
+              placeholder="리스트 제목을 적어주세요."
+              autoComplete="off"
+              maxLength={31}
+              {...register('title', listTitleRules)}
+            />
+            <p className={watchTitle.length && errors.title ? styles.errorMessage : styles.length}>
+              {watchTitle?.length}/30
+            </p>
+          </div>
+          {/** end-input과 length 묶은 div */}
         </div>
         {/** end-타이틀field*/}
         <div className={styles.field}>
           <label className={styles.label}>소개</label>
-          <input className={styles.input} placeholder="리스트에 대해 소개해주세요." />
+          <textarea
+            {...register('description', listDescriptionRules)}
+            className={styles.textarea}
+            placeholder="리스트에 대해 소개해주세요."
+            rows={3}
+            maxLength={201}
+          />
+          {errors.description && <span className={styles.errorMessage}>{listError[language].descriptionLength}</span>}
         </div>
         {/** end-소개field*/}
         <div className={styles.field}>
@@ -78,11 +138,19 @@ export default function StepOne({ onNextClick }: StepOneProps) {
           </label>
           <div className={styles.chipGroup}>
             {/**TODO: 선택된 chip 스타일 변경 */}
-            {categories?.map((item) => (
-              <button className={styles.chip} key={item.code}>
-                {item.korName}
-              </button>
-            ))}
+            {categories
+              ?.filter((category) => category.code !== '0')
+              .map((category) => (
+                <button
+                  className={selectedCategory === category.engName ? styles.selectedChip : styles.chip}
+                  key={category.code}
+                  onClick={() => {
+                    handleSelectCategory(category.engName);
+                  }}
+                >
+                  {category.korName}
+                </button>
+              ))}
           </div>
         </div>
         {/** end-카테고리field*/}

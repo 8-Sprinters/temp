@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ListCreateType } from '@/lib/types/listType';
 import StepOne from './_components/StepOne';
+import StepTwo from './_components/StepTwo';
 
 //TODO: Yup 스키마 사용해보기
 
@@ -18,7 +19,7 @@ export default function CreatePage() {
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      category: 'culture',
+      category: 'etc',
       labels: [],
       collaboratorIds: [],
       title: '',
@@ -52,15 +53,19 @@ export default function CreatePage() {
     },
   });
 
+  console.log(methods.getValues('description'));
+
   return (
     <FormProvider {...methods}>
       {step === 1 && (
         <StepOne
           onNextClick={() => {
-            console.log('next');
+            setStep(2);
           }}
+          type="create"
         />
       )}
+      {step === 2 && <StepTwo />}
     </FormProvider>
   );
 }
