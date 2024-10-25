@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import router from 'next/router';
 import { useParams } from 'next/navigation';
 import { useFormContext, useWatch } from 'react-hook-form';
@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListDetailType } from '@/lib/types/listType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { listDescriptionRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
+import { listCategoryRules, listDescriptionRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
 import { useLanguage } from '@/store/useLanguage';
 import { useUser } from '@/store/useUser';
 import Header from '@/components/Header/Header';
@@ -58,6 +58,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
   /** React Hook Form */
   const {
     register,
+    trigger,
     setValue,
     getValues,
     control,
@@ -71,16 +72,19 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
   const handleSelectCategory = (name: string) => {
     setSelectedCategory(name);
     setValue('category', name);
+    //setValue 후 유효성 재검사
+    trigger('category');
   };
 
   const isValid = !errors.title && !errors.category && !errors.description;
 
-  const handleClick = () => {
-    console.log(`title: ${getValues().title}`);
-    console.log(`description: ${getValues().description}`);
-    console.log(`category: ${getValues().category}`);
-    console.log(errors.title);
-  };
+  useEffect(() => {
+    //카테고리 규칙 추가
+    register('category', listCategoryRules);
+    //페이지 로드 시  'title', 'category'필 드 유효성 검사 강제 실행
+    trigger(['title', 'category']);
+    console.log('실행');
+  }, [trigger]);
 
   return (
     <>
@@ -91,7 +95,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
           router.back();
         }}
         right={
-          <button className={styles.temp} onClick={handleClick} disabled={!isValid}>
+          <button className={styles.nextButton} onClick={onNextClick} disabled={!isValid}>
             {listLocale[language].next}
           </button>
         }
@@ -137,7 +141,6 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
             카테고리 <span className={styles.requiredIcon}>*</span>
           </label>
           <div className={styles.chipGroup}>
-            {/**TODO: 선택된 chip 스타일 변경 */}
             {categories
               ?.filter((category) => category.code !== '0')
               .map((category) => (

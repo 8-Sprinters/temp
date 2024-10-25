@@ -11,6 +11,10 @@ export const listDescriptionRules = {
   maxLength: { value: 200, message: '리스트 소개는 최대 200자까지 입력할 수 있어요.' },
 };
 
+export const listCategoryRules = {
+  required: '카테고리를 선택해주세요',
+};
+
 //list-step2
 export const itemTitleRules = {
   required: '아이템을 입력해주세요.',

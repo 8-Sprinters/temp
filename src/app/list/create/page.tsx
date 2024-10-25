@@ -19,7 +19,7 @@ export default function CreatePage() {
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      category: 'etc',
+      category: '',
       labels: [],
       collaboratorIds: [],
       title: '',

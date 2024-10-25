@@ -91,7 +91,8 @@ export const selectedChip = style([
   },
 ]);
 
-export const temp = style({
+export const nextButton = style({
   all: 'inherit',
   cursor: 'pointer',
+  ':disabled': { cursor: 'default', color: vars.color.bluegray6 },
 });
