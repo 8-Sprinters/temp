@@ -2,6 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { Subtitle } from '@/styles/font.css';
 
+// BottomSheet Container
 const containerStyle = style({
   position: 'fixed',
   bottom: 0,
@@ -26,6 +27,7 @@ export const container = styleVariants({
   close: [containerStyle, { height: 0.5, opacity: 0 }],
 });
 
+// BottomSheet Inner Content Warpper
 export const contents = style({
   paddingTop: '3.3rem',
   paddingLeft: '2rem',
@@ -39,6 +41,7 @@ export const contents = style({
   gap: 12,
 });
 
+// BottomSheet Title
 export const contentTitle = style([
   Subtitle,
   {
@@ -47,6 +50,22 @@ export const contentTitle = style([
   },
 ]);
 
+// BottomSheet Description
+export const content = style([
+  Subtitle,
+  {
+    paddingTop: 30,
+    fontWeight: 600,
+    color: vars.color.black,
+
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+    alignItems: 'center',
+  },
+]);
+
+// BottomSheet Button
 export const optionButtons = style({
   margin: 12,
   display: 'flex',

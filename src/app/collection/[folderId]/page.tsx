@@ -115,10 +115,12 @@ export default function CollectionDetailPage({ params }: ParamType) {
         </BottomSheet.Button>
       </BottomSheet>
       <BottomSheet isOn={isDeleteOption}>
-        <div className={styles.content}>
-          <p>정말 삭제하시나요?</p>
-          <p>폴더와 안에 있었던 리스트가 모두 삭제돼요</p>
-        </div>
+        <BottomSheet.Content
+          contents={{
+            text: '정말 삭제하시나요?',
+            subText: '폴더와 안에 있었던 리스트가 모두 삭제돼요',
+          }}
+        />
         <BottomSheet.Button onClose={handleSetOffDeleteOption} isDelete={true} onClick={handleDeleteFolder}>
           삭제
         </BottomSheet.Button>

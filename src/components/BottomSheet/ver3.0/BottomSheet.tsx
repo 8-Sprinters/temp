@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import * as styles from './BottomSheet.css';
 
 import BottomSheetTitle from './BottomSheetTitle';
+import BottomSheetContent from './BottomSheetContent';
 import BottomSheetButton from './BottomSheetButton';
 
 interface BottomSheetProps {
@@ -20,6 +21,7 @@ function FolderBottomSheet({ isOn, children }: BottomSheetProps) {
 
 const BottomSheet = Object.assign(FolderBottomSheet, {
   Title: BottomSheetTitle,
+  Content: BottomSheetContent,
   Button: BottomSheetButton,
 });
 
