@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import { Graph } from './_component/__HistoryGraph';
 import { Version } from './_component/__HistoryVersions';
 
@@ -13,7 +13,7 @@ import { ListDetailType } from '@/lib/types/listType';
 import { HistoryType } from '@/lib/types/historyType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
-import * as styles from './page.css';
+import * as styles from './__page.css';
 import { useLanguage } from '@/store/useLanguage';
 import { listLocale } from '@/app/list/[listId]/locale';
 
@@ -41,7 +41,7 @@ function HistoryPage() {
         title={listLocale[language].history}
         left="back"
         leftClick={() => {
-          router.push(`/list/${listId}`);
+          router.back();
         }}
       />
       <div>
@@ -52,10 +52,11 @@ function HistoryPage() {
           <button className={styles.navButton} onClick={() => setType('version')}>
             {listLocale[language].version}
           </button>
+          <div className={type === 'graph' ? styles.navBar.left : styles.navBar.right} />
         </div>
 
+        <div className={styles.listTitle}>{listData?.title}</div>
         <div className={styles.contentContainer}>
-          <div className={styles.listTitle}>{listData?.title}</div>
           {type === 'graph' ? (
             <Graph histories={historyData ? historyData : []} />
           ) : (

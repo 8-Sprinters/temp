@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-import * as styles from './HistoryGraph.css';
+import * as styles from './__HistoryGraph.css';
 import { HistoryType } from '@/lib/types/historyType';
 import timeDiff from '@/lib/utils/time-diff';
 import { useLanguage } from '@/store/useLanguage';

@@ -1,6 +1,6 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import * as fonts from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import * as fonts from '@/styles/__font.css';
 
 export const navContainer = style({
   width: '100%',
@@ -11,10 +11,17 @@ export const navContainer = style({
   display: 'flex',
   alignItems: 'center',
   columnGap: '70px',
+
+  position: 'fixed',
+  top: '70px',
+
+  backgroundColor: vars.color.white,
+
+  zIndex: '1',
 });
 
 export const navButton = style([
-  fonts.Label,
+  fonts.labelLarge,
   {
     width: 'fit-content',
     padding: ' 15px 0',
@@ -52,19 +59,14 @@ export const navBar = styleVariants({
 });
 
 export const listTitle = style([
-  fonts.Header,
+  fonts.headlineMedium,
   {
-    padding: '10px',
-    marginBottom: '30px',
+    margin: '140px 40px 20px',
   },
 ]);
 
 export const contentContainer = style({
-  margin: '50px 20px',
-  padding: '20px 20px',
-
-  borderRadius: '20px',
-  backgroundColor: 'white',
+  padding: '50px 27px',
 
   overflowX: 'auto',
   '::-webkit-scrollbar': {

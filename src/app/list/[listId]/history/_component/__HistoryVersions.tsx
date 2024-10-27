@@ -15,7 +15,7 @@ import timeDiff from '@/lib/utils/time-diff';
 import { HistoryType } from '@/lib/types/historyType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
-import * as styles from './HistoryVersions.css';
+import * as styles from './__HistoryVersions.css';
 import deleteHistory from '@/app/_api/history/deleteHistory';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { useLanguage } from '@/store/useLanguage';
