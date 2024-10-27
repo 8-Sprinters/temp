@@ -17,7 +17,7 @@ import Header from '@/components/Header/Header';
 import { getListDetail } from '@/app/_api/list/getLists';
 import getCategories from '@/app/_api/category/getCategories';
 
-import { listError, listLocale } from '../locale';
+import { listError, listLocale } from '@/app/list/create/locale';
 import * as styles from './StepOne.css';
 
 //TODO: '리스트 수정'버전 추가 필요
@@ -92,6 +92,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
         title={'리스트 만들기'}
         left="cancel"
         leftClick={() => {
+          //TODO: 취소 바텀시트 필요
           router.back();
         }}
         right={
@@ -100,6 +101,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
           </button>
         }
       />
+      {/** end-Header */}
       <div className={styles.section}>
         <p className={styles.description}>
           기록하고 싶은 것들을 리스트로 남겨 봐요. <br />
