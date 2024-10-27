@@ -21,7 +21,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './Header.css';
 import SearchIcon from '/public/icons/ver3/search.svg';
 import BellIcon from '/public/icons/ver3/bell.svg';
-import Avatar from '/public/icons/ver3/avatar.svg';
+import Avatar from '/public/icons/ver3/Avatar.svg';
 
 function Header() {
   const [isSearchBarOpened, setIsSearchBarOpened] = useState(false);
