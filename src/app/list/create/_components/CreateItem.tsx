@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 
 import BlueButton from '@/components/BlueButton/BlueButton';
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import Items from './item/Items';
 import * as styles from './CreateItem.css';
 import { useLanguage } from '@/store/useLanguage';

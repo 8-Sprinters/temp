@@ -18,6 +18,7 @@ export const header = style({
   alignItems: 'center',
 
   backgroundColor: vars.color.bggray,
+  color: vars.color.black,
 });
 
 export const flexChild = style({

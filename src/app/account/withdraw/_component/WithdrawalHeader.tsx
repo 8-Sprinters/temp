@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import { accountLocale } from '@/app/account/locale';
 import { useLanguage } from '@/store/useLanguage';
 

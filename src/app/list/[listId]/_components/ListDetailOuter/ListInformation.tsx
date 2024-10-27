@@ -9,7 +9,7 @@ import Collaborators from '@/app/list/[listId]/_components/ListDetailOuter/Colla
 import getListDetail from '@/app/_api/list/getListDetail';
 import Label from '@/components/Label/Label';
 import Modal from '@/components/Modal/Modal';
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import HeaderRight from './HeaderRight';
 import Comments from './Comments';
 import { useUser } from '@/store/useUser';

@@ -2,7 +2,7 @@
 
 import { useRouter, useParams } from 'next/navigation';
 
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import * as styles from './page.css';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';

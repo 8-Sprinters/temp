@@ -1,14 +1,16 @@
 'use client';
 import { ReactNode } from 'react';
 
-import * as styles from './Header.css';
+import CloseButton from '/public/icons/close_button.svg';
+import BackIcon from '/public/icons/back.svg';
+
+import * as styles from './__Header.css';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
 
-//TODO: left의 close 없애야함.
 interface HeaderProps {
   title: string;
-  left?: 'cancel' | 'back' | 'close';
+  left?: 'close' | 'back';
   leftClick?: () => void;
   right?: ReactNode;
 }
@@ -18,9 +20,8 @@ function Header({ title, left, leftClick, right }: HeaderProps) {
   return (
     <div className={styles.header}>
       <button className={`${styles.flexChild} ${styles.leftChild}`} type="button" onClick={leftClick}>
-        {left === 'cancel' && <p>{commonLocale[language].cancel}</p>}
-        {left === 'back' && <p>{commonLocale[language].back}</p>}
-        {left === 'close' && <p>{commonLocale[language].close}</p>}
+        {left === 'close' && <CloseButton width={'24'} height={'24'} alt={commonLocale[language].closeButton} />}
+        {left === 'back' && <BackIcon width={'8'} height={'14'} alt={commonLocale[language].goBack} />}
         {left === null && <></>}
       </button>
 
