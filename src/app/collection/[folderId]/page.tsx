@@ -111,7 +111,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
           className={styles.contentInput}
         />
         <BottomSheet.Button onClose={handleSetOff} onClick={handleEditFolder}>
-          만들기
+          {['취소', '만들기']}
         </BottomSheet.Button>
       </BottomSheet>
       <BottomSheet isOn={isDeleteOption}>
@@ -122,7 +122,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
           }}
         />
         <BottomSheet.Button onClose={handleSetOffDeleteOption} isDelete={true} onClick={handleDeleteFolder}>
-          삭제
+          {['취소', '삭제']}
         </BottomSheet.Button>
       </BottomSheet>
     </section>

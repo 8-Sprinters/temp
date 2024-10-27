@@ -110,7 +110,7 @@ export default function CollectionPage() {
           className={styles.contentInput}
         />
         <BottomSheet.Button onClose={handleSetOff} onClick={handleCreateFolder}>
-          만들기
+          {['취소', '만들기']}
         </BottomSheet.Button>
       </BottomSheet>
     </section>
