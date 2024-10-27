@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import * as fonts from '@/styles/__font.css';
+import { vars } from '@/styles/theme.css';
 
 export const header = style({
   width: '100%',
@@ -16,9 +17,7 @@ export const header = style({
   flexDirection: 'row',
   alignItems: 'center',
 
-  backgroundColor: '#fff',
-
-  borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
+  backgroundColor: vars.color.bggray,
 });
 
 export const flexChild = style({

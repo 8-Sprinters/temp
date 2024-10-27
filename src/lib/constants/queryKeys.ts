@@ -28,5 +28,6 @@ export const QUERY_KEYS = {
   searchUserResult: 'searchUserResult',
   collect: 'collect',
   getCollection: 'getCollection',
-  getCollectionCategories: 'getCollectionCategories',
+  getFolders: 'getFolders',
+  getCollectionCategories: 'getCollectionCategories', // ver2.0
 };

@@ -1,94 +1,118 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
-import { useQuery } from '@tanstack/react-query';
-
-import { CategoryType } from '@/lib/types/categoriesType';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { collectionLocale } from '@/app/collection/locale';
-import { useLanguage } from '@/store/useLanguage';
-import { categoriesLocale } from '@/app/collection/locale';
-
-import EntireFolder from '/public/icons/folder_entire.svg';
-import CultureFolder from '/public/icons/folder_culture.svg';
-import LifeFolder from '/public/icons/folder_life.svg';
-import PlaceFolder from '/public/icons/folder_place.svg';
-import MusicFolder from '/public/icons/folder_music.svg';
-import MovieDramaFolder from '/public/icons/folder_movie_drama.svg';
-import AnimalPlantFolder from '/public/icons/folder_animal_plant.svg';
-import EtcFolder from '/public/icons/folder_etc.svg';
-import BookFolder from '/public/icons/folder_book.svg';
-import FoodFolder from '/public/icons/folder_food.svg';
-
-import getCollectionCategories from '../_api/collect/getCollectionCategories';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 
 import * as styles from './page.css';
 
-const codeToFolderIcon = (code: string, language: string) => {
-  switch (code) {
-    case '0':
-      return <EntireFolder fill alt={categoriesLocale[language].entire} />;
-    case '1':
-      return <CultureFolder fill alt={categoriesLocale[language].culture} />;
-    case '2':
-      return <LifeFolder fill alt={categoriesLocale[language].life} />;
-    case '3':
-      return <PlaceFolder fill alt={categoriesLocale[language].place} />;
-    case '4':
-      return <MusicFolder fill alt={categoriesLocale[language].music} />;
-    case '5':
-      return <MovieDramaFolder fill alt={categoriesLocale[language].movie_drama} />;
-    case '6':
-      return <BookFolder fill alt={categoriesLocale[language].book} />;
-    case '7':
-      return <AnimalPlantFolder fill alt={categoriesLocale[language].animal_plant} />;
-    case '8':
-      return <EtcFolder fill alt={categoriesLocale[language].etc} />;
-    case '9':
-      return <FoodFolder fill alt={categoriesLocale[language].food} />;
-  }
-};
+import Header from '@/components/Header/Header';
+import BottomSheet from '@/components/BottomSheet/ver3.0/BottomSheet';
+
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { useLanguage } from '@/store/useLanguage';
+import { useUser } from '@/store/useUser';
+
+import createCollectionFolder from '../_api/folder/createFolder';
+import getFolders, { FoldersResponseType } from '../_api/folder/getFolders';
+
+import toasting from '@/lib/utils/toasting';
+import toastMessage from '@/lib/constants/toastMessage';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 export default function CollectionPage() {
-  const { language } = useLanguage();
   const router = useRouter();
-
-  const { data } = useQuery<CategoryType[]>({
-    queryKey: [QUERY_KEYS.getCollectionCategories],
-    queryFn: getCollectionCategories,
+  const { user: userMe } = useUser();
+  const queryClient = useQueryClient();
+  const { language } = useLanguage();
+  const { data } = useQuery<FoldersResponseType>({
+    queryKey: [QUERY_KEYS.getFolders],
+    queryFn: getFolders,
+    staleTime: 1000 * 60 * 5, // 5분 설정
   });
 
-  const handleCategoryClick = (category: string) => {
-    router.push(`/collection/${category}`);
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput(false);
+  const [value, setValue] = useState('');
+
+  const createFolderMutation = useMutation({
+    mutationFn: createCollectionFolder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getFolders] });
+      setValue('');
+      handleSetOff();
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        const errorData = error.response?.data;
+        if (errorData.error === 'UNAUTHORIZED') {
+          toasting({ type: 'error', txt: toastMessage[language].requiredLogin });
+          return;
+        }
+        if (errorData.code.split('_')[0] === 'DUPLICATE') {
+          toasting({ type: 'error', txt: toastMessage[language].duplicatedFolderName });
+          return;
+        }
+      }
+      toasting({ type: 'error', txt: toastMessage[language].failedFolder });
+    },
+  });
+
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const handleCreateFolder = () => {
+    if (!value.trim()) {
+      toasting({ type: 'warning', txt: toastMessage[language].emptyFolderName });
+      return;
+    }
+    createFolderMutation.mutate({
+      folderName: value,
+    });
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.title}>{collectionLocale[language].collection}</div>
-      <div className={styles.categoryFolders}>
-        {data &&
-          data.map((category) => (
-            <div key={category.code} className={styles.categoryContainer}>
-              <div
-                className={styles.categoryFolder}
-                onClick={() => {
-                  handleCategoryClick(category.engName);
-                }}
-              >
-                <Image
-                  className={styles.categoryIcon}
-                  src={category?.categoryImageUrl ?? ''}
-                  width={50}
-                  height={50}
-                  alt={`${category.korName} ${categoriesLocale[language].folder}`}
-                />
-                <div className={styles.folderIcon}>{codeToFolderIcon(category.code, language)}</div>
+    <section className={styles.wrapper}>
+      <Header title="콜렉션" left="back" leftClick={() => router.push(`/user/${userMe.id}/mylist`)} />
+      <div className={styles.container}>
+        <div className={styles.folders}>
+          {data?.folders.map((folder) => (
+            <Link href={`/collection/${folder.folderId}`} key={folder.folderId} className={styles.folder}>
+              <div className={styles.folderShape}>
+                <div className={styles.topLeftShape}></div>
+                <div className={styles.topShape}></div>
+                <div className={styles.bottomShape}></div>
               </div>
-              <p className={styles.categoryLabel}>{language === 'ko' ? category.korName : category.engName}</p>
-            </div>
+              <p className={styles.title}>
+                <span className={styles.folderName}>{folder.folderName}</span>
+                <span>{`(${folder.listCount})`}</span>
+              </p>
+            </Link>
           ))}
+        </div>
+        <div className={styles.addFolderButtonContainer}>
+          <button className={styles.addFolderButton} onClick={handleSetOn}>
+            <Image src={'/icons/new/add.svg'} width={16} height={16} alt="폴더 추가하기" />
+            <span>폴더 추가하기</span>
+          </button>
+        </div>
       </div>
-    </div>
+      <BottomSheet isOn={isOn}>
+        <BottomSheet.Title>새로운 폴더</BottomSheet.Title>
+        <input
+          autoFocus
+          placeholder="폴더명을 작성해 주세요"
+          value={value}
+          onChange={handleChangeInput}
+          className={styles.contentInput}
+        />
+        <BottomSheet.Button onClose={handleSetOff} onClick={handleCreateFolder}>
+          {['취소', '만들기']}
+        </BottomSheet.Button>
+      </BottomSheet>
+    </section>
   );
 }

@@ -36,7 +36,7 @@ export default function BottomNav() {
 
   const userId = user.id;
 
-  const visiblePaths = ['/', '/mylist', 'collection'];
+  const visiblePaths = ['/', '/mylist'];
   const isVisible = visiblePaths.some((path) => pathname?.endsWith(path));
 
   if (!isVisible) {
