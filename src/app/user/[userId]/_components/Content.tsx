@@ -113,7 +113,7 @@ export default function Content({ userId, type }: ContentProps) {
       <div ref={stickyContainer} className={styles.stickyContainer}>
         <div className={styles.contentInfo}>
           <h2 className={styles.infoTitle}>{`${userData?.nickname}님의 리스트`}</h2>
-          <Link href="/" className={styles.collectionButton}>
+          <Link href="/collection" className={styles.collectionButton}>
             <BookmarkIcon fill={vars.color.blue} />
             <span>콜렉션</span>
           </Link>

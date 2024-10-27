@@ -143,6 +143,7 @@ export interface SearchResultType {
   hasNext: boolean;
 }
 
+// 콜렉션 리스트 조회
 export interface CollectionType {
   id: number;
   list: CollectionListType;
@@ -150,9 +151,10 @@ export interface CollectionType {
 
 export interface CollectionListType {
   id: number;
+  category: string;
   backgroundColor: string;
   title: string;
-  ownerId: string;
+  ownerId: number;
   ownerNickname: string;
   ownerProfileImageUrl: string;
   updatedDate: Date;

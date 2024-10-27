@@ -22,6 +22,9 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     deleteListError: '리스트 삭제에 실패했어요.',
     visibilityListSuccess: '리스트 공개/비공개 변경을 완료했어요.',
     visibilityListError: '리스트 공개/비공개 변경에 실패했어요.',
+    emptyFolderName: '폴더명을 작성해 주세요.',
+    duplicatedFolderName: '이미 존재하는 폴더입니다. 다른 이름을 지어주세요.',
+    failedFolder: '다시 시도해 주세요.',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -44,6 +47,9 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     deleteListError: 'Failed to delete the list. Please try again.🥲',
     visibilityListSuccess: 'List visibility updated successfully.',
     visibilityListError: 'Failed to update list visibility. Please try again.🥲',
+    emptyFolderName: 'Please write the name of folder',
+    duplicatedFolderName: 'This folder already exists. Please give me another name.',
+    failedFolder: 'Please try again.',
   },
 };
 

@@ -6,7 +6,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { AxiosError } from 'axios';
 import { useUser } from '@/store/useUser';
 import numberFormatter from '@/lib/utils/numberFormatter';
-import collectList from '@/app/_api/collect/collectList';
+import collectList from '@/app/_api/collect/__collectList';
 import toasting from '@/lib/utils/toasting';
 import CollectIcon from '/public/icons/collect.svg';
 import CollectedIcon from '/public/icons/collected.svg';

@@ -8,11 +8,11 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { useEffect, useMemo } from 'react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import getCollection from '@/app/_api/collect/getCollection';
-import Top3CardSkeleton from '@/app/collection/[category]/_components/Top3CardSkeleton';
-import NoData from '@/app/collection/[category]/_components/NoData';
+import getCollection from '@/app/_api/collect/__getCollection';
+import Top3CardSkeleton from '@/app/collection/_[category]/_components/Top3CardSkeleton';
+import NoData from '@/app/collection/_[category]/_components/NoData';
 import { CollectionType } from '@/lib/types/listType';
-import Top3Card from '@/app/collection/[category]/_components/Top3Card';
+import Top3Card from '@/app/collection/_[category]/_components/Top3Card';
 import { categoriesLocale } from '@/app/collection/locale';
 import { useLanguage } from '@/store/useLanguage';
 
