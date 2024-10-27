@@ -70,3 +70,20 @@ export const floatingBox = style([
     cursor: 'pointer',
   },
 ]);
+
+export const pagesList = style({
+  marginTop: '20px',
+
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+
+  alignSelf: 'center',
+});
+
+export const page = style([
+  fonts.BodyRegular,
+  {
+    color: vars.color.bluegray6,
+  },
+]);

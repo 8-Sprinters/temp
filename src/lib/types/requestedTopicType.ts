@@ -17,3 +17,10 @@ export interface RequestedTopicType {
 export interface RequestedTopicsListType {
   data: RequestedTopicType[];
 }
+
+export interface editAdminTopicType {
+  topicId: number;
+  isExposed: boolean;
+  categoryCode: string;
+  title: string;
+}

@@ -7,9 +7,10 @@ export const container = style({
   padding: '12px',
 
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
+  alignItems: 'center',
   justifyContent: 'space-between',
-  rowGap: '10px',
+  gap: '16px',
 
   position: 'relative',
 
@@ -18,12 +19,56 @@ export const container = style({
   cursor: 'pointer',
 });
 
+export const wrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  rowGap: '10px',
+});
+
 export const topicWrapper = style({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   columnGap: '8px',
 });
+
+export const buttonWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+});
+
+export const button = style({
+  padding: '6px 12px',
+
+  width: '80px',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  flexShrink: 0,
+
+  borderRadius: '14px',
+});
+
+export const exposeToggleButton = style([
+  button,
+  {
+    backgroundColor: vars.color.blue,
+    color: vars.color.white,
+  },
+]);
+
+export const editButton = style([
+  button,
+  {
+    border: '1px solid #3D95FF80',
+    backgroundColor: vars.color.white,
+    color: vars.color.blue,
+  },
+]);
 
 export const category = style([
   fonts.Label,
@@ -61,12 +106,17 @@ export const bottomWrapper = style({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  gap: '8px',
 });
 
 export const author = style({
   fontSize: '1.3rem',
   color: vars.color.bluegray10,
+});
+
+export const anonymous = style({
+  fontSize: '1.3rem',
+  color: vars.color.blue,
 });
 
 export const click = style({

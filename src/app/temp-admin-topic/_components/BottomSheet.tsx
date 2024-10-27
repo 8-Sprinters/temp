@@ -7,7 +7,8 @@ import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import getCategories from '@/app/_api/category/getCategories';
-// import createTopic from '@/app/_api/topics/createTopic';
+import editAdminTopic from '@/app/_api/adminTopics/editAdminTopic';
+
 import { CategoryType } from '@/lib/types/categoriesType';
 import ArrowDown from '/public/icons/down_chevron.svg';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
@@ -15,17 +16,17 @@ import Modal from '@/components/Modal/Modal';
 
 interface BottomSheetProps {
   onClose: MouseEventHandler<HTMLDivElement>;
+  topicTitle: string;
+  category: string;
+  isExposed: boolean;
 }
 // TODO: 컴포넌트 공통화 작업
-function BottomSheet({ onClose }: BottomSheetProps) {
-  const { user } = useUser();
+function BottomSheet({ onClose, topicTitle, category, isExposed }: BottomSheetProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [title, setTitle] = useState(topicTitle);
+  const [selectedCategory, setSelectedCategory] = useState<string>(category);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   //카테고리 불러오기
@@ -34,21 +35,16 @@ function BottomSheet({ onClose }: BottomSheetProps) {
     queryFn: getCategories,
   });
 
-  //생성요청 API 호출
-  const createTopicMutation = useMutation({
+  const editTopicMutation = useMutation({
     // mutationFn: () =>
-    //   createTopic({
-    //     categoryKorName: selectedCategory,
+    //   editAdminTopic({
+    //     isExposed,
     //     title,
-    //     description,
-    //     ownerId: user.id,
-    //     isAnonymous,
+    //     categoryCode,
     //   }),
     onSuccess: () => {
       setTitle('');
-      setDescription('');
-      setSelectedCategory('전체');
-      setIsAnonymous(false);
+      setSelectedCategory(selectedCategory);
       openModal();
     },
     onError: (error) => {
@@ -92,15 +88,13 @@ function BottomSheet({ onClose }: BottomSheetProps) {
     }
 
     setIsDropdownOpen(false);
-    createTopicMutation.mutate();
+    editTopicMutation.mutate();
   };
 
   return (
     <div className={styles.backGround} onClick={onClose} ref={ref}>
       <div className={styles.bottomsheet} onClick={stopPropagation}>
-        <div className={styles.header}>신청하기</div>
-        <div className={styles.subText}>관리자 검토 후 노출되며, 정책에 위반될 경우 수정 또는 삭제될 수 있어요.</div>
-
+        <div className={styles.header}>수정하기</div>
         <form onSubmit={handleSubmit}>
           <div className={styles.upperWrapper}>
             <div className={styles.selectWrapper}>
@@ -122,36 +116,16 @@ function BottomSheet({ onClose }: BottomSheetProps) {
                 </ul>
               )}
             </div>
-
-            <div className={styles.anonymousWrapper}>
-              <input
-                type="checkbox"
-                id="anonymous"
-                checked={isAnonymous}
-                onChange={(e) => setIsAnonymous(e.target.checked)}
-                className={styles.checkbox}
-              />
-              <label htmlFor="anonymous" className={styles.checkboxLabel}>
-                익명으로 요청하기
-              </label>
-            </div>
           </div>
 
           <div className={styles.inputWrapper}>
             <input
               type="text"
-              placeholder="보고 싶은 리스트 주제를 입력해 주세요.*"
+              placeholder="수정하고 싶은 제목으로 입력해 주세요.*"
               value={title}
               onChange={handleTitleChange}
               className={styles.input}
               required
-            />
-            <input
-              type="text"
-              placeholder="요청 이유 또는 주제에 대한 설명을 입력해 주세요."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className={styles.input}
             />
             {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
           </div>
@@ -163,7 +137,7 @@ function BottomSheet({ onClose }: BottomSheetProps) {
       </div>
       {isModalOn && (
         <Modal handleModalClose={closeModal} size="large">
-          <div className={styles.modalText}>{`주제요청이 완료됐어요. 빠르게 검토할게요 :)`} </div>
+          <div className={styles.modalText}>{`요청 주제 수정이 완료되었어요.`} </div>
           <button
             className={styles.modalButton}
             onClick={() => {
