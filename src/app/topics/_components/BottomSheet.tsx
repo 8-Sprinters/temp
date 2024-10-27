@@ -3,7 +3,6 @@
 import * as styles from './BottomSheet.css';
 import { MouseEventHandler, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import getCategories from '@/app/_api/category/getCategories';
@@ -18,7 +17,6 @@ interface BottomSheetProps {
 }
 // TODO: 하루 요청 3건 제한
 function BottomSheet({ onClose }: BottomSheetProps) {
-  const { user } = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
 
@@ -41,7 +39,6 @@ function BottomSheet({ onClose }: BottomSheetProps) {
         categoryKorName: selectedCategory,
         title,
         description,
-        ownerId: user.id,
         isAnonymous,
       }),
     onSuccess: () => {

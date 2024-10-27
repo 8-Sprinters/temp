@@ -12,6 +12,5 @@ export interface TopicCreateType {
   categoryKorName: string;
   title: string;
   description: string;
-  ownerId: number | null;
   isAnonymous: boolean;
 }
