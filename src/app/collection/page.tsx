@@ -10,7 +10,7 @@ import { isAxiosError } from 'axios';
 import * as styles from './page.css';
 
 import Header from '@/components/Header/Header';
-import BottomSheet from './_components/BottomSheet';
+import BottomSheet from '@/components/BottomSheet/ver3.0/BottomSheet';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useLanguage } from '@/store/useLanguage';

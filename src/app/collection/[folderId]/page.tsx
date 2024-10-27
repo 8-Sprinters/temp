@@ -7,7 +7,7 @@ import { isAxiosError } from 'axios';
 
 import HeaderContainer from './_components/HeaderContainer';
 import Collections from './_components/Collections';
-import BottomSheet from '../_components/BottomSheet';
+import BottomSheet from '@/components/BottomSheet/ver3.0/BottomSheet';
 
 import * as styles from './page.css';
 
