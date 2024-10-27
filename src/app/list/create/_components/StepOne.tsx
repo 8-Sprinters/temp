@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
@@ -18,9 +18,9 @@ import { getListDetail } from '@/app/_api/list/getLists';
 import getCategories from '@/app/_api/category/getCategories';
 
 import { listError, listLocale } from '@/app/list/create/locale';
-import * as styles from './StepOne.css';
+import * as styles from './Step.css';
 
-//TODO: '리스트 수정'버전 추가 필요
+//TODO: '리스트 수정'버전 추가 필요(데이터삽입, 헤더제목변경)
 interface StepOneProps {
   onNextClick: () => void;
   type: 'create' | 'edit';
@@ -35,6 +35,7 @@ interface StepOneProps {
  */
 export default function StepOne({ onNextClick, type }: StepOneProps) {
   const { language } = useLanguage();
+  const router = useRouter();
   const { user: me } = useUser();
   const param = useParams<{ listId: string }>();
   const listId = param?.listId;

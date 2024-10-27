@@ -25,7 +25,7 @@ export const itemTitleRules = {
 };
 
 export const itemCommentRules = {
-  maxLength: { value: 100, message: '코멘트는 최대 100자까지 입력할 수 있어요.' },
+  maxLength: { value: 200, message: '코멘트는 최대 200자까지 입력할 수 있어요.' },
 };
 
 export const itemLinkRules = {

@@ -28,6 +28,8 @@ export const field = style({
 
 export const label = style([fonts.Subtitle]);
 
+export const subLabel = style([fonts.BodyRegular, { lineHeight: '150%' }]);
+
 export const requiredIcon = style({
   color: vars.color.blue,
 });
@@ -99,3 +101,25 @@ export const nextButton = style({
   cursor: 'pointer',
   ':disabled': { cursor: 'default', color: vars.color.bluegray6 },
 });
+
+/** STEP2 아이템 DND */
+export const itemList = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+});
+
+export const item = style([
+  fonts.Label,
+  {
+    transition: 'box-shadow 0.3s ease',
+    cursor: 'grab',
+  },
+]);
+
+export const draggingItem = style([
+  item,
+  {
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
+  },
+]);

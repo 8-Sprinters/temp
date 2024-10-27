@@ -1,9 +1,17 @@
 export const listLocale = {
   ko: {
+    createList: '리스트 만들기',
+    editList: '리스트 수정하기',
     next: '다음',
+    publish: '게시',
+    item: '아이템',
   },
   en: {
+    createList: 'Create List',
+    editList: 'Edit List',
     next: 'next',
+    publish: 'publish',
+    item: 'item',
   },
 };
 
