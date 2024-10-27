@@ -29,4 +29,5 @@ export const QUERY_KEYS = {
   getFolders: 'getFolders',
   getCollectionCategories: 'getCollectionCategories', // ver2.0
   getAdminTopics: 'getAdminTopics',
+  getTopics: 'getTopics',
 };
