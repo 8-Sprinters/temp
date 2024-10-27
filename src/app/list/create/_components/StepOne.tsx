@@ -20,6 +20,7 @@ import getCategories from '@/app/_api/category/getCategories';
 import { listError, listLocale } from '../locale';
 import * as styles from './StepOne.css';
 
+//TODO: '리스트 수정'버전 추가 필요
 interface StepOneProps {
   onNextClick: () => void;
   type: 'create' | 'edit';
@@ -60,7 +61,6 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
     register,
     trigger,
     setValue,
-    getValues,
     control,
     formState: { errors },
   } = useFormContext();
