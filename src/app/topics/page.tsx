@@ -13,32 +13,40 @@ import { useUser } from '@/store/useUser';
 import LoginModal from '@/components/login/LoginModal';
 import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import { topicsData } from './_components/topicMock';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function TopicPage() {
   const router = useRouter();
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
-
   const { user } = useUser();
 
-  //요청 주제목록 무한스크롤 리액트 쿼리 함수
-  // const {
-  //   data: topicsData,
-  //   hasNextPage,
-  //   fetchNextPage,
-  //   isFetching,
-  // } = useInfiniteQuery({
-  //   queryKey: [QUERY_KEYS.getTopics],
-  //   queryFn: ({ pageParam: cursorId }) => {
-  //     return getTopics({ cursorId: cursorId });
-  //   },
-  //   initialPageParam: null,
-  //   getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
-  // });
+  const {
+    data: topicsData,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: [QUERY_KEYS.getTopics],
+    queryFn: ({ pageParam: cursorId = null }) => getTopics({ cursorId }),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
+  });
+
+  const ref = useIntersectionObserver(() => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  });
 
   const handleTopicClick = (topic: TopicType) => {
     router.push(`/list/create?title=${topic.title}&category=${topic.categoryKorName}`);
+  };
+
+  const handleBottomSheetClose = () => {
+    setIsBottomSheetOpen(false);
+    refetch();
   };
 
   return (
@@ -56,17 +64,24 @@ export default function TopicPage() {
         다른 리스터들이 궁금해하는 주제들이에요! <br />
         클릭하면 그 주제로 리스트를 만들 수 있어요.
       </div>
-      {topicsData?.map((topic, index) => {
-        return (
-          <TopicBox
-            key={index}
-            topic={topic}
-            onClick={() => {
-              handleTopicClick(topic);
-            }}
-          />
-        );
-      })}
+      <>
+        {isFetching || topicsData?.pages[0].topics.length === 0 ? (
+          <></>
+        ) : (
+          topicsData?.pages[0].topics.map((topic: TopicType, index: number) => {
+            return (
+              <TopicBox
+                key={index}
+                topic={topic}
+                onClick={() => {
+                  handleTopicClick(topic);
+                }}
+              />
+            );
+          })
+        )}
+        {hasNextPage && <div ref={ref}></div>}
+      </>
 
       <button
         className={styles.floatingBox}
@@ -80,13 +95,9 @@ export default function TopicPage() {
       >
         주제 요청하기
       </button>
-      {isBottomSheetOpen && (
-        <BottomSheet
-          onClose={() => {
-            setIsBottomSheetOpen(false);
-          }}
-        />
-      )}
+
+      {isBottomSheetOpen && <BottomSheet onClose={handleBottomSheetClose} />}
+
       <div className={styles.gradientOverlay} />
 
       {isOn && (

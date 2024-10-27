@@ -12,7 +12,6 @@ export const body = style({
 
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
   rowGap: '12px',
 });
 
