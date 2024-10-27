@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/__font.css';
-import { vars } from '@/styles/__theme.css';
+import * as fonts from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
   marginTop: 18,
@@ -11,7 +11,7 @@ export const container = style({
 });
 
 export const baseDiv = style([
-  fonts.titleSmall,
+  fonts.Label,
   {
     padding: '16px 32px',
 
@@ -25,10 +25,11 @@ export const buttonDiv = style([
   baseDiv,
   {
     cursor: 'pointer',
+    borderRadius: '1.2rem',
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.lightblue,
+        backgroundColor: vars.color.bluegray6,
       },
     },
   },

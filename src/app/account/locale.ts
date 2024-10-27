@@ -15,7 +15,7 @@ export const accountLocale = {
     introduceError: '소개 에러',
     profileSetting: '프로필 설정',
     save: '저장',
-    myPage: '마이페이지',
+    settings: '설정',
     changeLanguage: '언어변경',
     language: '언어',
     contact: '문의하기',
@@ -50,7 +50,7 @@ export const accountLocale = {
     profileSetting: 'Profile Settings',
     save: 'Save',
 
-    myPage: 'My Page',
+    settings: 'Settings',
     changeLanguage: 'Change language',
     language: 'Language',
     contact: 'Contact us',

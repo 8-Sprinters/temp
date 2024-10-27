@@ -10,7 +10,7 @@ export const body = style({
 
   position: 'relative',
 
-  backgroundColor: vars.color.whiteblue,
+  backgroundColor: vars.color.bggray,
 });
 
 export const toastContainer = style([fonts.labelMedium]);
