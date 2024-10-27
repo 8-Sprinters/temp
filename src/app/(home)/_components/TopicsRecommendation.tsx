@@ -8,7 +8,7 @@ function TopicsRecommendation() {
   return (
     <section className={styles.wrapper}>
       <div className={styles.sectionTitleWrapper}>
-        <div className={styles.sectionTitle}>이 주제로 만들어 주세요</div>
+        <div className={styles.sectionTitle}>이 주제로 만들어 보세요</div>
         <Link href={'/'}>
           <span className={styles.showMoreButton}>더보기</span>
         </Link>
