@@ -34,7 +34,7 @@ export default function AccountPage() {
         leftClick={() => {
           router.back();
         }}
-        title={accountLocale[language].myPage}
+        title={accountLocale[language].settings}
       />
       <section className={styles.container}>
         <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/profile')} role="button">

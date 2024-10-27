@@ -1,13 +1,13 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import * as fonts from '@/styles/__font.css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const container = style({
   position: 'relative',
 });
 
 export const triggerDiv = style([
-  fonts.labelMedium,
+  fonts.LabelSmall,
   {
     width: 172,
     height: 36,
@@ -17,37 +17,38 @@ export const triggerDiv = style([
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    color: vars.color.gray9,
+    color: vars.color.black,
 
-    border: `2px solid ${vars.color.gray7}`,
+    border: `2px solid ${vars.color.bluegray8}`,
     borderRadius: 8,
   },
 ]);
 
 export const menuDiv = style([
-  fonts.labelMedium,
+  fonts.LabelSmall,
   {
     width: 172,
-    padding: '8px 0',
 
     position: 'absolute',
 
-    color: vars.color.gray9,
+    color: vars.color.black,
 
-    border: `2px solid ${vars.color.gray7}`,
+    border: `2px solid ${vars.color.bluegray8}`,
     borderTop: 'none',
-    borderRadius: '0px 0px 8px 8px',
+    borderRadius: '0.8rem',
+    backgroundColor: vars.color.bggray,
   },
 ]);
 
 export const listDiv = style([
-  fonts.labelMedium,
+  fonts.LabelSmall,
   {
     padding: '8px 16px',
+    borderRadius: '0.8rem',
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.lightblue,
+        backgroundColor: vars.color.bluegray6,
       },
     },
   },
