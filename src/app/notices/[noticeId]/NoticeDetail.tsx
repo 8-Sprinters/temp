@@ -73,7 +73,7 @@ function NoticeContent({ item }: NoticeContentProps) {
         </Link>
       )}
       {item.type === 'line' && <div className={styles.articleLine}></div>}
-      {item.type === 'notice' && <p className={styles.articleNotice}></p>}
+      {item.type === 'notice' && <p className={styles.articleNotice}>{item.description}</p>}
     </>
   );
 }
