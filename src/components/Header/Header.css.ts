@@ -21,7 +21,7 @@ export const header = style({
 });
 
 export const flexChild = style({
-  flex: '1',
+  flex: 'auto',
 });
 
 export const headerTitle = style([
