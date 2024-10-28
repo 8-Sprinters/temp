@@ -99,7 +99,11 @@ export default function CollectionDetailPage({ params }: ParamType) {
 
   return (
     <section className={styles.container}>
-      <HeaderContainer handleSetOnBottomSheet={handleSetOn} handleSetOnDeleteOption={handleSetOnDeleteOption} />
+      <HeaderContainer
+        handleSetOnBottomSheet={handleSetOn}
+        handleSetOnDeleteOption={handleSetOnDeleteOption}
+        isHideOption={params.folderId === '0'}
+      />
       <Collections folderId={folderId} />
       <BottomSheet isOn={isOn}>
         <BottomSheet.Title>폴더 이름 바꾸기</BottomSheet.Title>

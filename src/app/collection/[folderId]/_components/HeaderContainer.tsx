@@ -8,9 +8,14 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 interface HeaderContainerProps {
   handleSetOnBottomSheet: () => void;
   handleSetOnDeleteOption: () => void;
+  isHideOption: boolean;
 }
 
-export default function HeaderContainer({ handleSetOnBottomSheet, handleSetOnDeleteOption }: HeaderContainerProps) {
+export default function HeaderContainer({
+  handleSetOnBottomSheet,
+  handleSetOnDeleteOption,
+  isHideOption,
+}: HeaderContainerProps) {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const bottomSheetOptionList = [
@@ -35,7 +40,7 @@ export default function HeaderContainer({ handleSetOnBottomSheet, handleSetOnDel
 
   return (
     <>
-      <Header title="콜렉션" left="back" right={<RightButton />} leftClick={() => history.back()} />
+      <Header title="콜렉션" left="back" right={!isHideOption && <RightButton />} leftClick={() => history.back()} />
       {isOn && <BottomSheet onClose={handleSetOff} optionList={bottomSheetOptionList} isActive />}
     </>
   );
