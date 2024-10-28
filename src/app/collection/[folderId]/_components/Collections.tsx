@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import * as styles from './Collections.css';
 
 import HeaderContainer from './CollectionsHeader';
+import NoData from './NoData';
 import ShapeSimpleList from '@/components/ShapeSimpleList/ShapeSimpleList';
 
 import getCollection from '@/app/_api/collect/getCollection';
@@ -28,10 +29,6 @@ export default function Collections({ folderId, handleSetOn, handleSetOnDeleteOp
     return <div>로딩중</div>; // TODO 로딩 UI
   }
 
-  if (!data?.collectionLists) {
-    return <div>데이터 없음</div>; // TODO NoData UI
-  }
-
   return (
     <>
       <HeaderContainer
@@ -41,12 +38,16 @@ export default function Collections({ folderId, handleSetOn, handleSetOnDeleteOp
         headerTitle={data?.folderName ?? ''}
       />
 
-      <ul className={styles.container}>
-        {data?.collectionLists.map(({ list, id }) => {
-          const hasImage = !!list.representativeImageUrl;
-          return <ShapeSimpleList list={list} hasImage={hasImage} key={id} />;
-        })}
-      </ul>
+      {data && data?.collectionLists.length > 0 ? (
+        <ul className={styles.container}>
+          {data?.collectionLists.map(({ list, id }) => {
+            const hasImage = !!list.representativeImageUrl;
+            return <ShapeSimpleList list={list} hasImage={hasImage} key={id} />;
+          })}
+        </ul>
+      ) : (
+        <NoData />
+      )}
     </>
   );
 }

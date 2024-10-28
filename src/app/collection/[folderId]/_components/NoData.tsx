@@ -1,11 +1,12 @@
 import { useRouter } from 'next/navigation';
 
-import * as styles from '@/app/search/_components/NoData.css';
+import * as styles from './NoData.css';
 import NoListImage from '/public/images/no_data_image.svg';
+
 import { collectionLocale } from '@/app/collection/locale';
 import { useLanguage } from '@/store/useLanguage';
 
-function NoData() {
+export default function NoData() {
   const { language } = useLanguage();
   const router = useRouter();
 
@@ -23,5 +24,3 @@ function NoData() {
     </div>
   );
 }
-
-export default NoData;

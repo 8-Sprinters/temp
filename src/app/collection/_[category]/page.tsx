@@ -10,7 +10,7 @@ import { useEffect, useMemo } from 'react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import getCollection from '@/app/_api/collect/__getCollection';
 import Top3CardSkeleton from '@/app/collection/_[category]/_components/Top3CardSkeleton';
-import NoData from '@/app/collection/_[category]/_components/NoData';
+import NoData from '@/app/collection/[folderId]/_components/NoData';
 import { CollectionType } from '@/lib/types/listType';
 import Top3Card from '@/app/collection/_[category]/_components/Top3Card';
 import { categoriesLocale } from '@/app/collection/locale';
