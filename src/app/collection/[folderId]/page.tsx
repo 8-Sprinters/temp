@@ -23,7 +23,6 @@ interface ParamType {
   params: { folderId: string };
 }
 
-// TODO  input value에 보여주기 & 헤더 타이틀
 export default function CollectionDetailPage({ params }: ParamType) {
   const folderId = params.folderId;
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
@@ -36,6 +35,8 @@ export default function CollectionDetailPage({ params }: ParamType) {
   const { language } = useLanguage();
   const router = useRouter();
 
+  const [value, setValue] = useState('');
+
   // 폴더 상세(콜렉션) 조회
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.getCollection],
@@ -43,13 +44,12 @@ export default function CollectionDetailPage({ params }: ParamType) {
     enabled: !!folderId,
   });
 
-  const [value, setValue] = useState(data?.folderName ?? '');
-
   // 폴더 수정하기 mutation
   const editFolderMutation = useMutation({
     mutationFn: updateCollectionFolder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getFolders] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getCollection] });
       setValue('');
       handleSetOff();
     },
@@ -112,7 +112,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
         <input
           autoFocus
           placeholder="폴더명을 작성해 주세요"
-          value={value}
+          defaultValue={data?.folderName ?? ''}
           onChange={handleChangeInput}
           className={styles.contentInput}
         />
