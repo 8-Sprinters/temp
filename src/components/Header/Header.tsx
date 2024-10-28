@@ -21,12 +21,11 @@ function Header({ title, left, leftClick, right }: HeaderProps) {
         {left === 'cancel' && <p>{commonLocale[language].cancel}</p>}
         {left === 'back' && <p>{commonLocale[language].back}</p>}
         {left === 'close' && <p>"닫기"</p>}
-        {left === null && <></>}
       </button>
 
       <h1 className={`${styles.headerTitle} ${styles.flexChild}`}>{title}</h1>
 
-      {right === null ? <></> : <div className={`${styles.flexChild} ${styles.rightChild}`}>{right}</div>}
+      <div className={`${styles.flexChild} ${styles.rightChild}`}>{right}</div>
     </div>
   );
 }
