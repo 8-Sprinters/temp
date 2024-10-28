@@ -9,6 +9,4 @@ export const page = style({
 export const main = style({
   height: '100%',
   padding: '30px 0',
-
-  backgroundColor: vars.color.gray3,
 });
