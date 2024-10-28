@@ -11,6 +11,7 @@ import * as styles from './page.css';
 
 import Header from '@/components/Header/Header';
 import BottomSheet from '@/components/BottomSheet/ver3.0/BottomSheet';
+import FolderIcon from '@/components/icons/FolderIcon';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useLanguage } from '@/store/useLanguage';
@@ -81,14 +82,10 @@ export default function CollectionPage() {
         <div className={styles.folders}>
           {data?.folders.map((folder) => (
             <Link href={`/collection/${folder.folderId}`} key={folder.folderId} className={styles.folder}>
-              <div className={styles.folderShape}>
-                <div className={styles.topLeftShape}></div>
-                <div className={styles.topShape}></div>
-                <div className={styles.bottomShape}></div>
-              </div>
+              <FolderIcon />
               <p className={styles.title}>
                 <span className={styles.folderName}>{folder.folderName}</span>
-                <span>{`(${folder.listCount})`}</span>
+                {folder.listCount > 0 && <span>{`(${folder.listCount})`}</span>}
               </p>
             </Link>
           ))}
