@@ -8,10 +8,17 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 12,
+
+  padding: '0 1.6rem',
+});
+
+export const section = style({
+  backgroundColor: vars.color.white,
+  borderRadius: '1.2rem',
 });
 
 export const baseDiv = style([
-  fonts.Label,
+  fonts.LabelBold,
   {
     padding: '16px 32px',
 
@@ -40,3 +47,15 @@ export const titleDiv = style({
   alignItems: 'center',
   gap: '16px',
 });
+
+export const accountFooter = style({
+  marginTop: '3rem',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '10px',
+
+  color: vars.color.bluegray8,
+});
+
+export const textButton = style([fonts.Label, { color: vars.color.bluegray8 }]);

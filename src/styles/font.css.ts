@@ -30,6 +30,12 @@ export const Body = style({
   letterSpacing: '-0.054rem',
 });
 
+export const LabelBold = style({
+  fontSize: '1.4rem',
+  fontWeight: '600',
+  letterSpacing: '-0.042rem',
+});
+
 export const Label = style({
   fontSize: '1.4rem',
   fontWeight: '400',
