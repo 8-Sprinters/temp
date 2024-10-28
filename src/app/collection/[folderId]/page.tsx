@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 
 import Collections from './_components/Collections';
@@ -17,6 +17,7 @@ import toastMessage from '@/lib/constants/toastMessage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import updateCollectionFolder from '@/app/_api/folder/updateFolder';
 import deleteFolder from '@/app/_api/folder/deleteFolder';
+import getCollection from '@/app/_api/collect/getCollection';
 
 interface ParamType {
   params: { folderId: string };
@@ -35,7 +36,14 @@ export default function CollectionDetailPage({ params }: ParamType) {
   const { language } = useLanguage();
   const router = useRouter();
 
-  const [value, setValue] = useState('');
+  // 폴더 상세(콜렉션) 조회
+  const { data } = useQuery({
+    queryKey: [QUERY_KEYS.getCollection],
+    queryFn: () => getCollection({ folderId }),
+    enabled: !!folderId,
+  });
+
+  const [value, setValue] = useState(data?.folderName ?? '');
 
   // 폴더 수정하기 mutation
   const editFolderMutation = useMutation({
