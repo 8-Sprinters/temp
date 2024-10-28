@@ -10,6 +10,7 @@ interface ResponseType {
   collectionLists: CollectionType[];
   cursorId: number;
   hasNext: boolean;
+  folderName: string;
 }
 
 async function getCollection({ folderId, cursorId }: GetCollectionType) {

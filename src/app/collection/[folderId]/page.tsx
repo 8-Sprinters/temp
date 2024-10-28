@@ -5,7 +5,6 @@ import { ChangeEvent, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 
-import HeaderContainer from './_components/HeaderContainer';
 import Collections from './_components/Collections';
 import BottomSheet from '@/components/BottomSheet/ver3.0/BottomSheet';
 
@@ -23,7 +22,7 @@ interface ParamType {
   params: { folderId: string };
 }
 
-// TODO API에 FolderName 필드 추가 요청 => input value에 보여주기 & 헤더 타이틀
+// TODO  input value에 보여주기 & 헤더 타이틀
 export default function CollectionDetailPage({ params }: ParamType) {
   const folderId = params.folderId;
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
@@ -99,12 +98,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
 
   return (
     <section className={styles.container}>
-      <HeaderContainer
-        handleSetOnBottomSheet={handleSetOn}
-        handleSetOnDeleteOption={handleSetOnDeleteOption}
-        isHideOption={params.folderId === '0'}
-      />
-      <Collections folderId={folderId} />
+      <Collections folderId={folderId} handleSetOn={handleSetOn} handleSetOnDeleteOption={handleSetOnDeleteOption} />
       <BottomSheet isOn={isOn}>
         <BottomSheet.Title>폴더 이름 바꾸기</BottomSheet.Title>
         <input

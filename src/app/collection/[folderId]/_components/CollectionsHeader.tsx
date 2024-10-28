@@ -9,12 +9,14 @@ interface HeaderContainerProps {
   handleSetOnBottomSheet: () => void;
   handleSetOnDeleteOption: () => void;
   isHideOption: boolean;
+  headerTitle: string;
 }
 
 export default function HeaderContainer({
   handleSetOnBottomSheet,
   handleSetOnDeleteOption,
   isHideOption,
+  headerTitle,
 }: HeaderContainerProps) {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
@@ -40,7 +42,12 @@ export default function HeaderContainer({
 
   return (
     <>
-      <Header title="콜렉션" left="back" right={!isHideOption && <RightButton />} leftClick={() => history.back()} />
+      <Header
+        title={headerTitle}
+        left="back"
+        right={!isHideOption && <RightButton />}
+        leftClick={() => history.back()}
+      />
       {isOn && <BottomSheet onClose={handleSetOff} optionList={bottomSheetOptionList} isActive />}
     </>
   );
