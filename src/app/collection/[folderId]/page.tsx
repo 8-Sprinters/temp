@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 
@@ -104,6 +104,12 @@ export default function CollectionDetailPage({ params }: ParamType) {
     deleteFolderMutation.mutate(folderId);
   };
 
+  useEffect(() => {
+    if (data) {
+      setValue(data?.folderName);
+    }
+  }, [data]);
+
   return (
     <section className={styles.container}>
       <Collections folderId={folderId} handleSetOn={handleSetOn} handleSetOnDeleteOption={handleSetOnDeleteOption} />
@@ -112,7 +118,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
         <input
           autoFocus
           placeholder="폴더명을 작성해 주세요"
-          defaultValue={data?.folderName ?? ''}
+          defaultValue={value}
           onChange={handleChangeInput}
           className={styles.contentInput}
         />
