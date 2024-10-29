@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
 
@@ -78,15 +77,17 @@ function TrendingList() {
 }
 
 interface TrendingListItemProps {
-  item?: TrendingListType;
+  item: any;
   index: number;
 }
 
-function TrendingListItem({ item, index }: TrendingListItemProps) {
+function TrendingListItem({ item }: TrendingListItemProps) {
+  if (!item) return null;
+
   return (
-    <Link href={`/list/${item?.id}`}>
+    <Link href={`/list/${item.id}`}>
       <div className={styles.testItem} style={assignInlineVars({})}>
-        {item?.itemImageUrl ? (
+        {item.itemImageUrl ? (
           <div
             className={styles.itemWrapperWithImage}
             style={assignInlineVars({
@@ -119,24 +120,24 @@ interface TrendingListInformationType {
 }
 
 function TrendingListInformation({ item }: TrendingListInformationType) {
+  if (!item) return null; // item이 없으면 null을 반환하여 렌더링을 중지합니다.
+
   return (
     <div className={styles.itemInformationWrapper}>
-      <div className={styles.category}>{item?.category}</div>
+      <div className={styles.category}>{item.category}</div>
       <div
         className={styles.itemTitle}
-        style={assignInlineVars({ [styles.customFontColor]: item?.itemImageUrl ? vars.color.white : vars.color.black })}
+        style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? vars.color.white : vars.color.black })}
       >
-        <h5 className={styles.itemTitleContent}>{item?.title}</h5>
-        <p className={styles.listOwner}>{item?.ownerNickname}</p>
+        <h5 className={styles.itemTitleContent}>{item.title}</h5>
+        <p className={styles.listOwner}>{item.ownerNickname}</p>
       </div>
       <ul className={styles.top3Wrapper}>
-        {item?.top3?.map((el, idx) => {
-          return (
-            <li key={idx} className={item?.itemImageUrl ? `${styles.top3ItemWithImage}` : `${styles.top3ItemNoImage}`}>
-              {`${idx + 1}. ${el.title}`}
-            </li>
-          );
-        })}
+        {item.top3.map((el, idx) => (
+          <li key={idx} className={item.itemImageUrl ? styles.top3ItemWithImage : styles.top3ItemNoImage}>
+            {`${idx + 1}. ${el.title}`}
+          </li>
+        ))}
       </ul>
     </div>
   );
