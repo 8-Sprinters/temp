@@ -1,9 +1,9 @@
 'use client';
 
-import { accountLocale } from '@/app/account/locale';
-import { useLanguage } from '@/store/useLanguage';
 import LogoCircle from '/public/icons/logo_circle.svg';
 import * as styles from './WithdrawalNotice.css';
+import { accountLocale } from '@/app/account/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function WithdrawalNotice() {
   const { language } = useLanguage();

@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/font.css';
-import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/__font.css';
+import { vars } from '@/styles/__theme.css';
 
 export const wrapper = style({
   display: 'flex',
@@ -9,25 +9,24 @@ export const wrapper = style({
   gap: 18,
 });
 
-export const title = style([fonts.Header]);
+export const title = style([fonts.titleLarge]);
 
 export const warning = style([
-  fonts.Subtitle,
+  fonts.titleRegular,
   {
     color: vars.color.red,
   },
 ]);
 
 export const detailBox = style([
-  fonts.Label,
+  fonts.bodyMedium,
   {
-    margin: '20px 30px 30px',
-    padding: '18px 16px',
+    margin: '20px 35px',
+    padding: '18px 12px',
 
-    lineHeight: '150%',
-    color: vars.color.bluegray10,
     backgroundColor: vars.color.white,
-    borderRadius: '2rem',
+    color: vars.color.gray9,
+    borderRadius: 10,
   },
 ]);
 
