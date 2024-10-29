@@ -1,12 +1,12 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/__font.css';
+import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const header = style({
   width: '100%',
-  height: '70px',
-  paddingLeft: '20px',
-  paddingRight: '20px',
+  height: '50px',
+  paddingLeft: '16px',
+  paddingRight: '16px',
 
   position: 'sticky',
   top: '0',
@@ -25,18 +25,26 @@ export const flexChild = style({
 });
 
 export const headerTitle = style([
-  fonts.titleMedium,
+  fonts.Subtitle,
   {
     textAlign: 'center',
   },
 ]);
 
-export const leftChild = style({
-  display: 'flex',
-  justifyContent: 'left',
-});
+export const leftChild = style([
+  fonts.BodyRegular,
+  {
+    display: 'flex',
+    justifyContent: 'left',
+    color: vars.color.bluegray10,
+  },
+]);
 
-export const rightChild = style({
-  display: 'flex',
-  justifyContent: 'right',
-});
+export const rightChild = style([
+  fonts.BodyRegular,
+  {
+    display: 'flex',
+    justifyContent: 'right',
+    color: vars.color.bluegray10,
+  },
+]);

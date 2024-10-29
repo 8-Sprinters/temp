@@ -15,7 +15,7 @@ export const accountLocale = {
     introduceError: '소개 에러',
     profileSetting: '프로필 설정',
     save: '저장',
-    myPage: '마이페이지',
+    settings: '설정',
     changeLanguage: '언어변경',
     language: '언어',
     contact: '문의하기',
@@ -25,7 +25,7 @@ export const accountLocale = {
     withdrawMessage: '위 내용을 확인했으며, 리스티웨이브를 탈퇴하겠습니다.',
     withdraw: '탈퇴하기',
     withdrawModalMessage: '확인 버튼 클릭 시 즉시 탈퇴 처리됩니다.',
-    withdrawal: '회원 탈퇴',
+    withdrawal: '회원탈퇴',
     withdrawCheck1: '리스티 탈퇴 전 확인하세요',
     withdrawCheck2: '탈퇴 시 모든 정보가 사라지며, 되살릴 수 없어요.',
     withdrawCheck3:
@@ -50,7 +50,7 @@ export const accountLocale = {
     profileSetting: 'Profile Settings',
     save: 'Save',
 
-    myPage: 'My Page',
+    settings: 'Settings',
     changeLanguage: 'Change language',
     language: 'Language',
     contact: 'Contact us',

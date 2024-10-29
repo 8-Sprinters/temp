@@ -4,27 +4,31 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import Header from '@/components/Header/Header';
 import useMoveToPage from '@/hooks/useMoveToPage';
 
+import NavigateIcon from '/public/icons/chevron_right.svg';
 import UserIcon from '/public/icons/user.svg';
 import GlobeIcon from '/public/icons/globe.svg';
 import HelpIcon from '/public/icons/help_circle.svg';
 import MessageIcon from '/public/icons/message_square.svg';
-import LogoutIcon from '/public/icons/logout.svg';
-import WithdrawIcon from '/public/icons/withdraw_x.svg';
-
+import { useLanguage } from '@/store/useLanguage';
+import { accountLocale } from '@/app/account/locale';
 import LogoutModal from './_components/LogoutModal';
 import LanguageDropdown from './_components/LanguageDropdown';
 import * as styles from './page.css';
-import { accountLocale } from '@/app/account/locale';
-import { useLanguage } from '@/store/useLanguage';
+import SegmentedControl from '@/components/SegmentedControl/SegmentedControl';
 
 export default function AccountPage() {
-  const { language } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const { onClickMoveToPage } = useMoveToPage();
   const router = useRouter();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const handleDivLinkClick = (url: string) => {
     window.open(url, '_blank');
+  };
+
+  const handleSelectLanguage = (option: string) => {
+    if (option === 'Korean' || option === '한국어') setLanguage('ko');
+    if (option === 'English' || option === '영어') setLanguage('en');
   };
 
   return (
@@ -34,58 +38,69 @@ export default function AccountPage() {
         leftClick={() => {
           router.back();
         }}
-        title={accountLocale[language].myPage}
+        title={accountLocale[language].settings}
       />
-      <section className={styles.container}>
-        <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/profile')} role="button">
-          <div className={styles.titleDiv}>
-            <UserIcon width={24} height={24} alt={accountLocale[language].profileSetting} />
-            {accountLocale[language].profileSetting}
+      <div className={styles.container}>
+        <section className={styles.section}>
+          <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/profile')} role="button">
+            <div className={styles.titleDiv}>
+              <UserIcon width={24} height={24} alt={accountLocale[language].profileSetting} />
+              {accountLocale[language].profileSetting}
+            </div>
+            <NavigateIcon width={16} height={16} />
           </div>
-        </div>
-        <div className={styles.baseDiv}>
-          <div className={styles.titleDiv}>
-            <GlobeIcon width={24} height={24} alt={accountLocale[language].changeLanguage} />
-            {accountLocale[language].language}
+        </section>
+        <section className={styles.section}>
+          <div className={styles.baseDiv}>
+            <div className={styles.titleDiv}>
+              <GlobeIcon width={24} height={24} alt={accountLocale[language].changeLanguage} />
+              {accountLocale[language].language}
+            </div>
+            {/** TODO: <LanguageDropdown /> 제거하기 */}
+            <SegmentedControl
+              options={[accountLocale[language].korean, accountLocale[language].english]}
+              selected={language === 'ko' ? accountLocale[language].korean : accountLocale[language].english}
+              handleSelect={handleSelectLanguage}
+            />
           </div>
-          <LanguageDropdown />
-        </div>
-        <div
-          className={styles.buttonDiv}
-          onClick={() => {
-            handleDivLinkClick('https://open.kakao.com/o/saz6DObg');
-          }}
-        >
-          <div className={styles.titleDiv}>
-            <HelpIcon width={24} height={24} alt={accountLocale[language].contact} />
-            {accountLocale[language].contact}
+        </section>
+        <section className={styles.section}>
+          <div
+            className={styles.buttonDiv}
+            onClick={() => {
+              handleDivLinkClick('https://open.kakao.com/o/saz6DObg');
+            }}
+          >
+            <div className={styles.titleDiv}>
+              <HelpIcon width={24} height={24} alt={accountLocale[language].contact} />
+              {accountLocale[language].contact}
+            </div>
+            <NavigateIcon width={16} height={16} />
           </div>
-        </div>
-        <div
-          className={styles.buttonDiv}
-          onClick={() => {
-            handleDivLinkClick('https://tally.so/r/w51Dpv');
-          }}
-        >
-          <div className={styles.titleDiv}>
-            <MessageIcon width={24} height={24} alt={accountLocale[language].sendFeedback} />
-            {accountLocale[language].sendFeedback}
+          <div
+            className={styles.buttonDiv}
+            onClick={() => {
+              handleDivLinkClick('https://tally.so/r/w51Dpv');
+            }}
+          >
+            <div className={styles.titleDiv}>
+              <MessageIcon width={24} height={24} alt={accountLocale[language].sendFeedback} />
+              {accountLocale[language].sendFeedback}
+            </div>
+            <NavigateIcon width={16} height={16} />
           </div>
-        </div>
-        <div className={styles.buttonDiv} onClick={handleSetOn} role="button">
-          <div className={styles.titleDiv}>
-            <LogoutIcon width={24} height={24} alt={accountLocale[language].logout} />
-            {accountLocale[language].logout}
-          </div>
-        </div>
+        </section>
+      </div>
+      <div className={styles.accountFooter}>
+        <button className={styles.textButton} onClick={handleSetOn}>
+          {accountLocale[language].logout}
+        </button>
+        <span>|</span>
+        <button className={styles.textButton} onClick={onClickMoveToPage('account/withdraw')}>
+          {accountLocale[language].withdrawal}
+        </button>
         {isOn && <LogoutModal handleSetOff={handleSetOff} />}
-        <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/withdraw')} role="button">
-          <div className={styles.titleDiv}>
-            <WithdrawIcon width={24} height={24} alt={accountLocale[language].withdrawal} />
-            {accountLocale[language].withdrawal}
-          </div>
-        </div>
-      </section>
+      </div>
     </>
   );
 }
