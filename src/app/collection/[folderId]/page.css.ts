@@ -32,3 +32,9 @@ export const content = style([
     alignItems: 'center',
   },
 ]);
+
+// Observer Ref
+export const target = style({
+  width: '100%',
+  height: '2px',
+});

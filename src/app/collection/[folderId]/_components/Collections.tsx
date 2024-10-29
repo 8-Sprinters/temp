@@ -1,46 +1,40 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-
 import * as styles from './Collections.css';
 
 import HeaderContainer from './CollectionsHeader';
 import NoData from './NoData';
 import ShapeSimpleList from '@/components/ShapeSimpleList/ShapeSimpleList';
 
-import getCollection from '@/app/_api/collect/getCollection';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { CollectionType } from '@/lib/types/listType';
 
 interface CollectionsProps {
-  folderId: string;
+  collectionList: CollectionType[];
+  folderName: string;
+  isHideOption: boolean;
   handleSetOn: () => void;
   handleSetOnDeleteOption: () => void;
 }
 
-// TODO 무한스크롤
-export default function Collections({ folderId, handleSetOn, handleSetOnDeleteOption }: CollectionsProps) {
-  const { data, isFetching } = useQuery({
-    queryKey: [QUERY_KEYS.getCollection],
-    queryFn: () => getCollection({ folderId }),
-    enabled: !!folderId,
-  });
-
-  if (isFetching) {
-    return <div>로딩중</div>; // TODO 로딩 UI
-  }
-
+export default function Collections({
+  collectionList,
+  folderName,
+  isHideOption,
+  handleSetOn,
+  handleSetOnDeleteOption,
+}: CollectionsProps) {
   return (
     <>
       <HeaderContainer
         handleSetOnBottomSheet={handleSetOn}
         handleSetOnDeleteOption={handleSetOnDeleteOption}
-        isHideOption={folderId === '0'}
-        headerTitle={data?.folderName ?? ''}
+        isHideOption={isHideOption}
+        headerTitle={folderName}
       />
 
-      {data && data?.collectionLists.length > 0 ? (
+      {collectionList && collectionList.length > 0 ? (
         <ul className={styles.container}>
-          {data?.collectionLists.map(({ list, id }) => {
+          {collectionList.map(({ list, id }) => {
             const hasImage = !!list.representativeImageUrl;
             return <ShapeSimpleList list={list} hasImage={hasImage} key={id} />;
           })}

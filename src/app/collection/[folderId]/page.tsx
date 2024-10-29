@@ -1,8 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 
 import Collections from './_components/Collections';
@@ -11,13 +11,14 @@ import BottomSheet from '@/components/BottomSheet/ver3.0/BottomSheet';
 import * as styles from './page.css';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { useLanguage } from '@/store/useLanguage';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import updateCollectionFolder from '@/app/_api/folder/updateFolder';
 import deleteFolder from '@/app/_api/folder/deleteFolder';
-import getCollection from '@/app/_api/collect/getCollection';
+import getCollection, { CollectionListResponseType } from '@/app/_api/collect/getCollection';
 
 interface ParamType {
   params: { folderId: string };
@@ -38,10 +39,26 @@ export default function CollectionDetailPage({ params }: ParamType) {
   const [value, setValue] = useState('');
 
   // 폴더 상세(콜렉션) 조회
-  const { data } = useQuery({
-    queryKey: [QUERY_KEYS.getCollection],
-    queryFn: () => getCollection({ folderId }),
+  const {
+    data: listData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery<CollectionListResponseType>({
+    queryKey: [QUERY_KEYS.getCollection, folderId],
+    queryFn: ({ pageParam: cursorId }) => getCollection(folderId, cursorId as string),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
     enabled: !!folderId,
+  });
+
+  const lists = useMemo(() => {
+    return listData ? listData.pages.flatMap(({ collectionLists }) => collectionLists) : [];
+  }, [listData]);
+
+  const ref = useIntersectionObserver(() => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
   });
 
   // 폴더 수정하기 mutation
@@ -105,14 +122,20 @@ export default function CollectionDetailPage({ params }: ParamType) {
   };
 
   useEffect(() => {
-    if (data) {
-      setValue(data?.folderName);
+    if (listData) {
+      setValue(listData.pages[0].folderName);
     }
-  }, [data]);
+  }, []);
 
   return (
     <section className={styles.container}>
-      <Collections folderId={folderId} handleSetOn={handleSetOn} handleSetOnDeleteOption={handleSetOnDeleteOption} />
+      <Collections
+        collectionList={lists}
+        folderName={listData?.pages[0].folderName ?? ''}
+        isHideOption={folderId === '0'}
+        handleSetOn={handleSetOn}
+        handleSetOnDeleteOption={handleSetOnDeleteOption}
+      />
       <BottomSheet isOn={isOn}>
         <BottomSheet.Title>폴더 이름 바꾸기</BottomSheet.Title>
         <input
@@ -137,6 +160,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
           {['취소', '삭제']}
         </BottomSheet.Button>
       </BottomSheet>
+      <div className={styles.target} ref={ref}></div>
     </section>
   );
 }

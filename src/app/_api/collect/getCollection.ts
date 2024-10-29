@@ -1,30 +1,26 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { CollectionType } from '@/lib/types/listType';
 
-interface GetCollectionType {
-  folderId: string;
-  cursorId?: number;
-}
-
-interface ResponseType {
+export interface CollectionListResponseType {
   collectionLists: CollectionType[];
-  cursorId: number;
+  cursorId: string;
   hasNext: boolean;
   folderName: string;
 }
 
-async function getCollection({ folderId, cursorId }: GetCollectionType) {
+const getCollection = async (folderId: string, cursorId?: string) => {
   const params = new URLSearchParams({
-    size: '8',
+    size: '10',
   });
 
   if (cursorId) {
     params.append('cursorId', cursorId.toString());
   }
 
-  const response = await axiosInstance.get<ResponseType>(`/folder/${folderId}/collections?${params.toString()}`);
-
+  const response = await axiosInstance.get<CollectionListResponseType>(
+    `/folder/${folderId}/collections?${params.toString()}`
+  );
   return response.data;
-}
+};
 
 export default getCollection;
