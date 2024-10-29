@@ -4,26 +4,23 @@ import { vars } from '@/styles/theme.css';
 export const titleSection = style({
   padding: '25px 16px 40px',
 
-  backgroundColor: '#3D95FF',
-});
-
-export const categoryList = style({
   display: 'flex',
-  flexDirection: 'row',
-  gap: '4px',
+  flexDirection: 'column',
+
+  backgroundColor: '#3D95FF',
 });
 
 export const category = style({
   padding: '6px 12px',
-  marginBottom: '12px',
 
   backgroundColor: vars.color.white,
   fontSize: '1.4rem',
   color: vars.color.bluegray8,
-  borderRadius: '9999px',
+  borderRadius: '16px',
 });
 
 export const title = style({
+  marginTop: '14px',
   marginBottom: '11px',
 
   color: vars.color.white,

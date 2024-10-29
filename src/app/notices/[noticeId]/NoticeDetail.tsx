@@ -12,13 +12,9 @@ function NoticeDetailComponent() {
   return (
     <>
       <section className={styles.titleSection}>
-        <ul className={styles.categoryList}>
-          {data.category.map((el, idx) => (
-            <li key={idx.toString()}>
-              <div className={styles.category}>{el}</div>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <span className={styles.category}>{data.category}</span>
+        </div>
         <h3 className={styles.title}>{data.title}</h3>
         <div className={styles.titleSectionDescription}>{data.description}</div>
         <p className={styles.titleSectionCreatedDate}>{data.createdDate}</p>

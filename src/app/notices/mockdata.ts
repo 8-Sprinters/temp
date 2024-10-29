@@ -6,7 +6,7 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-10-01',
     title: 'New Feature Release',
     itemImageUrl: null,
-    category: ['공지'],
+    category: '소식',
     description: 'We have released a new feature that will enhance your experience.',
   },
   {
@@ -14,7 +14,7 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-09-28',
     title: 'Scheduled Maintenance',
     itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
-    category: ['공지'],
+    category: '이벤트',
     description: 'The system will undergo maintenance on October 5th. Please be aware of potential downtime.',
   },
   {
@@ -22,7 +22,7 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-09-25',
     title: 'Holiday Event',
     itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
-    category: ['이벤트&뉴스'],
+    category: '팁',
     description: 'Join our special holiday event starting October 10th with exciting offers!',
   },
   {
@@ -30,7 +30,7 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-09-22',
     title: 'Security Update',
     itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
-    category: ['공지'],
+    category: '소식',
     description: 'We have implemented new security protocols to better protect user data.',
   },
   {
@@ -38,7 +38,7 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-09-18',
     title: '5 Tips to Maximize Productivity',
     itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
-    category: ['팁'],
+    category: '팁',
     description: 'Learn how to improve your productivity with these simple tips.',
   },
   {
@@ -46,7 +46,7 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-09-15',
     title: 'Server Downtime Resolved',
     itemImageUrl: null,
-    category: ['공지'],
+    category: '이벤트',
     description: 'The recent server issue has been resolved. All systems are back online.',
   },
   {
@@ -54,14 +54,14 @@ export const NOTICE_LIST_MOCKDATA: NoticeListItemType[] = [
     createdDate: '2024-09-10',
     title: 'New Blog Post Available',
     itemImageUrl: 'https://singlesumer.com/files/attach/images/138/863/046/f787f76706d1b00f77ea67d4d2b833f4.jpg',
-    category: ['이벤트&뉴스'],
+    category: '소식',
     description: 'Check out our latest blog post on the importance of cybersecurity.',
   },
 ];
 
 export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
   id: 1,
-  category: ['공지', '팁'],
+  category: '소식',
   title: '서비스 점검 안내',
   description: '서비스 점검이 10월 20일에 진행될 예정입니다.',
   content: [
