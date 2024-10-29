@@ -11,7 +11,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import toasting from '@/lib/utils/toasting';
 import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
-import * as styles from './UsersRecommendation.css';
+import * as styles from './RecommendedUsers.css';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import Modal from '@/components/Modal/Modal';

@@ -7,6 +7,8 @@ export const QUERY_KEYS = {
   getCategories: 'getCategories',
   getComments: 'getComments',
   getRecommendedLists: 'getRecommendedLists',
+  getRecentLists: 'getRecentLists',
+  getFollowingLists: 'getFollowingLists',
   getRecommendedUsers: 'getRecommendedUsers',
   getTrendingLists: 'getTrendingLists',
   getNotificationAllChecked: 'getNotificationOnAllChecked',
@@ -28,5 +30,6 @@ export const QUERY_KEYS = {
   getCollection: 'getCollection',
   getFolders: 'getFolders',
   getCollectionCategories: 'getCollectionCategories', // ver2.0
+  getAdminTopics: 'getAdminTopics',
   getTopics: 'getTopics',
 };

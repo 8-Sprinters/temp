@@ -6,15 +6,15 @@ export const wrapper = style({
   padding: '0 16px',
 });
 
-export const sectionTitle = style([
-  headlineSmall,
-  {
-    fontWeight: 600,
-  },
-]);
+export const sectionTitle = style({
+  color: '#323A43',
+  fontSize: '1.8rem',
+  fontWeight: 700,
+  letterSpacing: '-0.54px',
+});
 
 export const titleWrapper = style({
-  marginBottom: '26px',
+  marginBottom: '12px',
 
   display: 'flex',
   alignItems: 'baseline',
@@ -22,11 +22,11 @@ export const titleWrapper = style({
 });
 
 export const recommendUsersListWrapper = style({
-  marginBottom: '30px',
+  marginBottom: '12px',
 
   display: 'flex',
   alignItems: 'center',
-  gap: '6px',
+  gap: '20px',
   overflowX: 'scroll',
 
   '::-webkit-scrollbar': {
@@ -36,7 +36,7 @@ export const recommendUsersListWrapper = style({
 
 export const recommendUserWrapper = style({
   padding: '12px 9px',
-  width: '160px',
+  width: '122px',
   height: 'auto',
 
   position: 'relative',
@@ -46,9 +46,6 @@ export const recommendUserWrapper = style({
   alignItems: 'center',
   flexGrow: 0,
   flexShrink: 0,
-
-  borderRadius: '5px',
-  border: `1px solid ${vars.color.gray5}`,
 });
 
 export const closeButton = style({
@@ -58,9 +55,9 @@ export const closeButton = style({
 });
 
 export const imageWrapper = style({
-  marginBottom: '13px',
-  width: '110px',
-  height: '110px',
+  marginBottom: '10px',
+  width: '122px',
+  height: '122px',
 
   position: 'relative',
 });
@@ -72,33 +69,32 @@ export const recommendUserProfileImage = style({
   backgroundColor: vars.color.lightblue,
 });
 
-export const recommendUserNickname = style([
-  titleSmall,
-  {
-    marginBottom: '10px',
+export const recommendUserNickname = style({
+  color: '#121417',
+  marginBottom: '6px',
+  textAlign: 'center',
+  fontSize: '14px',
+  fontWeight: 400,
+  letterSpacing: '-0.28px',
+});
 
-    color: vars.color.black,
-  },
-]);
+export const followButtonDefault = style({
+  width: 'auto',
+  height: 'auto',
+  padding: '4px 6px',
 
-export const followButtonDefault = style([
-  titleSmall,
-  {
-    width: '100%',
-    padding: '4px 0',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    backgroundColor: vars.color.blue,
-    borderRadius: '9px',
-    color: vars.color.white,
-  },
-]);
+  backgroundColor: '#3D95FF',
+  borderRadius: '20px',
+  color: vars.color.white,
+  fontSize: '1.2rem',
+  fontWeight: '400',
+});
 
 export const followButtonFollowing = style({
-  background: vars.color.white,
-  border: `1px solid ${vars.color.black}`,
-  color: vars.color.black,
+  backgroundColor: vars.color.white,
+  color: '#8599AD',
 });

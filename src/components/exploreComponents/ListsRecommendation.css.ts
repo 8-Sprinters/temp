@@ -6,6 +6,7 @@ export const listBackground = createVar();
 
 export const wrapperOuter = style({
   padding: '0 16px 70px',
+  marginTop: '12px',
 
   display: 'flex',
   flexDirection: 'column',
@@ -38,14 +39,14 @@ const listWrapperHoverAnimation = keyframes({
 export const listWrapper = style({
   width: '100%',
   marginBottom: '35px',
-  padding: '44px 24px 14px',
+  padding: '30px 24px 14px',
 
   position: 'relative',
 
   display: 'flex',
   flexDirection: 'column',
   borderRadius: '24px',
-  backgroundColor: listBackground,
+  backgroundColor: '#fff',
 
   ':hover': {
     animation: `${listWrapperHoverAnimation} 0.1s forwards`,
@@ -53,65 +54,64 @@ export const listWrapper = style({
   },
 });
 
-export const labelsWrapper = style({
+export const listTopWrapper = style({
   display: 'flex',
-  gap: '8px',
-});
-
-export const labelWrapper = style({
-  marginRight: '8px',
-});
-
-export const categoryWrapper = style({
-  marginBottom: '11px',
-
-  display: 'flex',
-  justifyContent: 'flex-start',
   alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+export const version = style({
+  padding: '6px 12px',
+
+  fontWeight: '400',
+  letterSpacing: '-3%',
+  fontSize: '1.4rem',
+  color: '#3D95FF',
+  backgroundColor: '#EEF6FF',
+  borderRadius: '20px',
 });
 
 export const listInformationWrapper = style({
-  marginBottom: '23px',
+  marginBottom: '20px',
 
   display: 'flex',
   flexDirection: 'column',
 });
 
-export const listTitle = style([
-  headlineSmall,
-  {
-    color: vars.color.black,
-    wordBreak: 'break-word',
-  },
-]);
+export const listTitle = style({
+  color: '#3E4455',
+  wordBreak: 'break-word',
+  fontWeight: '700',
+  fontSize: '2rem',
+  letterSpacing: '-3%',
+});
 
-export const listDescription = style([
-  bodyMedium,
-  {
-    marginTop: '13px',
+export const listDescription = style({
+  marginTop: '13px',
 
-    color: vars.color.gray9,
-    wordBreak: 'break-word',
-  },
-]);
+  fontWeight: '400',
+  fontSize: '1.6rem',
+  color: '#3E4455',
+  wordBreak: 'break-word',
+});
 
 export const ownerInformationWrapper = style({
   display: 'flex',
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   gap: '8px',
 });
 
-export const ownerNicknameText = style([
-  bodySmall,
-  {
-    color: vars.color.black,
-  },
-]);
+export const ownerNicknameText = style({
+  color: '#676B75',
+  fontSize: '1.6rem',
+  fontWeight: '500',
+  letterSpacing: '-3%',
+});
 
 export const profileImageWrapper = style({
-  width: '30px',
-  height: '30px',
+  width: '40px',
+  height: '40px',
 
   position: 'relative',
 });
@@ -129,27 +129,6 @@ export const simpleListWrapper = style({
   flexDirection: 'column',
   gap: '10px',
 
-  borderRadius: '15px',
-  border: `1px solid ${vars.color.gray5}`,
+  borderTop: `1px solid ${vars.color.gray5}`,
   backgroundColor: vars.color.white,
-});
-
-export const showMoreButtonWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '3px',
-
-  cursor: 'pointer',
-});
-
-export const showMoreButton = style([
-  labelSmall,
-  {
-    color: vars.color.gray9,
-  },
-]);
-
-export const noData = style({
-  margin: '20px 0 70px',
 });

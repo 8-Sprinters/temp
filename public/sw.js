@@ -1,101 +1,674 @@
-/**
- * Copyright 2018 Google Inc. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *     http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-// If the loader is already loaded, just stop.
 if (!self.define) {
-  let registry = {};
-
-  // Used for `eval` and `importScripts` where we can't get script URL by other means.
-  // In both cases, it's safe to use a global var because those functions are synchronous.
-  let nextDefineUri;
-
-  const singleRequire = (uri, parentUri) => {
-    uri = new URL(uri + ".js", parentUri).href;
-    return registry[uri] || (
-      
-        new Promise(resolve => {
-          if ("document" in self) {
-            const script = document.createElement("script");
-            script.src = uri;
-            script.onload = resolve;
-            document.head.appendChild(script);
-          } else {
-            nextDefineUri = uri;
-            importScripts(uri);
-            resolve();
-          }
-        })
-      
-      .then(() => {
-        let promise = registry[uri];
-        if (!promise) {
-          throw new Error(`Module ${uri} didn’t register its module`);
-        }
-        return promise;
+  let e,
+    s = {};
+  const i = (i, a) => (
+    (i = new URL(i + '.js', a).href),
+    s[i] ||
+      new Promise((s) => {
+        if ('document' in self) {
+          const e = document.createElement('script');
+          (e.src = i), (e.onload = s), document.head.appendChild(e);
+        } else (e = i), importScripts(i), s();
+      }).then(() => {
+        let e = s[i];
+        if (!e) throw new Error(`Module ${i} didn’t register its module`);
+        return e;
       })
-    );
-  };
-
-  self.define = (depsNames, factory) => {
-    const uri = nextDefineUri || ("document" in self ? document.currentScript.src : "") || location.href;
-    if (registry[uri]) {
-      // Module is already loading or loaded.
-      return;
-    }
-    let exports = {};
-    const require = depUri => singleRequire(depUri, uri);
-    const specialDeps = {
-      module: { uri },
-      exports,
-      require
-    };
-    registry[uri] = Promise.all(depsNames.map(
-      depName => specialDeps[depName] || require(depName)
-    )).then(deps => {
-      factory(...deps);
-      return exports;
-    });
+  );
+  self.define = (a, c) => {
+    const n = e || ('document' in self ? document.currentScript.src : '') || location.href;
+    if (s[n]) return;
+    let o = {};
+    const r = (e) => i(e, n),
+      d = { module: { uri: n }, exports: o, require: r };
+    s[n] = Promise.all(a.map((e) => d[e] || r(e))).then((e) => (c(...e), o));
   };
 }
-define(['./workbox-a20113bf'], (function (workbox) { 'use strict';
-
-  importScripts();
-  self.skipWaiting();
-  workbox.clientsClaim();
-  workbox.registerRoute("/", new workbox.NetworkFirst({
-    "cacheName": "start-url",
-    plugins: [{
-      cacheWillUpdate: async ({
-        request,
-        response,
-        event,
-        state
-      }) => {
-        if (response && response.type === 'opaqueredirect') {
-          return new Response(response.body, {
-            status: 200,
-            statusText: 'OK',
-            headers: response.headers
-          });
-        }
-        return response;
-      }
-    }]
-  }), 'GET');
-  workbox.registerRoute(/.*/i, new workbox.NetworkOnly({
-    "cacheName": "dev",
-    plugins: []
-  }), 'GET');
-
-}));
-//# sourceMappingURL=sw.js.map
+define(['./workbox-c95f9b89'], function (e) {
+  'use strict';
+  importScripts(),
+    self.skipWaiting(),
+    e.clientsClaim(),
+    e.precacheAndRoute(
+      [
+        { url: '/_next/app-build-manifest.json', revision: '92f0e34ee25137f65ed3153a75fc302b' },
+        { url: '/_next/static/5nxbEGFvdgNpHPk_9r0R5/_buildManifest.js', revision: 'cbc471fb8d0d45b3a46987b48f224da4' },
+        { url: '/_next/static/5nxbEGFvdgNpHPk_9r0R5/_ssgManifest.js', revision: 'b6652df95db52feb4daf4eca35380933' },
+        { url: '/_next/static/chunks/1431-54fefdfa440e1650.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/2080.94f266ec92cebab6.js', revision: '94f266ec92cebab6' },
+        { url: '/_next/static/chunks/2175-637415379c3bb71d.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/2181-cd43ceee7e78b1af.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/2472-e8ae552231acaff3.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/2629-8803fd31fab914e1.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/3302-08e60c8dc7f67d10.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/3709-6b562168990c9a8a.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/3783-1958e75e23022ca8.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/381-d9cbac8abf7a6b19.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/3975359d.20a905d3f696a4b0.js', revision: '20a905d3f696a4b0' },
+        { url: '/_next/static/chunks/413-d7087f5c18b26dfb.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/4152-d3060b6c71d84516.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/4224-e47effdf1735da06.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/4403-932ea203a9c9779b.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/4986-98d6619813fd422e.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/5167-13fe582eb5a0a9fd.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/5340-f6439465c2046c76.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/5671-f5d07a88762d055c.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/5948-14aae0fa79a17b4f.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/5987.b314e7c0e4ca6019.js', revision: 'b314e7c0e4ca6019' },
+        { url: '/_next/static/chunks/6503-23cf9c0adbb84cf9.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/7108-f01d454415fdd2d8.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/8326-1c78b9ff47c5f195.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/9061-9b3c5b78db329ee0.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/9378-bbef32f0c86a50ff.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/9583-97bd19fa3975d683.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/9714-7003c6f99537e848.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/975-28fcc50d4b7f1cea.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/(home)/layout-21572c88fc5e7d32.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/(home)/page-9c6c191c35c519bb.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/account/page-ec8d141d93350411.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/account/profile/page-4c2e7aea947c5153.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        {
+          url: '/_next/static/chunks/app/account/withdraw/page-cd5fcffb04647e08.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/auth/redirect/kakao/page-4ec3c9d0afc89af8.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/collection/%5BfolderId%5D/page-1a7e9840db50e143.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        { url: '/_next/static/chunks/app/collection/page-0ba3ce7200e81ea7.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/layout-ae15ed5c99a772a6.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        {
+          url: '/_next/static/chunks/app/list/%5BlistId%5D/edit/page-21234a323c67aa3e.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/list/%5BlistId%5D/history/page-88e8115844344008.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/list/%5BlistId%5D/page-2d51f2d986554965.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        { url: '/_next/static/chunks/app/list/create/page-790b3e7db301fef1.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/not-found-abe431e57148ecd6.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        {
+          url: '/_next/static/chunks/app/notices/%5BnoticeId%5D/page-3ef7759ff9ee662f.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        { url: '/_next/static/chunks/app/notices/layout-ed020ebe735e786a.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/notices/page-64f39d2ac8e32d04.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/notification/page-83c82537096217f6.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/search/page-2c9b55433a6c7b42.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/app/start-listy/page-3c93f748a4e509ab.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        {
+          url: '/_next/static/chunks/app/user/%5BuserId%5D/(follow)/followers/page-b32cd89df189b9a7.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/user/%5BuserId%5D/(follow)/followings/page-77812bb19701d236.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/user/%5BuserId%5D/collabolist/page-4a9cf9b44af8a476.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/user/%5BuserId%5D/mylist/page-8116a9840872162c.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        {
+          url: '/_next/static/chunks/app/withdrawn-account/page-d044bb173a1550a4.js',
+          revision: '5nxbEGFvdgNpHPk_9r0R5',
+        },
+        { url: '/_next/static/chunks/dc112a36-a26ec11f6dfc39b0.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/eeac573e-379a37b61a843f32.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/fd9d1056-9469e701c612d19b.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/framework-4498e84bb0ba1830.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/main-636390417b266abe.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/main-app-f9d2ea17ff72ddbb.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/pages/_app-8ace8cb53043124a.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/pages/_error-799b6191c844551c.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js', revision: '837c0df77fd5009c9e46d446188ecfd0' },
+        { url: '/_next/static/chunks/webpack-4f1b308c0840d742.js', revision: '5nxbEGFvdgNpHPk_9r0R5' },
+        { url: '/_next/static/css/0ab870a4df7fbc2c.css', revision: '0ab870a4df7fbc2c' },
+        { url: '/_next/static/css/1361cf6b2b4cb0af.css', revision: '1361cf6b2b4cb0af' },
+        { url: '/_next/static/css/14b2e3b574f5e034.css', revision: '14b2e3b574f5e034' },
+        { url: '/_next/static/css/1707a3d99ee453c5.css', revision: '1707a3d99ee453c5' },
+        { url: '/_next/static/css/18ca4472b65c760d.css', revision: '18ca4472b65c760d' },
+        { url: '/_next/static/css/1b2e447e3c80179c.css', revision: '1b2e447e3c80179c' },
+        { url: '/_next/static/css/208b6a993de51eaf.css', revision: '208b6a993de51eaf' },
+        { url: '/_next/static/css/280b23f213d90d1c.css', revision: '280b23f213d90d1c' },
+        { url: '/_next/static/css/29f29fc1d1850b2e.css', revision: '29f29fc1d1850b2e' },
+        { url: '/_next/static/css/2c375b1b45994eb5.css', revision: '2c375b1b45994eb5' },
+        { url: '/_next/static/css/367d5e26cb3af35a.css', revision: '367d5e26cb3af35a' },
+        { url: '/_next/static/css/376dc32deef000df.css', revision: '376dc32deef000df' },
+        { url: '/_next/static/css/3e2219ae9d565d75.css', revision: '3e2219ae9d565d75' },
+        { url: '/_next/static/css/4271835ee8545eed.css', revision: '4271835ee8545eed' },
+        { url: '/_next/static/css/42f1b14d07aa835c.css', revision: '42f1b14d07aa835c' },
+        { url: '/_next/static/css/719178bc16e534ac.css', revision: '719178bc16e534ac' },
+        { url: '/_next/static/css/87114319cedc4e94.css', revision: '87114319cedc4e94' },
+        { url: '/_next/static/css/892c4a1f42e9be13.css', revision: '892c4a1f42e9be13' },
+        { url: '/_next/static/css/b0f31944929b1918.css', revision: 'b0f31944929b1918' },
+        { url: '/_next/static/css/c77302c90dd928d6.css', revision: 'c77302c90dd928d6' },
+        { url: '/_next/static/css/d05e712bf441c548.css', revision: 'd05e712bf441c548' },
+        { url: '/_next/static/css/ec48ca834057e269.css', revision: 'ec48ca834057e269' },
+        { url: '/_next/static/css/f13e72b2058a6547.css', revision: 'f13e72b2058a6547' },
+        { url: '/_next/static/css/f53e931a7f80c78c.css', revision: 'f53e931a7f80c78c' },
+        { url: '/_next/static/css/f5721bb0afa35a7e.css', revision: 'f5721bb0afa35a7e' },
+        { url: '/_next/static/css/fa202f80606cccbf.css', revision: 'fa202f80606cccbf' },
+        {
+          url: '/_next/static/media/fallback_profileImage.cb99c69e.webp',
+          revision: 'da0ee9aad58808229d9bd8d6c7621e6d',
+        },
+        { url: '/fonts/Pretendard-Black.woff2', revision: '9c448b4c6a74fa9d0f3c5f587dddd61d' },
+        { url: '/fonts/Pretendard-Bold.woff2', revision: 'ada305dc6b509a75b5e214975053bcb3' },
+        { url: '/fonts/Pretendard-ExtraBold.woff2', revision: '6d788c9ff2c0479213ff4a11b547592c' },
+        { url: '/fonts/Pretendard-ExtraLight.woff2', revision: 'a96413cb14c07666b10527782084339f' },
+        { url: '/fonts/Pretendard-Light.woff2', revision: '53349e45ddb87964edb163e00e1c8c47' },
+        { url: '/fonts/Pretendard-Medium.woff2', revision: 'd801e8cc91183adaee1657a231180593' },
+        { url: '/fonts/Pretendard-Regular.woff2', revision: '8e19dfa697923356ce5710c7ca2b2a65' },
+        { url: '/fonts/Pretendard-SemiBold.woff2', revision: '6101e99fb33bfa6ab7f52390565a71e5' },
+        { url: '/fonts/Pretendard-Thin.woff2', revision: '377e37748604e1df779361b4eb5c2e95' },
+        { url: '/icons/add.svg', revision: '4425d07c154460aafca881eb352411de' },
+        { url: '/icons/airplane_send.svg', revision: 'ad9e1b4d613acab284035477afa3975a' },
+        { url: '/icons/arrow_up.svg', revision: 'e2fe9aaa53bddc8550ce26cbe5070a42' },
+        { url: '/icons/attach_image.svg', revision: 'be7110b450056a070553f75d50b46679' },
+        { url: '/icons/avatar.svg', revision: 'c38e0eff2d48d837815312c02c5dc4dc' },
+        { url: '/icons/back.svg', revision: 'b364998443ea6d7e23745c752fd70d63' },
+        { url: '/icons/bell.svg', revision: '32352b54d547c6c3d1e9ada98f89cf74' },
+        { url: '/icons/camera.svg', revision: '330209cd0da38e1233539b0d7f9395b5' },
+        { url: '/icons/cancel_button.svg', revision: 'f37871286eda108471a6227476a4846d' },
+        { url: '/icons/category_book.svg', revision: 'fab53573bc0ec81e6d8b59bbf4e34659' },
+        { url: '/icons/category_culture.svg', revision: '94f67ed1c1f36b9a8bb0eb42cd6c110f' },
+        { url: '/icons/category_life.svg', revision: '9942c611ab7c78c476d0f66e2871ba98' },
+        { url: '/icons/category_movie.svg', revision: 'de8638a11585c5beb7875731a295da7a' },
+        { url: '/icons/category_music.svg', revision: 'f7023c3a47f054a6eec2fbaf702893ae' },
+        { url: '/icons/category_place.svg', revision: 'afbccf56987ab73b18ad40dcfa783124' },
+        { url: '/icons/category_plant.svg', revision: 'b29d14c2d8c3137e4b81340aed28faac' },
+        { url: '/icons/check_blue.svg', revision: 'ecf5f4558d2b997ee800e0d8be6cd1f3' },
+        { url: '/icons/check_red.svg', revision: '4685830ec32b07af33dec614f974f5ea' },
+        { url: '/icons/checked_box.svg', revision: 'e1c164756efee929c2dc79a69ca28bd2' },
+        { url: '/icons/chevron_down.svg', revision: '768e4eda9f11abec7b3c2d3b7e7bf7f1' },
+        { url: '/icons/chevron_down_double.svg', revision: '39db88f2f4d7ee5c5ca381236a678e1b' },
+        { url: '/icons/chevron_down_sm.svg', revision: 'c38f7ad4270d1b2b2bf58aa46a899a2b' },
+        { url: '/icons/chevron_right.svg', revision: '0981b5f20e80efe7c34a5e9965c4a799' },
+        { url: '/icons/chevron_right_double.svg', revision: '5031077510c715b23d1b69c647376c9f' },
+        { url: '/icons/clear.svg', revision: '0435c8c9dca7ba73151b9e6c65a16218' },
+        { url: '/icons/clear_x_black.svg', revision: 'afdc0d53a562264d83dadd53723c63f7' },
+        { url: '/icons/clear_x_gray.svg', revision: '9b0ad47d68a785c05d33e14e470b402e' },
+        { url: '/icons/close_button.svg', revision: '1fab35cbd9be65553a64bbf36bcd9d6e' },
+        { url: '/icons/close_x_gray.svg', revision: '0bcc117b0bd5907003ce331abecc7e76' },
+        { url: '/icons/collaborators_plus.svg', revision: 'c117159fa7c4c764ac0ab389316792f5' },
+        { url: '/icons/collect.svg', revision: '4f247a85bedadd00fc3f469116213bb3' },
+        { url: '/icons/collected.svg', revision: '98a75e6a6ea677a3dd6c9729ccf69fde' },
+        { url: '/icons/collection.svg', revision: '69158f2eb6537ca8efb74e8eae764e98' },
+        { url: '/icons/crown.svg', revision: 'a12dc0a19271aa84604031f5355ea5c1' },
+        { url: '/icons/crown_new.svg', revision: 'a12dc0a19271aa84604031f5355ea5c1' },
+        { url: '/icons/default_profile.svg', revision: 'd87c8bacd2b227486709030e5ebf01e0' },
+        { url: '/icons/default_profile_temporary.svg', revision: '375ece560a523e079a70856166f33caf' },
+        { url: '/icons/dnd.svg', revision: '9ae62327214195bec89e980cb36ea4d0' },
+        { url: '/icons/edit_pen.svg', revision: '2956f49354f81288ac251afa207fbabb' },
+        { url: '/icons/error_x.svg', revision: 'c97ed9dbb02009ebfb0e6c9954778e39' },
+        { url: '/icons/etc.svg', revision: '5e44ef8361c08d2cea1188c785d4413d' },
+        { url: '/icons/explore.svg', revision: '8d3b400ab31f2e571649c3ad347d2177' },
+        { url: '/icons/eye.svg', revision: '5144d71ecbdb9e6fba87ea8d441f75be' },
+        { url: '/icons/eye_emoji.svg', revision: '14b342ab5a5e76e73d0b5476fc6c9b0a' },
+        { url: '/icons/folder_animal_plant.svg', revision: 'abaaaec9002f86dcc614167125b375eb' },
+        { url: '/icons/folder_book.svg', revision: 'c95035883cf0147f8900299365649e05' },
+        { url: '/icons/folder_culture.svg', revision: '554e8750785552e4bb44b6546100d240' },
+        { url: '/icons/folder_entire.svg', revision: '8b52528573eee0edf322c8cb824b64a8' },
+        { url: '/icons/folder_etc.svg', revision: 'a3683e4478a9039625cbc8555b84aa29' },
+        { url: '/icons/folder_food.svg', revision: 'e50bcc4dcb50edb033a5c208e8b31cb0' },
+        { url: '/icons/folder_life.svg', revision: '7ff9278a980e58b0a23c0aa7d5042807' },
+        { url: '/icons/folder_movie_drama.svg', revision: '87cc85701e0bfd8801027c65086bfa81' },
+        { url: '/icons/folder_music.svg', revision: 'fd2e5c17e1ed7c78c34078cbbc3e4f6c' },
+        { url: '/icons/folder_place.svg', revision: 'cfa79817cf838d2edd063ca4b8e61e99' },
+        { url: '/icons/globe.svg', revision: '88761bfb02615fad335fb0c70d5226a3' },
+        { url: '/icons/google_login.svg', revision: '8153f680c62a54614b88a3ed392c3977' },
+        { url: '/icons/heart_3d.svg', revision: '272534d60024a7283a4f9f5c64b36b65' },
+        { url: '/icons/help_circle.svg', revision: 'bb43751e5a610362e746d3da0ff36a58' },
+        { url: '/icons/history.svg', revision: '391ee903bb1d3e416cafe69b1cc5f1d0' },
+        { url: '/icons/horizontal_line.svg', revision: '14dd20f3381f42e6b4d15a13788f00eb' },
+        { url: '/icons/kakao_login.svg', revision: '74efc38a2cbaed5f2e1c5920d804469a' },
+        { url: '/icons/kakao_login_narrow.svg', revision: '2c451193f6512b5c54aa47ec48779fce' },
+        { url: '/icons/large_logo.svg', revision: 'd2eb0e07b8c3ea82139b013f80ba621d' },
+        { url: '/icons/link.svg', revision: '3296c0ece6ad96462b1b353af53b8c7e' },
+        { url: '/icons/linkIcon_3d.svg', revision: '23fea7f7834b0dc7b262490f5d019f06' },
+        { url: '/icons/lock.svg', revision: '3faff0690ba34aab22d1d968e4fdc05c' },
+        { url: '/icons/lock_alt.svg', revision: '302c1e8fe403d12f71ed5d1db92de222' },
+        { url: '/icons/logo.svg', revision: '88393a362293d548d027142b98b589a3' },
+        { url: '/icons/logo_circle.svg', revision: '3d7434bca194fb13d1c78c778ae47b7b' },
+        { url: '/icons/logout.svg', revision: 'efe25b6cb2e03e95bf080321d2e9856a' },
+        { url: '/icons/magnifying_glass.svg', revision: 'cba7405d9832deb8058f1dcfd2154ceb' },
+        { url: '/icons/message_square.svg', revision: '043aaa3b733b5078caed715fa7c42898' },
+        { url: '/icons/my_feed.svg', revision: 'b91a8d4db4f6ae5df2c022f85f742a4d' },
+        { url: '/icons/naver_login.svg', revision: 'cc2f0fe313a98312f7b8b2131bc63d5c' },
+        { url: '/icons/new/add.svg', revision: '9ebfc66cdc81453411846cdcb1b8d2b5' },
+        { url: '/icons/new/bookmark.svg', revision: '73cf41169171f006e2dc8403d6a133e2' },
+        { url: '/icons/new/bottom_nav_add.svg', revision: '85bf9d0dcd1d4900b362f26a76f01d40' },
+        { url: '/icons/new/bottom_nav_feed.svg', revision: 'c16209493c6294a19a97d3cd7111d45a' },
+        { url: '/icons/new/bottom_nav_home.svg', revision: '45318e9648d3a6fdd26ae848f077bf58' },
+        { url: '/icons/new/lock.svg', revision: 'effc519f08f38ca2739c1a4cd5e57acc' },
+        { url: '/icons/notification_on.svg', revision: '5457acf00dbe76a2b7586d37a57c7025' },
+        { url: '/icons/plus.svg', revision: '758d3402130afe8e54ba6600e3eb5d34' },
+        { url: '/icons/popup_menu.svg', revision: '5f58e7522878e7bb1f2d887ce78602f3' },
+        { url: '/icons/pwa/android/android-pwa-144.png', revision: 'ec347e82a6786d5fa5b3f17917b454b2' },
+        { url: '/icons/pwa/android/android-pwa-192.png', revision: '15c091efd31b5edf1f87b86211787859' },
+        { url: '/icons/pwa/android/android-pwa-48.png', revision: '6f22b2d25b7813253a500fc7725dc9a5' },
+        { url: '/icons/pwa/android/android-pwa-512.png', revision: 'f2ffc05ed366547235bbf4ddfcdac512' },
+        { url: '/icons/pwa/android/android-pwa-72.png', revision: 'bd099085259eaa5ca460e442f044b721' },
+        { url: '/icons/pwa/android/android-pwa-96.png', revision: '48e06f57f9c3b479f42963b4436c1746' },
+        { url: '/icons/pwa/ios/ios-pwa-100.png', revision: '70772572461c5d2663222c21f26b2d3d' },
+        { url: '/icons/pwa/ios/ios-pwa-1024.png', revision: '942a5a7bbfe5acafc81d3f7e548f1a60' },
+        { url: '/icons/pwa/ios/ios-pwa-114.png', revision: '570ebd75c0547798dc77c9801f7488c0' },
+        { url: '/icons/pwa/ios/ios-pwa-120.png', revision: '9ed17e4e2a87702b1ba9559837d61495' },
+        { url: '/icons/pwa/ios/ios-pwa-128.png', revision: 'f99968e0a2b71c45170ee80726ebe381' },
+        { url: '/icons/pwa/ios/ios-pwa-144.png', revision: 'ec347e82a6786d5fa5b3f17917b454b2' },
+        { url: '/icons/pwa/ios/ios-pwa-152.png', revision: 'a81073b984b13884e9cce5b58c123592' },
+        { url: '/icons/pwa/ios/ios-pwa-16.png', revision: 'e4d1cdaf6c87f451fd43f7eff776672d' },
+        { url: '/icons/pwa/ios/ios-pwa-167.png', revision: '5378f6c12a7fe4f52a0c82bbb2b12892' },
+        { url: '/icons/pwa/ios/ios-pwa-180.png', revision: '82183c7e6479ca065b2c3ae85e5f7460' },
+        { url: '/icons/pwa/ios/ios-pwa-192.png', revision: '15c091efd31b5edf1f87b86211787859' },
+        { url: '/icons/pwa/ios/ios-pwa-20.png', revision: '665a94c0e5d99c550e7bbaaf2112b666' },
+        { url: '/icons/pwa/ios/ios-pwa-256.png', revision: '15aee341b5656e6a50d29565427b017f' },
+        { url: '/icons/pwa/ios/ios-pwa-29.png', revision: '6f1b14984bd51b94381a683148d25b26' },
+        { url: '/icons/pwa/ios/ios-pwa-32.png', revision: 'cf960a7a7a88ad8d292934a9e283ae24' },
+        { url: '/icons/pwa/ios/ios-pwa-40.png', revision: 'd48df0d25902a37b3abcedd872914c3e' },
+        { url: '/icons/pwa/ios/ios-pwa-50.png', revision: '2bfc8f202d7c5395aa9c3ba27b7f8aec' },
+        { url: '/icons/pwa/ios/ios-pwa-512.png', revision: 'f2ffc05ed366547235bbf4ddfcdac512' },
+        { url: '/icons/pwa/ios/ios-pwa-57.png', revision: 'b8a5ca4580e0f09d9a2677e0bb50c041' },
+        { url: '/icons/pwa/ios/ios-pwa-58.png', revision: '9d130dc6e129961e73d7b32af3228026' },
+        { url: '/icons/pwa/ios/ios-pwa-60.png', revision: 'c79b35376cf831bf81e2360b142dcd3d' },
+        { url: '/icons/pwa/ios/ios-pwa-64.png', revision: '9a63e4497556dbb7425d3cc20380f99d' },
+        { url: '/icons/pwa/ios/ios-pwa-72.png', revision: 'bd099085259eaa5ca460e442f044b721' },
+        { url: '/icons/pwa/ios/ios-pwa-76.png', revision: 'ec7fc0ac3c8f03b2dfd2e96afec432a2' },
+        { url: '/icons/pwa/ios/ios-pwa-80.png', revision: '9dc0172c85474a197428afaf1f1e0f6f' },
+        { url: '/icons/pwa/ios/ios-pwa-87.png', revision: 'adaf96f12ac88b1684e4d5e9b1de5202' },
+        { url: '/icons/pwa/windows11/LargeTile.scale-100.png', revision: '248fa58a3ccdf7e0ed2c98f20fb2375a' },
+        { url: '/icons/pwa/windows11/LargeTile.scale-125.png', revision: '0952b908b026e24dddce188459e1c9ed' },
+        { url: '/icons/pwa/windows11/LargeTile.scale-150.png', revision: '1ba8f9220385e99e27ad5492c2023319' },
+        { url: '/icons/pwa/windows11/LargeTile.scale-200.png', revision: '54a1739fa32d94c5ade34024ba5d3267' },
+        { url: '/icons/pwa/windows11/LargeTile.scale-400.png', revision: '579f2bae2d59334132fc3bb490168709' },
+        { url: '/icons/pwa/windows11/SmallTile.scale-100.png', revision: 'fed433f8972075b8039618f998af4e82' },
+        { url: '/icons/pwa/windows11/SmallTile.scale-125.png', revision: '99a3050382ba5e49d2625818feb0d807' },
+        { url: '/icons/pwa/windows11/SmallTile.scale-150.png', revision: '7531347be38172a5988e13aa3c57d89b' },
+        { url: '/icons/pwa/windows11/SmallTile.scale-200.png', revision: '48b331b973bade0e0501dcab7d807938' },
+        { url: '/icons/pwa/windows11/SmallTile.scale-400.png', revision: '4d6889db49d6ff0568d96273f44f5b0c' },
+        { url: '/icons/pwa/windows11/SplashScreen.scale-100.png', revision: 'e1c5325dabd6729992a858e6906d5cad' },
+        { url: '/icons/pwa/windows11/SplashScreen.scale-125.png', revision: '6199d0d0552fb740a6c684253d7d1f2e' },
+        { url: '/icons/pwa/windows11/SplashScreen.scale-150.png', revision: '082903387369d78075f5511eee4b50a1' },
+        { url: '/icons/pwa/windows11/SplashScreen.scale-200.png', revision: '92b1bf10a23b4448b4e59f2da1f49f48' },
+        { url: '/icons/pwa/windows11/SplashScreen.scale-400.png', revision: '12d31bb9446bd9143b5f0a6b0eae90a6' },
+        { url: '/icons/pwa/windows11/Square150x150Logo.scale-100.png', revision: '2749207600d9314d23064ceecc84fc8b' },
+        { url: '/icons/pwa/windows11/Square150x150Logo.scale-125.png', revision: '76256650169125879d1852a88242fae1' },
+        { url: '/icons/pwa/windows11/Square150x150Logo.scale-150.png', revision: '8c7f307daea71623127a2f1fc85c8617' },
+        { url: '/icons/pwa/windows11/Square150x150Logo.scale-200.png', revision: '901cf1e928d8a0f937c06675999920d3' },
+        { url: '/icons/pwa/windows11/Square150x150Logo.scale-400.png', revision: '6e5e6d056e91d18306302c15b40d0d52' },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-16.png',
+          revision: '4f73fa41c23b45ac8f3aa433bd7ea042',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-20.png',
+          revision: '015cbd9b3c77b157f2fd217e75c0d9f6',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-24.png',
+          revision: 'c390fcb22692f215c8fb3b602dd4dd2c',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-256.png',
+          revision: '5b3bc883728de3446d3976cc17e82dd2',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-30.png',
+          revision: 'b56cc9838d243cf47d12775afefc262a',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-32.png',
+          revision: '5e2836ebec83614cf1622ba00485c4c1',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-36.png',
+          revision: '3d6a29076d59134dd07027ec0ac64e03',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-40.png',
+          revision: '2549c1b2c955aa49012d16062bc99414',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-44.png',
+          revision: 'c417b191f754a951ad8d6eb5cfb3938d',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-48.png',
+          revision: '02c8c0e165fc1b41f608a2a63988cbd4',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-60.png',
+          revision: '703785c61c38de647bd13a108662d0ce',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-64.png',
+          revision: 'b809431b0b6a971be98bc1c935ec8bac',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-72.png',
+          revision: '9d175bab7e7b4847dfc3eb5bfd4a2b86',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-80.png',
+          revision: '3c1ab974ed06b5dde97be528a9aab93d',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-96.png',
+          revision: '7b3b86e29bd1a182cb47cb2ce74dd063',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-16.png',
+          revision: '4f73fa41c23b45ac8f3aa433bd7ea042',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-20.png',
+          revision: '015cbd9b3c77b157f2fd217e75c0d9f6',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-24.png',
+          revision: 'c390fcb22692f215c8fb3b602dd4dd2c',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-256.png',
+          revision: '5b3bc883728de3446d3976cc17e82dd2',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-30.png',
+          revision: 'b56cc9838d243cf47d12775afefc262a',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-32.png',
+          revision: '5e2836ebec83614cf1622ba00485c4c1',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-36.png',
+          revision: '3d6a29076d59134dd07027ec0ac64e03',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-40.png',
+          revision: '2549c1b2c955aa49012d16062bc99414',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-44.png',
+          revision: 'c417b191f754a951ad8d6eb5cfb3938d',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-48.png',
+          revision: '02c8c0e165fc1b41f608a2a63988cbd4',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-60.png',
+          revision: '703785c61c38de647bd13a108662d0ce',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-64.png',
+          revision: 'b809431b0b6a971be98bc1c935ec8bac',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-72.png',
+          revision: '9d175bab7e7b4847dfc3eb5bfd4a2b86',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-80.png',
+          revision: '3c1ab974ed06b5dde97be528a9aab93d',
+        },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.altform-unplated_targetsize-96.png',
+          revision: '7b3b86e29bd1a182cb47cb2ce74dd063',
+        },
+        { url: '/icons/pwa/windows11/Square44x44Logo.scale-100.png', revision: 'c417b191f754a951ad8d6eb5cfb3938d' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.scale-125.png', revision: '22701d968d096945bd88e34ec0e6a741' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.scale-150.png', revision: '4fa5a51fb3f635e11503b6c03161c8c4' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.scale-200.png', revision: '191294b2265e161a92a064567c7feedb' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.scale-400.png', revision: '527a79bd90771b33c766a941f56442df' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-16.png', revision: '4f73fa41c23b45ac8f3aa433bd7ea042' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-20.png', revision: '015cbd9b3c77b157f2fd217e75c0d9f6' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-24.png', revision: 'c390fcb22692f215c8fb3b602dd4dd2c' },
+        {
+          url: '/icons/pwa/windows11/Square44x44Logo.targetsize-256.png',
+          revision: '5b3bc883728de3446d3976cc17e82dd2',
+        },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-30.png', revision: 'b56cc9838d243cf47d12775afefc262a' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-32.png', revision: '5e2836ebec83614cf1622ba00485c4c1' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-36.png', revision: '3d6a29076d59134dd07027ec0ac64e03' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-40.png', revision: '2549c1b2c955aa49012d16062bc99414' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-44.png', revision: 'c417b191f754a951ad8d6eb5cfb3938d' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-48.png', revision: '02c8c0e165fc1b41f608a2a63988cbd4' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-60.png', revision: '703785c61c38de647bd13a108662d0ce' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-64.png', revision: 'b809431b0b6a971be98bc1c935ec8bac' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-72.png', revision: '9d175bab7e7b4847dfc3eb5bfd4a2b86' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-80.png', revision: '3c1ab974ed06b5dde97be528a9aab93d' },
+        { url: '/icons/pwa/windows11/Square44x44Logo.targetsize-96.png', revision: '7b3b86e29bd1a182cb47cb2ce74dd063' },
+        { url: '/icons/pwa/windows11/StoreLogo.scale-100.png', revision: '2bfc8f202d7c5395aa9c3ba27b7f8aec' },
+        { url: '/icons/pwa/windows11/StoreLogo.scale-125.png', revision: 'fd1d270bd065fba99b97c9a3363657b4' },
+        { url: '/icons/pwa/windows11/StoreLogo.scale-150.png', revision: '7e8c506f0986261ac9144c5a32046a37' },
+        { url: '/icons/pwa/windows11/StoreLogo.scale-200.png', revision: '70772572461c5d2663222c21f26b2d3d' },
+        { url: '/icons/pwa/windows11/StoreLogo.scale-400.png', revision: 'd3899d097a3144718c8063b3fbc0348d' },
+        { url: '/icons/pwa/windows11/Wide310x150Logo.scale-100.png', revision: '31f543a1047a76ed582e3c8136543737' },
+        { url: '/icons/pwa/windows11/Wide310x150Logo.scale-125.png', revision: '583576fc99c1151f6000d40847def393' },
+        { url: '/icons/pwa/windows11/Wide310x150Logo.scale-150.png', revision: '8a5f2709f2b1c45863daf5105753d1eb' },
+        { url: '/icons/pwa/windows11/Wide310x150Logo.scale-200.png', revision: 'e1c5325dabd6729992a858e6906d5cad' },
+        { url: '/icons/pwa/windows11/Wide310x150Logo.scale-400.png', revision: '92b1bf10a23b4448b4e59f2da1f49f48' },
+        { url: '/icons/search.svg', revision: 'b0daeada51ad288fed573d94b731cef9' },
+        { url: '/icons/send.svg', revision: 'f8d8da7a46d39579379fb134a07983c7' },
+        { url: '/icons/setting.svg', revision: 'e0747a89be1f898a245f131d1132218a' },
+        { url: '/icons/settings.svg', revision: '4f2e9a0edb30b48323b1df11361e4b0d' },
+        { url: '/icons/share.svg', revision: '6f598c21f54a878807c319be61c0b302' },
+        { url: '/icons/share_alt.svg', revision: '5c932eb6d2d54b2d8a5ca33470040699' },
+        { url: '/icons/telescope.svg', revision: 'bafdd07a2c6db3eaa83828f74c36dc3e' },
+        { url: '/icons/trash_bin.svg', revision: '6968ca26f4dbc18790469bcfa7ece2bd' },
+        { url: '/icons/trash_can.svg', revision: 'e0be066d8b53158917e13e5f96100374' },
+        { url: '/icons/unchecked_box.svg', revision: 'd5fad617f49e4135b99eaa45f063201c' },
+        { url: '/icons/user.svg', revision: '7e8aec9ea767612406789f54ae33613c' },
+        { url: '/icons/ver3/Avatar.svg', revision: '61acea80e56df877b719c77d4aabc1e7' },
+        { url: '/icons/ver3/add.svg', revision: '85bf9d0dcd1d4900b362f26a76f01d40' },
+        { url: '/icons/ver3/bell.svg', revision: '2b38e0a3405693269ea2005f332eaa76' },
+        { url: '/icons/ver3/blue_heart.svg', revision: '9ad9425068e64f1d19647a8d69dd1e6a' },
+        { url: '/icons/ver3/chevron_down.svg', revision: '7b50ea8ae18b26287080815953e8d318' },
+        { url: '/icons/ver3/house.svg', revision: 'f09d6a9e3662e03bc06cf37b938e405b' },
+        { url: '/icons/ver3/list_create.svg', revision: 'b219e82d6ec50846b9ab3dbf92fe9209' },
+        { url: '/icons/ver3/search.svg', revision: '01dfb286776abe752b96fcaa7226d8fc' },
+        { url: '/icons/ver3/share.svg', revision: 'efec2ebc9a6473304334f9893dadd339' },
+        { url: '/icons/ver3/square_pencil.svg', revision: 'd2c95bf3e30694f764c176eadaf87b93' },
+        { url: '/icons/vertical_kebab_button.svg', revision: '4d6fb17555a3468e5c04bfca4bc76c69' },
+        { url: '/icons/withdraw_x.svg', revision: '06f2c44097743673ed79d028138d10e8' },
+        { url: '/icons/write.svg', revision: '020974cecc0f1750fc83fafc19a9ae0a' },
+        { url: '/icons/x_circle_fill.svg', revision: '5259ad04a49a4980759339041ccc3548' },
+        { url: '/images/arrow_left.svg', revision: 'e507a4d16ddcc89d1b83baf04b51ecc7' },
+        { url: '/images/arrow_right.svg', revision: '9e653f2a624cf8c9a0795ece0a245b70' },
+        { url: '/images/category_book.png', revision: '64af6478b3c85879a00d4e09f89b9973' },
+        { url: '/images/category_culture.png', revision: '3059e84cf9fb84909f6621456b6d1dd9' },
+        { url: '/images/category_life.png', revision: '4c28a691daf2be939cb064ea3a8d714d' },
+        { url: '/images/category_music.png', revision: 'b24c891fbdad0f0507d0bf5c7ab1c332' },
+        { url: '/images/category_place.png', revision: '6a7339fd780c407b74a0ffa1b57bf768' },
+        { url: '/images/category_plant.png', revision: 'e78a73b4280aec0d3a36557f0483a7a3' },
+        { url: '/images/category_play.png', revision: 'c27081f3b014ea20378fe6c85eae7f6f' },
+        { url: '/images/fallback_backgroundImage.webp', revision: '0b02871440b219d106c80ed6e00f2300' },
+        { url: '/images/fallback_list.webp', revision: 'a732c63f2f18cc864d880b625d2c260b' },
+        { url: '/images/fallback_profileImage.webp', revision: 'da0ee9aad58808229d9bd8d6c7621e6d' },
+        { url: '/images/fallback_renctangle.webp', revision: '242b1453f78280adec5f3a0627681c58' },
+        { url: '/images/fallback_square.lg.webp', revision: 'b384f5ddee188be53bd2db5c94d42143' },
+        { url: '/images/fallback_square.sm.webp', revision: 'dcca0795f367628c018e09d70d7549dc' },
+        { url: '/images/list_section3.png', revision: 'd13ba714a10a17b8786bb4837a415bf1' },
+        { url: '/images/mock_profile.png', revision: '8eacf17d25139b7268c91c49f2d78a8b' },
+        { url: '/images/new_list.png', revision: 'ad4be3e6aac226d4f5ec74b9174ad267' },
+        { url: '/images/no_data_image.svg', revision: '1b5772a07e6643affa128167747211c2' },
+        { url: '/images/not-found.svg', revision: 'e18e608a0064c1ac11c523fe348f22dc' },
+        { url: '/images/ocean.png', revision: 'b792611ed086669ea1834c3d02b26b38' },
+        { url: '/images/section3_hero.png', revision: 'f52bb6ff4b2757581be16b8d5080c4ce' },
+        { url: '/images/section3_hero.svg', revision: '128bf82d4c461963ee97b53695a6c6de' },
+        { url: '/images/section4_hero.svg', revision: 'e021539b0df0bf4b1ade605725266b9a' },
+        { url: '/images/section6_image1.png', revision: '66e685fc18cc37110e071c6dde4c9730' },
+        { url: '/images/section6_image2.png', revision: '2a7e77fe2c87323f75fef37842006c68' },
+        { url: '/images/section6_image3.png', revision: '3addb62e68e97f8585b9dc7678d2ae5e' },
+        { url: '/images/section6_image4.png', revision: 'fd8b6b29efb3625bd7be8e3bbfbf48de' },
+        { url: '/images/section6_image5.png', revision: '9fc31af2110e67a27ea9c05b44c6d249' },
+        { url: '/images/section6_image6.png', revision: 'f5b709ab87883ac86335f4c977c700c2' },
+        { url: '/images/section6_image7.png', revision: '4ac4d31569abbdcc6fd0ba357e9521b3' },
+        { url: '/images/section7_phone.png', revision: '37c4a84e59bf75bdbf71dca3292bc01c' },
+        { url: '/images/section7_phone2.png', revision: 'b2c1ce0706c1e1a5d4280a78f0f3fffa' },
+        { url: '/images/sparkle.png', revision: '543554be13d41aed3d6933284d0a8aed' },
+        { url: '/images/surf_wave.webp', revision: 'e851b7f596e49c5b1fbd965830066238' },
+        { url: '/images/tape_image.png', revision: '730361de353f53cc6a89827cfc6c4a66' },
+        { url: '/images/tape_image.svg', revision: '900fe1a4328849a08e01a35131ae7fee' },
+        { url: '/images/wave.png', revision: '7b1af732fc31975edf78c1b2546b9863' },
+        { url: '/images/wave_image.svg', revision: 'a64659308db08f313f7d1be49611c51b' },
+        { url: '/images/wave_surf.png', revision: '23dea9566bc7f4923c665691cfd52a56' },
+        { url: '/images/wave_surf.svg', revision: '4fefca4096e8c33dca1a8b11d5e218e2' },
+        { url: '/manifest.json', revision: 'fe9e116e457de46ecca8c8ca71ea38d3' },
+        { url: '/videos/record_video.mp4', revision: '725adb1154606c22664eabd8bfe01bb4' },
+        { url: '/videos/video_section3.mp4', revision: '62c561547deeb4eaee23a4c2255d5b88' },
+      ],
+      { ignoreURLParametersMatching: [] }
+    ),
+    e.cleanupOutdatedCaches(),
+    e.registerRoute(
+      '/',
+      new e.NetworkFirst({
+        cacheName: 'start-url',
+        plugins: [
+          {
+            cacheWillUpdate: async ({ request: e, response: s, event: i, state: a }) =>
+              s && 'opaqueredirect' === s.type
+                ? new Response(s.body, { status: 200, statusText: 'OK', headers: s.headers })
+                : s,
+          },
+        ],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
+      new e.CacheFirst({
+        cacheName: 'google-fonts-webfonts',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 4, maxAgeSeconds: 31536e3 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'google-fonts-stylesheets',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 4, maxAgeSeconds: 604800 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'static-font-assets',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 4, maxAgeSeconds: 604800 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'static-image-assets',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 64, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\/_next\/image\?url=.+$/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'next-image',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 64, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:mp3|wav|ogg)$/i,
+      new e.CacheFirst({
+        cacheName: 'static-audio-assets',
+        plugins: [new e.RangeRequestsPlugin(), new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:mp4)$/i,
+      new e.CacheFirst({
+        cacheName: 'static-video-assets',
+        plugins: [new e.RangeRequestsPlugin(), new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:js)$/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'static-js-assets',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:css|less)$/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'static-style-assets',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\/_next\/data\/.+\/.+\.json$/i,
+      new e.StaleWhileRevalidate({
+        cacheName: 'next-data',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      /\.(?:json|xml|csv)$/i,
+      new e.NetworkFirst({
+        cacheName: 'static-data-assets',
+        plugins: [new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      ({ url: e }) => {
+        if (!(self.origin === e.origin)) return !1;
+        const s = e.pathname;
+        return !s.startsWith('/api/auth/') && !!s.startsWith('/api/');
+      },
+      new e.NetworkFirst({
+        cacheName: 'apis',
+        networkTimeoutSeconds: 10,
+        plugins: [new e.ExpirationPlugin({ maxEntries: 16, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      ({ url: e }) => {
+        if (!(self.origin === e.origin)) return !1;
+        return !e.pathname.startsWith('/api/');
+      },
+      new e.NetworkFirst({
+        cacheName: 'others',
+        networkTimeoutSeconds: 10,
+        plugins: [new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 86400 })],
+      }),
+      'GET'
+    ),
+    e.registerRoute(
+      ({ url: e }) => !(self.origin === e.origin),
+      new e.NetworkFirst({
+        cacheName: 'cross-origin',
+        networkTimeoutSeconds: 10,
+        plugins: [new e.ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 3600 })],
+      }),
+      'GET'
+    );
+});
