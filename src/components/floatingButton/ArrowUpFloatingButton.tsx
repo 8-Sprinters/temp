@@ -37,7 +37,7 @@ export default function ArrowUpFloatingButton() {
     <>
       {isVisible && (
         <div className={styles.variant.arrowUp} onClick={handleScrollToTop}>
-          <ArrowUpIcon alt={commonLocale[language].arrowUpButton} className={styles.icon} />
+          <ArrowUpIcon alt={commonLocale[language].arrowUpButton} className={styles.icon} fill="#637587" />
         </div>
       )}
     </>

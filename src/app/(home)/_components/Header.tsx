@@ -24,11 +24,7 @@ import BellIcon from '/public/icons/ver3/bell.svg';
 import Avatar from '/public/icons/ver3/Avatar.svg';
 
 function Header() {
-  const {
-    isOn: isSearchBarOpened,
-    handleSetOn: handleSearchBarOpened,
-    handleSetOff: handleSetSearchBarClosed,
-  } = useBooleanOutput();
+  const { isOn: isSearchBarOpened } = useBooleanOutput();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 useState 추가
 
@@ -55,7 +51,7 @@ function Header() {
   useEffect(() => {
     const accessToken = getCookie('accessToken');
     setIsLoggedIn(accessToken !== null && accessToken !== undefined);
-  }, []); // useEffect를 사용해 클라이언트 측에서만 실행되도록 함
+  }, []);
 
   return (
     <header className={styles.headerWrapper}>

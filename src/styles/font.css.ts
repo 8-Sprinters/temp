@@ -18,10 +18,22 @@ export const BodyBold = style({
   letterSpacing: '-0.054rem',
 });
 
+export const BodyRegular = style({
+  fontSize: '1.6rem',
+  fontWeight: '400',
+  letterSpacing: '-0.054rem',
+});
+
 export const Body = style({
   fontSize: '1.5rem',
   fontWeight: '400',
   letterSpacing: '-0.054rem',
+});
+
+export const LabelBold = style({
+  fontSize: '1.4rem',
+  fontWeight: '600',
+  letterSpacing: '-0.042rem',
 });
 
 export const Label = style({

@@ -1,6 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { body3 } from '@/styles/__font.css';
-import { vars } from '@/styles/__theme.css';
+import { Label } from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const buttonContainer = style({
   width: '100%',
@@ -11,7 +11,7 @@ export const buttonContainer = style({
 });
 
 export const baseButton = style([
-  body3,
+  Label,
   {
     padding: '10px 16px',
 
@@ -36,15 +36,15 @@ export const button = styleVariants({
   secondary: [
     baseButton,
     {
-      backgroundColor: vars.color.blueGray,
+      backgroundColor: vars.color.whiteblue,
       color: vars.color.blue,
     },
   ],
   disabled: [
     baseButton,
     {
-      backgroundColor: vars.color.gray7,
-      color: vars.color.white,
+      backgroundColor: vars.color.white,
+      color: vars.color.bluegray8,
 
       cursor: 'default',
     },

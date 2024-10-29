@@ -1,6 +1,5 @@
 import { style, createVar, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/__theme.css';
-import { headlineSmall, bodyMedium, bodySmall, labelSmall } from '@/styles/__font.css';
 
 export const listBackground = createVar();
 
@@ -20,12 +19,9 @@ export const titleWrapper = style({
   gap: '5px',
 });
 
-export const sectionTitle = style([
-  headlineSmall,
-  {
-    fontWeight: 600,
-  },
-]);
+export const sectionTitle = style({
+  fontWeight: 600,
+});
 
 const listWrapperHoverAnimation = keyframes({
   '0%': {
