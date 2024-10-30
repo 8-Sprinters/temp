@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
-  paddingBottom: 40,
+  marginBottom: 84,
 
   position: 'relative',
 });
