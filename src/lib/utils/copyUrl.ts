@@ -5,9 +5,9 @@ import toastMessage from '../constants/toastMessage';
 function copyUrl(listUrl: string, language: string) {
   try {
     copy(listUrl);
-    toasting({ type: 'default', txt: toastMessage[language].copyLink });
+    toasting({ type: 'success', txt: toastMessage[language].copyLink });
   } catch (error) {
-    toasting({ type: 'default', txt: toastMessage[language].failedCopyLink });
+    toasting({ type: 'error', txt: toastMessage[language].failedCopyLink });
   }
 }
 

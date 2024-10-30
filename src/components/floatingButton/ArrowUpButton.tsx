@@ -3,14 +3,14 @@
 import { useState } from 'react';
 
 import * as styles from './FloatingContainer.css';
-import ArrowUpIcon from '/public/icons/arrow_up.svg';
+import ArrowUpIcon from '/public/icons/new/arrow_up.svg';
 
 import useThrottle from '@/hooks/useThrottle';
 import { useLanguage } from '@/store/useLanguage';
 
 import { commonLocale } from '@/components/locale';
 
-export default function ArrowUpFloatingButton() {
+export default function ArrowUpButton() {
   const [isVisible, setIsVisible] = useState(false);
   const { language } = useLanguage();
 
@@ -36,8 +36,8 @@ export default function ArrowUpFloatingButton() {
   return (
     <>
       {isVisible && (
-        <div className={styles.variant.arrowUp} onClick={handleScrollToTop}>
-          <ArrowUpIcon alt={commonLocale[language].arrowUpButton} className={styles.icon} fill="#637587" />
+        <div className={styles.variant.arrowUpButton} onClick={handleScrollToTop}>
+          <ArrowUpIcon alt={commonLocale[language].arrowUpButton} />
         </div>
       )}
     </>
