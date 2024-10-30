@@ -3,7 +3,6 @@ import { createThemeContract, createGlobalTheme } from '@vanilla-extract/css';
 export const vars = createThemeContract({
   color: {
     white: 'color-white',
-    whiteblue: 'color-whiteblue',
     lightblue: 'color-lightblue',
     whiteblue: 'color-whiteblue',
     skyblue: 'color-skyblue',
@@ -31,7 +30,6 @@ export const vars = createThemeContract({
 createGlobalTheme(':root', vars, {
   color: {
     white: '#FFFFFF',
-    whiteblue: '#F5F6FA',
     lightblue: '#E5EEFE',
     whiteblue: '#EEF6FF',
     skyblue: '#C5DFFF',
