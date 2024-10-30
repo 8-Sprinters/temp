@@ -110,7 +110,10 @@ export const modalLocale = {
     confirm: '확인',
     deleteButtonAlt: '삭제 버튼',
     privateMessage: '이 리스트는 삭제 또는 비공개 처리 되었어요.',
-    deleteHistory: '정말 이 히스토리를 삭제하시나요?',
+    deleteHistory1: '이 히스토리를 정말 삭제하시나요?',
+    deleteHistory2: '삭제 후에는 복구할 수 없어요.',
+    setPublic: '이 히스토리가 공개 처리되었습니다.',
+    setPrivate: '이 히스토리가 비공개 처리되었습니다.',
   },
   en: {
     deleteListMessage: 'Do you really delete the list?',
@@ -118,6 +121,9 @@ export const modalLocale = {
     confirm: 'Check',
     deleteButtonAlt: 'Delete button',
     privateMessage: 'This list has been deleted or closed.',
-    deleteHistory: 'Are you sure you want to delete this history?',
+    deleteHistory1: 'Are you sure you want to delete the history of this version?',
+    deleteHistory2: 'It cannot be restored after deletion.',
+    setPublic: 'This history has been set to public.',
+    setPrivate: 'This history has been set to private.',
   },
 };

@@ -4,8 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import Header from '@/components/Header/Header';
-import { Graph } from './_component/__HistoryGraph';
-import { Version } from './_component/__HistoryVersions';
+import { Graph } from './_component/HistoryGraph';
+import { Version } from './_component/HistoryVersions';
 
 import getListDetail from '@/app/_api/list/getListDetail';
 import getHistories from '@/app/_api/history/getHistories';
@@ -46,10 +46,16 @@ function HistoryPage() {
       />
       <div>
         <div className={styles.navContainer}>
-          <button className={styles.navButton} onClick={() => setType('graph')}>
+          <button
+            className={`${styles.navButton} ${type === 'graph' ? styles.activeButton : ''}`}
+            onClick={() => setType('graph')}
+          >
             {listLocale[language].graph}
           </button>
-          <button className={styles.navButton} onClick={() => setType('version')}>
+          <button
+            className={`${styles.navButton} ${type === 'version' ? styles.activeButton : ''}`}
+            onClick={() => setType('version')}
+          >
             {listLocale[language].version}
           </button>
         </div>
