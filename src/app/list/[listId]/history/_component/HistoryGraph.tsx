@@ -121,6 +121,8 @@ function Chart({ histories, itemRankHistories }: ChartProps) {
             '#FF0000',
             '#FF1493',
           ],
+          lineWidth: 4,
+          pointSize: 2,
           hAxis: {
             textStyle: {
               fontSize: 14,
