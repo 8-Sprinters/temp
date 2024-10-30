@@ -66,21 +66,22 @@ export const list = style({
   color: vars.color.black,
 });
 
-export const label = style({
+export const labelIcon = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 });
 
-export const visibilityLabel = style([
+export const label = style([
   LabelSmall,
   {
     padding: '0.4rem 1rem',
     height: '2.6rem',
 
-    display: 'flex',
+    display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'self-start',
     gap: '0.2rem',
 
     color: vars.color.blue,

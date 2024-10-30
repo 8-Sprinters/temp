@@ -75,6 +75,7 @@ export interface ListType {
   id: number;
   title: string;
   isPublic: boolean;
+  category?: string;
   backgroundColor: string;
   listItems: Omit<ItemType, 'comment' | 'link'>[];
 }
