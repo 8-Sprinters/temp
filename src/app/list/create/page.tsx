@@ -25,7 +25,7 @@ export type FormErrors = FieldErrors<ListCreateType>;
 export default function CreatePage() {
   const { language } = useLanguage();
   const { user: userMeData } = useUser();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const queryClient = useQueryClient();
   const router = useRouter();
 

@@ -35,13 +35,6 @@ export const itemLinkRules = {
   },
 };
 
-//list-step3
-export const listLabelRules = {
-  maxNumRule: { num: 3, errorMessage: '라벨은 최대 3개까지 등록할 수 있어요.' },
-  maxLengthRule: { length: 10, errorMessage: '라벨은 최대 10자까지 입력할 수 있어요.' },
-  uniqueRule: { errorMessage: '같은 라벨을 2개 이상 등록할 수 없어요.' },
-};
-
 //profile
 export const nicknameRules = {
   required: '닉네임을 입력해주세요.',
