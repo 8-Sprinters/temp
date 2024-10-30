@@ -83,7 +83,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
   return (
     <>
       <Header
-        title={'리스트 생성하기'}
+        title={'리스트 만들기'}
         left="back"
         leftClick={onBeforeClick}
         right={
