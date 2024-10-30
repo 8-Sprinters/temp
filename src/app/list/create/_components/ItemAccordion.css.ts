@@ -23,7 +23,11 @@ export const header = style({
 export const rank = style([
   fonts.Label,
   {
-    padding: '0.6rem 1.2rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '4.2rem',
+    height: '2.6rem',
 
     color: vars.color.blue,
     backgroundColor: vars.color.lightblue,
