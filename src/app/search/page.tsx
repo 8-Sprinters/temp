@@ -7,12 +7,12 @@ import KeywordArea from '@/app/search/_components/KeywordArea';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, KeyboardEvent, MouseEvent, ChangeEvent } from 'react';
 import BackButton from '/public/icons/back.svg';
-import PlusButton from '@/components/floatingButton/PlusOptionFloatingButton';
-import ArrowUpButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import makeSearchUrl from '@/app/search/util/makeSearchUrl';
 import { searchLocale } from '@/app/search/locale';
 import { useLanguage } from '@/store/useLanguage';
+import ArrowUpButton from '@/components/floatingButton/ArrowUpButton';
+import ShareLinkButton from '@/components/floatingButton/ShareLinkButton';
 
 export default function Search() {
   const { language } = useLanguage();
@@ -69,8 +69,8 @@ export default function Search() {
         </div>
         <SearchResult />
         <FloatingContainer>
-          <PlusButton />
           <ArrowUpButton />
+          <ShareLinkButton />
         </FloatingContainer>
       </div>
     </>

@@ -3,8 +3,8 @@ import { Metadata, ResolvingMetadata } from 'next';
 import Profile from '../_components/Profile';
 import Content from '../_components/Content';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
-import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
-import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
+import ArrowUpButton from '@/components/floatingButton/ArrowUpButton';
+import ShareLinkButton from '@/components/floatingButton/ShareLinkButton';
 
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { UserType } from '@/lib/types/userProfileType';
@@ -40,8 +40,8 @@ export default function CollaboListPage({ params }: CollaboListPageProps) {
       <Profile userId={params.userId} />
       <Content userId={params.userId} type="collabo" />
       <FloatingContainer>
-        <PlusOptionFloatingButton />
-        <ArrowUpFloatingButton />
+        <ArrowUpButton />
+        <ShareLinkButton />
       </FloatingContainer>
     </section>
   );
