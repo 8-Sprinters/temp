@@ -7,7 +7,7 @@ export const wrapper = style({
   margin: 'auto',
 
   position: 'fixed',
-  bottom: '69px',
+  bottom: '75px',
   zIndex: 3,
 });
 

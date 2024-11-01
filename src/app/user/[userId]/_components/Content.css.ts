@@ -90,7 +90,7 @@ export const scrollDivBottom = style({
 });
 
 export const visibleScrollDivTop = style({
-  top: '100px',
+  top: '83.5px',
   height: '83px',
   opacity: 1,
 });
