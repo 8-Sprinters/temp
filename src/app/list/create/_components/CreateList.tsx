@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import Section from './list/Section';
 import SimpleInput from './list/SimpleInput';
 import ButtonSelector from './list/ButtonSelector';

@@ -1,17 +1,27 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import * as fonts from '@/styles/__font.css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
+  overflowX: 'scroll',
+  overflowY: 'hidden',
   width: '100%',
-  minWidth: 'calc(200vw - 54px)',
-  height: '345px',
-  padding: '20px',
+  height: '520px',
+  paddingBottom: '60px',
 
   display: 'flex',
   alignItems: 'center',
-
   borderRadius: '20px',
   backgroundColor: vars.color.white,
-  boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.10)',
+
+  selectors: {
+    '&::-webkit-scrollbar': {
+      height: '5px',
+      background: vars.color.bggray,
+      borderRadius: '6px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: vars.color.lightgray,
+      borderRadius: '6px',
+    },
+  },
 });

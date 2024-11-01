@@ -41,22 +41,27 @@ function HistoryPage() {
         title={listLocale[language].history}
         left="back"
         leftClick={() => {
-          router.back();
+          router.push(`/list/${listId}`);
         }}
       />
       <div>
         <div className={styles.navContainer}>
-          <button className={styles.navButton} onClick={() => setType('graph')}>
+          <button
+            className={`${styles.navButton} ${type === 'graph' ? styles.activeButton : ''}`}
+            onClick={() => setType('graph')}
+          >
             {listLocale[language].graph}
           </button>
-          <button className={styles.navButton} onClick={() => setType('version')}>
+          <button
+            className={`${styles.navButton} ${type === 'version' ? styles.activeButton : ''}`}
+            onClick={() => setType('version')}
+          >
             {listLocale[language].version}
           </button>
-          <div className={type === 'graph' ? styles.navBar.left : styles.navBar.right} />
         </div>
 
-        <div className={styles.listTitle}>{listData?.title}</div>
         <div className={styles.contentContainer}>
+          <div className={styles.listTitle}>{listData?.title}</div>
           {type === 'graph' ? (
             <Graph histories={historyData ? historyData : []} />
           ) : (

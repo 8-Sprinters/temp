@@ -1,64 +1,78 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import * as fonts from '@/styles/__font.css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const container = style({
-  minHeight: '345px',
-  padding: '24px 18px',
+  padding: '0px 18px',
 
   position: 'relative',
-
-  borderRadius: '20px',
-  backgroundColor: vars.color.white,
-  boxShadow: '0px 4px 15px 0px rgba(0, 0, 0, 0.10)',
 });
 
 export const dateDropdown = style([
-  fonts.labelSmall,
+  fonts.LabelSmall,
   {
     position: 'absolute',
-    top: '-40px',
+    top: '-65px',
     right: '5px',
 
     display: 'flex',
     alignItems: 'center',
 
-    color: vars.color.gray9,
+    color: vars.color.gray,
 
     // float: 'right',
     cursor: 'pointer',
   },
 ]);
 
-export const kebabButton = style({
-  width: '24px',
-  height: '24px',
-
+export const iconWrapper = style({
   position: 'absolute',
-  right: '20px',
+  top: '-5px',
+  right: '5px',
 
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
+
+  color: vars.color.gray,
 
   cursor: 'pointer',
 });
 
-export const kebabIcon = style({
-  stroke: vars.color.gray7,
-  fill: vars.color.gray7,
+export const iconButton = style({
+  padding: '5px',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'align-end',
+  cursor: 'pointer',
 });
 
-export const date = style([
-  fonts.labelLarge,
+export const eyeIcon = style({
+  width: '20px',
+  height: '20px',
+  color: vars.color.bluegray8,
+});
+
+export const deleteIcon = style({
+  width: '20px',
+  height: '20px',
+  color: vars.color.bluegray8,
+});
+
+export const title = style([
+  fonts.Subtitle,
   {
-    paddingLeft: '110px',
+    color: vars.color.black,
+    textAlign: 'center',
+  },
+]);
 
-    display: 'flex',
-    alignItems: 'center',
-    columnGap: '5px',
-
-    color: vars.color.gray7,
+export const date = style([
+  fonts.Body,
+  {
+    color: vars.color.black,
+    textAlign: 'center',
+    marginTop: '5px',
   },
 ]);
 
@@ -73,10 +87,10 @@ export const itemContainer = style({
   display: 'flex',
 });
 
-export const itemTitle = style([fonts.bodyLarge, {}]);
+export const itemTitle = style([fonts.Body, {}]);
 
 export const itemRank = style([
-  fonts.titleMedium,
+  fonts.Subtitle,
   {
     marginRight: '20px',
 

@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/__Header';
 import useMoveToPage from '@/hooks/useMoveToPage';
 
 import NavigateIcon from '/public/icons/chevron_right.svg';

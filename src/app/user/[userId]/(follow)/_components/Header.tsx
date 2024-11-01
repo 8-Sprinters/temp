@@ -1,6 +1,6 @@
 'use client';
 import { useRouter, useParams } from 'next/navigation';
-import CommonHeader from '@/components/Header/Header';
+import CommonHeader from '@/components/Header/__Header';
 
 interface HeaderProps {
   title: string;

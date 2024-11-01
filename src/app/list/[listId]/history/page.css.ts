@@ -1,72 +1,51 @@
-import { style, styleVariants, keyframes } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import * as fonts from '@/styles/__font.css';
+import { style, styleVariants } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const navContainer = style({
-  width: '100%',
-
-  padding: '18px 65.5px 0',
-  margin: '0 auto',
+  margin: '35px 0px 0px',
+  paddingRight: '25px',
 
   display: 'flex',
-  alignItems: 'center',
-  columnGap: '70px',
-
-  position: 'fixed',
-  top: '70px',
-
-  backgroundColor: vars.color.white,
-
-  zIndex: '1',
+  justifyContent: 'right',
+  // columnGap: '5px',
 });
 
 export const navButton = style([
-  fonts.labelLarge,
+  fonts.Label,
   {
-    width: 'fit-content',
-    padding: ' 15px 0',
-    flexGrow: '1',
-
-    color: vars.color.black,
+    width: '65px',
+    padding: '10px 15px',
+    color: vars.color.lightgray,
+    backgroundColor: vars.color.white,
+    // borderRadius: '20px',
+    cursor: 'pointer',
+    textAlign: 'center',
+    whiteSpace: 'nowrap',
   },
 ]);
 
-export const navBarBase = style({
-  width: '50px',
-  height: '5px',
-
-  backgroundColor: vars.color.black,
-  borderRadius: '50px',
-});
-
-export const navBar = styleVariants({
-  left: [
-    navBarBase,
-    {
-      position: 'absolute',
-      left: '23.5%',
-      bottom: '0%',
-    },
-  ],
-  right: [
-    navBarBase,
-    {
-      position: 'absolute',
-      left: '66.5%',
-      bottom: '0%',
-    },
-  ],
+export const activeButton = style({
+  backgroundColor: vars.color.lightblue,
+  color: vars.color.blue,
 });
 
 export const listTitle = style([
-  fonts.headlineMedium,
+  fonts.Header,
   {
-    margin: '140px 40px 20px',
+    padding: '10px',
+    marginBottom: '30px',
+
+    borderBottom: `2px solid ${vars.color.bggray}`,
   },
 ]);
 
 export const contentContainer = style({
-  padding: '50px 27px',
+  margin: '20px 20px',
+  padding: '20px 20px',
+
+  borderRadius: '20px',
+  backgroundColor: 'white',
 
   overflowX: 'auto',
   '::-webkit-scrollbar': {
