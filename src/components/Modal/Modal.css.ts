@@ -15,7 +15,6 @@ export const background = style({
   alignItems: 'center',
 
   backgroundColor: 'rgba(25, 25, 27, 0.3)',
-  pointerEvents: 'none',
 });
 
 const container = style({
