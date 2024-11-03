@@ -4,18 +4,27 @@ import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 
 import { useLanguage } from '@/store/useLanguage';
+import { vars } from '@/styles/theme.css';
 
-import { listError, listLocale } from '@/app/list/create/locale';
+import { listLocale } from '@/app/list/create/locale';
 import { FormErrors } from '@/app/list/create/page';
 
 import Header from '@/components/Header/Header';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
+
+import AddIcon from '/public/icons/add.svg';
 
 import * as styles from './Step.css';
 import ItemAccordion from './ItemAccordion';
 import { useState } from 'react';
 
 //TODO: 브라우저 뒤로가기 눌렀을 경우 내용 사라짐 경고
+
+/**
+ * TODO:
+ * 2. 이미지 추가하기 기능(기존과 동일)
+ * 3. 링크 추가하기 기능(기존과 동일) -> 추후에 디벨롭
+ */
 
 interface StepTwoProps {
   onBeforeClick: () => void;
@@ -58,6 +67,18 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
   //--- item 제거
   const handleDeleteItem = (itemId: number) => {
     remove(itemId);
+  };
+
+  //--- item 추가
+  const handleClickAddItem = () => {
+    append({
+      id: 0,
+      rank: 0,
+      title: '',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    });
   };
 
   /** 아이템 dnd, accordion */
@@ -145,7 +166,13 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
           </DragDropContext>
         </div>
         {/** end-아이템field */}
-        <button>아이템 추가하기</button>
+
+        {/* 아이템 추가 버튼 */}
+        {watchItems.length < 10 && (
+          <button className={styles.addButton} onClick={handleClickAddItem}>
+            <AddIcon width={16} height={16} fill={vars.color.blue} /> {listLocale[language].addItem}
+          </button>
+        )}
       </div>
       {/** end-section */}
     </>

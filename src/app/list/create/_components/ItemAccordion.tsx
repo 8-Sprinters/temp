@@ -1,5 +1,6 @@
+import { ChangeEvent } from 'react';
 import Image from 'next/image';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, UseFormRegisterReturn, useWatch } from 'react-hook-form';
 
 import CollapseIcon from '/public/icons/collapse.svg';
 import ExpandIcon from '/public/icons/expand.svg';
@@ -9,6 +10,10 @@ import useResizeTextarea from '@/hooks/useResizeTextarea';
 
 import * as styles from './ItemAccordion.css';
 import { itemCommentRules, itemTitleRules } from '@/lib/constants/formInputValidationRules';
+import ItemImageUploader from './ItemImageUploader';
+import toasting from '@/lib/utils/toasting';
+import toastMessage from '@/lib/constants/toastMessage';
+import ItemImagePreview from './ItemImagePreview';
 
 interface ItemAccordionProps {
   index: number;
@@ -23,13 +28,35 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
   const rank = index + 1;
 
   /** react-hook-form */
-  const { register, control } = useFormContext();
+  const { register, setValue, control } = useFormContext();
   const titleRegister = register(`items.${index}.title`, itemTitleRules);
   const commentRegister = register(`items.${index}.comment`, itemCommentRules);
-  const watchComment = useWatch({ control, name: `items.${index}.comment` });
+  const imageRegister = register(`items.${index}.imageUrl`);
 
-  //글자 길이에 맞춘 높이 조절
+  const watchComment = useWatch({ control, name: `items.${index}.comment` });
+  const watchImage = useWatch({ control, name: `items.${index}.imageUrl` });
+
+  //--- 글자 길이에 맞춘 높이 조절
   const { textareaRef, handleResizeHeight } = useResizeTextarea();
+
+  /** Tool */
+  //--- 이미지 업로드 & 미리보기
+  const MAX_IMAGE_INPUT_SIZE_MB = 50 * 1024 * 1024; //50MB
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const targetFile = e.target.files[0];
+      if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
+        toasting({ type: 'error', txt: toastMessage[language].imageSizeError });
+      } else {
+        imageRegister.onChange(e);
+      }
+    }
+  };
+
+  const handleImageClear = () => {
+    setValue(`items.${index}.imageUrl`, '');
+  };
 
   return (
     <div className={styles.accordion}>
@@ -68,11 +95,23 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
               <p>{watchComment.length}/200</p>
             </div>
             {/** end-글자수세기 */}
-            <div className={styles.toolbox}>
-              <div className={styles.addTool}>
-                <Image src={'/icons/image.svg'} width={17} height={17} alt="add image" />
+            <div className={styles.toolsContainer}>
+              <div className={styles.toolsWrapper}>
+                <ItemImageUploader index={index}>
+                  <input
+                    className={styles.imageInput}
+                    type="file"
+                    accept=".jpg, .jpeg, .png"
+                    id={`${index}-image`}
+                    {...imageRegister}
+                    onChange={(e) => {
+                      handleImageChange(e);
+                    }}
+                  />
+                </ItemImageUploader>
                 <Image src={'/icons/link.svg'} width={17} height={17} alt="add link" />
               </div>
+              {/** end-toolsWrapper*/}
               <button
                 className={styles.deleteButton}
                 onClick={() => {
@@ -82,7 +121,11 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
                 삭제
               </button>
             </div>
-            {/** end-toolbox */}
+            {/** end-toolsContainer */}
+            <div className={styles.previewContainer}>
+              {watchImage !== '' && <ItemImagePreview image={watchImage} handleClearButtonClick={handleImageClear} />}
+            </div>
+            {/** end-previewContainer */}
           </div>
           {/** end-content */}
         </>

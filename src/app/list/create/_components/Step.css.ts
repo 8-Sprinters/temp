@@ -124,6 +124,26 @@ export const draggingItem = style([
   },
 ]);
 
+export const addButton = style([
+  fonts.BodyBold,
+  {
+    width: '100%',
+    padding: '1.6rem',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1rem',
+
+    color: vars.color.blue,
+
+    backgroundColor: vars.color.white,
+
+    border: `solid 0.1rem ${vars.color.blue}`,
+    borderRadius: '1.2rem',
+  },
+]);
+
 /** STEP3 */
 //라벨(태그)
 export const labelList = style({

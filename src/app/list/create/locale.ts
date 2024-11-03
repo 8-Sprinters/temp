@@ -4,7 +4,12 @@ export const listLocale = {
     editList: '리스트 수정하기',
     next: '다음',
     publish: '게시',
+
     item: '아이템',
+    addItem: '아이템 추가하기',
+    imageAlt: '첨부한 이미지',
+    deleteLinkAlt: '링크 지우기',
+
     public: '전체공개',
     private: '비공개',
     publicMessage: '모든 사람이 이 리스트를 볼 수 있어요.',
@@ -15,7 +20,12 @@ export const listLocale = {
     editList: 'Edit List',
     next: 'next',
     publish: 'publish',
+
     item: 'item',
+    addItem: 'New Item',
+    imageAlt: 'attached image',
+    deleteLinkAlt: 'delete Link',
+
     public: 'public',
     private: 'private',
     publicMessage: 'Everyone can see this.',

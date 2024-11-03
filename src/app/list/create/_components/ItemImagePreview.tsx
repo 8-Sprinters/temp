@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import ClearBlackIcon from '/public/icons/clear_x_black.svg';
-import * as styles from './Preview.css';
 import fileToBase64 from '@/lib/utils/fileToBase64';
 import { useLanguage } from '@/store/useLanguage';
 import { listLocale } from '@/app/list/create/locale';
+import ClearBlackIcon from '/public/icons/clear_x_black.svg';
+import * as styles from './Preview.css';
 
 type ImagePreviewProps = {
   handleClearButtonClick: () => void;
   image: FileList | string;
 };
 
-export default function ImagePreview({ handleClearButtonClick, image }: ImagePreviewProps) {
+export default function ItemImagePreview({ handleClearButtonClick, image }: ImagePreviewProps) {
   const { language } = useLanguage();
   const [preview, setPreview] = useState<string | null>(null);
 

@@ -87,16 +87,20 @@ export const length = style([
   },
 ]);
 
-export const toolbox = style({
+export const toolsContainer = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
 });
 
-export const addTool = style({
+export const toolsWrapper = style({
   display: 'flex',
   alignItems: 'center',
   gap: '1rem',
+});
+
+export const imageInput = style({
+  display: 'none',
 });
 
 export const deleteButton = style([
@@ -105,3 +109,8 @@ export const deleteButton = style([
     color: vars.color.blue,
   },
 ]);
+
+export const previewContainer = style({
+  display: 'flex',
+  gap: '10px',
+});
