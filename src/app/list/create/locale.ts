@@ -5,6 +5,10 @@ export const listLocale = {
     next: '다음',
     publish: '게시',
     item: '아이템',
+    public: '전체공개',
+    private: '비공개',
+    publicMessage: '모든 사람이 이 리스트를 볼 수 있어요.',
+    privateMessage: '이 리스트는 나만 볼 수 있어요.',
   },
   en: {
     createList: 'Create List',
@@ -12,6 +16,10 @@ export const listLocale = {
     next: 'next',
     publish: 'publish',
     item: 'item',
+    public: 'public',
+    private: 'private',
+    publicMessage: 'Everyone can see this.',
+    privateMessage: 'Only you can see this.',
   },
 };
 

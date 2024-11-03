@@ -1,4 +1,4 @@
-export type BACKGROUND_COLOR_PALETTE_TYPE = 'PASTEL' | 'VIVID' | 'GRAY' | 'LISTY';
+export type BACKGROUND_COLOR_PALETTE_TYPE = 'PASTEL' | 'VIVID' | 'NEON' | 'GRAY';
 
 //쓰기용 색상팔레트
 //TODO : 글자색 반전 필요한 배경색
@@ -23,24 +23,28 @@ export const BACKGROUND_COLOR_CREATE = {
       5: { colorID: 'VIVID_PURPLE', hex: '#9E6AFF' },
     },
   },
+
+  NEON: {
+    colors: {
+      0: { colorID: 'NEON_WHITE', hex: '#FFFFFF' },
+      1: { colorID: 'NEON_YELLOW', hex: '#FFF6A5' },
+      2: { colorID: 'NEON_ORANGE', hex: '#FFDCB2' },
+      3: { colorID: 'NEON_GREEN', hex: '#D0FF89' },
+      4: { colorID: 'NEON_BLUE', hex: '#B7EEFF' },
+      5: { colorID: 'NEON_PURPLE', hex: '#E6C6FF' },
+    },
+  },
   GRAY: {
     colors: {
       0: { colorID: 'GRAY_VERYLIGHT', hex: '#F9F9F9' },
       1: { colorID: 'GRAY_LIGHT', hex: '#DEDEDE' },
       2: { colorID: 'GRAY_MEDIUM', hex: '#A4A4A4' },
+      3: { colorID: 'GRAY_SOFT_BLUE', hex: '#E2E7EB' },
+      4: { colorID: 'GRAY_LIGHT_BLUE', hex: '#C8CFD5' },
+      5: { colorID: 'GRAY_MEDIUM_BLUE', hex: '#ACBAC3' },
       // 3: {colorID: 'GRAY_DARK', hex:'#595959'},
       // 4: {colorID: 'GRAY_VERYDARK', hex:'#353535'},
       // 5: {colorID: 'GRAY_BLACK', hex:'#000000'},
-    },
-  },
-  LISTY: {
-    colors: {
-      0: { colorID: 'LISTY_WHITE', hex: '#FFFFFF' },
-      1: { colorID: 'LISTY_YELLOW', hex: '#FFF6A5' },
-      2: { colorID: 'LISTY_ORANGE', hex: '#FFDCB2' },
-      3: { colorID: 'LISTY_GREEN', hex: '#D0FF89' },
-      4: { colorID: 'LISTY_BLUE', hex: '#B7EEFF' },
-      5: { colorID: 'LISTY_PURPLE', hex: '#E6C6FF' },
     },
   },
 };
@@ -62,10 +66,15 @@ export const BACKGROUND_COLOR_READ = {
   GRAY_VERYLIGHT: '#F9F9F9',
   GRAY_LIGHT: '#DEDEDE',
   GRAY_MEDIUM: '#A4A4A4',
-  LISTY_WHITE: '#FFFFFF',
-  LISTY_YELLOW: '#FFF6A5',
-  LISTY_ORANGE: '#FFDCB2',
-  LISTY_GREEN: '#D0FF89',
-  LISTY_BLUE: '#B7EEFF',
-  LISTY_PURPLE: '#E6C6FF',
+  GRAY_SOFT_BLUE: '#E2E7EB', //추가
+  GRAY_LIGHT_BLUE: '#C8CFD5', //추가
+  GRAY_MEDIUM_BLUE: '#ACBAC3', //추가
+  NEON_WHITE: '#FFFFFF', //LISTY_WHITE
+  NEON_YELLOW: '#FFF6A5', //LISTY_YELLOW
+  NEON_ORANGE: '#FFDCB2', //LISTY_ORANGE
+  NEON_GREEN: '#D0FF89', //LISTY_GREEN
+  NEON_BLUE: '#B7EEFF', //LISTY_BLUE
+  NEON_PURPLE: '#E6C6FF', //LISTY_PURPLE
 };
+
+//TODO: LISTY -> NEON

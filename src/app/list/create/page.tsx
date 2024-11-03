@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
@@ -25,7 +25,7 @@ export type FormErrors = FieldErrors<ListCreateType>;
 export default function CreatePage() {
   const { language } = useLanguage();
   const { user: userMeData } = useUser();
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -169,6 +169,12 @@ export default function CreatePage() {
       toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
     }
   };
+
+  const allValues = methods.watch();
+
+  useEffect(() => {
+    console.log('실시간 데이터:', allValues);
+  }, [allValues]);
 
   return (
     <FormProvider {...methods}>

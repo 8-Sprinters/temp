@@ -8,7 +8,7 @@ import { ListDetailType } from '@/lib/types/listType';
 import Header from '@/app/list/[listId]/_components/ListDetailInner/Header';
 import RankList from '@/app/list/[listId]/_components/ListDetailInner/RankList';
 import Footer from '@/app/list/[listId]/_components/ListDetailInner/Footer';
-import { BACKGROUND_COLOR_PALETTE_TYPE, BACKGROUND_COLOR_READ } from '@/styles/Color';
+import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 interface OptionsProps {
   value: string;

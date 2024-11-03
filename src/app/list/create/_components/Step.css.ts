@@ -123,3 +123,114 @@ export const draggingItem = style([
     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
   },
 ]);
+
+/** STEP3 */
+//라벨(태그)
+export const labelList = style({
+  display: 'flex',
+  gap: '0.7rem',
+});
+
+export const labelChip = style([
+  fonts.Label,
+  {
+    display: 'flex',
+    gap: '0.5rem',
+    alignItems: 'center',
+
+    width: 'auto',
+    padding: '0.6rem 1.2rem',
+    borderRadius: '2rem',
+
+    backgroundColor: vars.color.lightblue,
+    color: vars.color.blue,
+  },
+]);
+
+//배경색상
+export const tapContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+export const tapButton = style([
+  fonts.Label,
+  {
+    padding: '0.6rem 1.2rem',
+    borderRadius: '2rem',
+
+    color: vars.color.bluegray8,
+
+    cursor: 'pointer',
+  },
+]);
+
+export const selectedTapButton = style([
+  tapButton,
+  {
+    color: vars.color.white,
+    backgroundColor: vars.color.blue,
+  },
+]);
+
+export const colorChipContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+export const colorChip = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '5.5rem',
+  height: '5.5rem',
+
+  borderRadius: '50%',
+  border: `0.2rem solid ${vars.color.white}`,
+});
+
+export const radioContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.8rem',
+});
+
+export const radioOptionsWrapper = style({
+  display: 'flex',
+  gap: '1.6rem',
+});
+
+export const radioOption = style({
+  cursor: 'pointer',
+});
+
+//동그라미 체크박스
+export const radioInput = style({
+  appearance: 'none',
+  verticalAlign: 'middle',
+
+  width: '1.6rem',
+  height: '1.6rem',
+  marginLeft: '0',
+  marginRight: '0.8rem',
+
+  borderRadius: '50%',
+  border: `0.2rem solid ${vars.color.lightgray}`,
+
+  cursor: 'pointer',
+
+  ':checked': {
+    border: `0.4rem solid ${vars.color.blue}`,
+  },
+});
+
+export const radioLabel = style([fonts.Label, { verticalAlign: '-0.3rem' }]);
+
+export const radioMessage = style([
+  fonts.Label,
+  {
+    lineHeight: '2.0rem',
+    color: vars.color.bluegray8,
+  },
+]);
