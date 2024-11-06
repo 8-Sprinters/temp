@@ -1,3 +1,11 @@
+import NOTICE_CATEGORY_NAME from '../constants/noticeCategoryName';
+
+// 게시판(공지) 카테고리 조회
+export interface NoticeCategoryType {
+  code: number;
+  viewName: (typeof NOTICE_CATEGORY_NAME)[keyof typeof NOTICE_CATEGORY_NAME];
+}
+
 export interface NoticeListItemType {
   id: number;
   createdDate: string;

@@ -32,4 +32,5 @@ export const QUERY_KEYS = {
   getCollectionCategories: 'getCollectionCategories', // ver2.0
   getAdminTopics: 'getAdminTopics',
   getTopics: 'getTopics',
+  getNoticeCategories: 'getNoticeCategories',
 };
