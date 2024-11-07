@@ -1,10 +1,13 @@
-import NOTICE_CATEGORY_NAME from '../constants/noticeCategoryName';
+import { NOTICE_CATEGORY_NAME, NOTICE_CONTENT } from '../constants/notice';
 
 // 게시판(공지) 카테고리 조회
 export interface NoticeCategoryType {
   code: number;
   viewName: (typeof NOTICE_CATEGORY_NAME)[keyof typeof NOTICE_CATEGORY_NAME];
 }
+
+// Contents Type
+export type NoticeContentsType = keyof typeof NOTICE_CONTENT;
 
 export interface NoticeListItemType {
   id: number;

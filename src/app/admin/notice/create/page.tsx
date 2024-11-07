@@ -1,14 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
 import * as styles from './page.css';
 
 import getNoticeCategories from '@/app/_api/notice/getNoticeCategories';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { NOTICE_CONTENT } from '@/lib/constants/notice';
+import { NoticeContentsType } from '@/lib/types/noticeType';
+
+import ContentsContainer from './_components/ContentsContainer';
 
 export default function CreateNotice() {
+  const [contentsType, setContentsType] = useState<NoticeContentsType[]>([]);
   const { register, handleSubmit } = useForm({
     defaultValues: {
       categoryCode: 1,
@@ -24,6 +31,11 @@ export default function CreateNotice() {
     queryFn: getNoticeCategories,
     staleTime: Infinity,
   });
+
+  /** Contents를 추가할때마다 배열에 Type을 저장하는 함수 */
+  const handleAddContents = (key: NoticeContentsType) => () => {
+    setContentsType([...contentsType, key]);
+  };
 
   /** 게시물 생성 */
   const onSubmit = () => {
@@ -60,7 +72,20 @@ export default function CreateNotice() {
           {...register('description')}
         />
       </div>
-      <section>게시물 블록</section>
+      <section>
+        {contentsType.map((content, index) => (
+          <ContentsContainer key={index} content={content} index={index} />
+        ))}
+      </section>
+      <section className={styles.contents}>
+        {Object.entries(NOTICE_CONTENT).map(([key, value], index) => (
+          <button
+            key={index}
+            className={styles.block}
+            onClick={handleAddContents(key as NoticeContentsType)}
+          >{`+ ${value} 추가`}</button>
+        ))}
+      </section>
     </form>
   );
 }
