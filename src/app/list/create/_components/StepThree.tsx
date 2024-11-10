@@ -131,6 +131,10 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
               placeholder={listPlaceholder[language].label}
               autoComplete="off"
               onKeyDown={handleKeyDown}
+              onChange={(e) => {
+                labelRegister('newLabel', listLabelRules).onChange(e);
+                clearErrors('newLabel');
+              }}
             />
           </div>
           {/** end-inputDiv */}

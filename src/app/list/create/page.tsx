@@ -99,6 +99,7 @@ export default function CreatePage() {
       }),
     };
 
+    //이미지rank,extension & 이미지파일 배열
     const imageData: ItemImagesType = {
       listId: 0, //temp
       extensionRanks: originData.items
@@ -129,6 +130,15 @@ export default function CreatePage() {
     },
   });
 
+  //--아이템 중복 확인
+  const getIsAllUnique = () => {
+    const allTitles = methods.getValues().items.map((item, itemIndex) => {
+      return item.title === '' ? itemIndex : item.title;
+    }); //TODO: 필요한 코드인지 다시 확인하기
+    const isAllUnique = new Set(allTitles).size === allTitles.length;
+    return isAllUnique;
+  };
+
   //--- 리스트생성
   const {
     mutate: createListMutate,
@@ -158,15 +168,6 @@ export default function CreatePage() {
     },
   });
 
-  //--아이템 중복 확인
-  const getIsAllUnique = () => {
-    const allTitles = methods.getValues().items.map((item, itemIndex) => {
-      return item.title === '' ? itemIndex : item.title;
-    });
-    const isAllUnique = new Set(allTitles).size === allTitles.length;
-    return isAllUnique;
-  };
-
   //--- 제출
   const handleSubmit = () => {
     if (getIsAllUnique()) {
@@ -176,13 +177,6 @@ export default function CreatePage() {
       toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
     }
   };
-
-  // TODO: 완성 후 아래 삭제 필요.
-  const allValues = methods.watch();
-
-  useEffect(() => {
-    console.log('실시간 데이터:', allValues);
-  }, [allValues]);
 
   return (
     <FormProvider {...methods}>
