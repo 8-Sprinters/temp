@@ -36,6 +36,7 @@ export const leftChild = style([
   fonts.BodyRegular,
   {
     display: 'flex',
+    flex: 1,
     justifyContent: 'left',
     color: vars.color.bluegray10,
   },
@@ -45,6 +46,7 @@ export const rightChild = style([
   fonts.BodyRegular,
   {
     display: 'flex',
+    flex: 1,
     justifyContent: 'right',
     color: vars.color.bluegray10,
   },

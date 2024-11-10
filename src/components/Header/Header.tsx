@@ -26,7 +26,7 @@ function Header({ title, left, leftClick, right }: HeaderProps) {
 
       <h1 className={`${styles.headerTitle} ${styles.flexChild}`}>{title}</h1>
 
-      {right === null ? <></> : <div className={`${styles.flexChild} ${styles.rightChild}`}>{right}</div>}
+      <div className={`${styles.flexChild} ${styles.rightChild}`}>{right}</div>
     </div>
   );
 }
