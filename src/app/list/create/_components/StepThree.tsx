@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { useFieldArray, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { useLanguage } from '@/store/useLanguage';
 import { vars } from '@/styles/theme.css';
 import { BACKGROUND_COLOR_CREATE, BACKGROUND_COLOR_PALETTE_TYPE } from '@/styles/Color';
@@ -10,6 +10,7 @@ import { listLocale } from '@/app/list/create/locale';
 import DeleteIcon from '/public/icons/close_button.svg';
 import SelectIcon from '/public/icons/check_white.svg';
 import * as styles from './Step.css';
+import { listLabelRules } from '@/lib/constants/formInputValidationRules';
 
 interface StepThreeProps {
   onBeforeClick: () => void;
@@ -22,30 +23,32 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
   const { language } = useLanguage();
 
   /** react-hook-form */
+  //--- 기존 전체 form
   const {
-    register,
     control,
     getValues,
     setValue,
-    setError,
-    clearErrors,
-    formState: { errors },
+    formState: { isValid },
   } = useFormContext();
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'labels' });
+  const { fields, append } = useFieldArray({ control, name: 'labels' });
 
   const watchLabels = useWatch({ control, name: 'labels' });
 
+  //---새로운 form
+  const {
+    register: labelRegister,
+    setError,
+    clearErrors,
+    formState: { errors: labelError, isValid: isLabelValid },
+  } = useForm<{ newLabel: string }>({
+    mode: 'onChange',
+    defaultValues: {
+      newLabel: '',
+    },
+  });
+
   /** 태그(라벨) */
-  const isValidLabel = (label: string): boolean => {
-    const reg = /^[a-zA-Z0-9가-힣]{1,10}$/;
-    return reg.test(label);
-  };
-
-  const isOverLength = (label: string): boolean => {
-    return label.length > 10;
-  };
-
   const isDuplicatedLabel = (label: string): boolean => {
     return watchLabels.some((existingLabel: string) => existingLabel.toLowerCase() === label.toLowerCase());
   };
@@ -61,27 +64,20 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
     if ((e.key === 'Enter' || e.key === ' ') && label) {
       e.preventDefault();
 
-      //영어,숫자,한글만 가능하게 처리
-      if (!isValidLabel(label)) {
-        setError('labels', { type: 'pattern', message: '유효한 한글, 영어, 숫자만 입력해 주세요.' });
-        return;
-      }
-
       //3개 초과 에러처리
       if (fields.length === 3) {
-        setError('labels', { type: 'maxLength', message: '태그는 3개까지 등록할 수 있어요.' });
+        setError('newLabel', { type: 'maxLength', message: '태그는 3개까지 등록할 수 있어요.' });
         return;
       }
-      console.log(fields);
 
       //중복라벨 에러처리
       if (isDuplicatedLabel(label)) {
-        setError('labels', { type: 'unique', message: '이미 등록한 태그예요.' });
+        setError('newLabel', { type: 'unique', message: '이미 등록한 태그예요.' });
         return;
       }
 
       //최종 라벨 등록
-      append(label); //라벨추가
+      append(label); //배열에 라벨추가
       e.currentTarget.value = ''; //입력필드 비우기
     }
   };
@@ -91,7 +87,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
       'labels',
       watchLabels.filter((label: string) => label !== key)
     );
-    clearErrors('labels');
+    clearErrors('newLabel');
   };
 
   /** 배경색상*/
@@ -104,8 +100,8 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
 
   const handleClickColor = (colorID: string) => {
     setSelectedColorID(colorID);
-    setValue('backgroundColor', colorID);
     setValue('backgroundPalette', selectedPalette);
+    setValue('backgroundColor', colorID);
   };
 
   /** 공개여부 */
@@ -118,7 +114,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
         left="back"
         leftClick={onBeforeClick}
         right={
-          <button className={styles.nextButton} onClick={onNextClick} disabled={false}>
+          <button className={styles.nextButton} onClick={onNextClick} disabled={!isValid || isSubmitting}>
             {listLocale[language].publish}
           </button>
         }
@@ -130,21 +126,15 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
           <div className={styles.inputDiv}>
             <input
               className={styles.input}
-              {...register('labels')}
+              {...labelRegister('newLabel', listLabelRules)}
               type="text"
               placeholder={listPlaceholder[language].label}
               autoComplete="off"
               onKeyDown={handleKeyDown}
-              onChange={(e) => {
-                clearErrors('labels');
-                if (isOverLength(e.target.value)) {
-                  setError('labels', { type: 'maxLength', message: '최대 10글자까지 입력할 수 있어요.' });
-                }
-              }}
             />
           </div>
           {/** end-inputDiv */}
-          {errors.labels && <div className={styles.errorMessage}>{errors.labels?.message?.toString()}</div>}
+          {labelError.newLabel && <div className={styles.errorMessage}>{labelError.newLabel?.message?.toString()}</div>}
           <div className={styles.labelList}>
             {watchLabels.map((label: string) => {
               return (

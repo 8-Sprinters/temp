@@ -17,12 +17,10 @@ import ItemAccordion from './ItemAccordion';
 import AddIcon from '/public/icons/add.svg';
 
 import * as styles from './Step.css';
-
-//TODO: 브라우저 뒤로가기 눌렀을 경우 내용 사라짐 경고
-
 /**
  * TODO:
- * 3. 링크 추가하기 기능(기존과 동일) -> 추후에 디벨롭
+ * 1. 브라우저 뒤로가기 눌렀을 경우 내용 사라짐 경고
+ * 2. 링크 추가하기에 임베딩 미리보기 기능 추가
  */
 
 interface StepTwoProps {
@@ -47,7 +45,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
     control,
     getValues,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useFormContext();
 
   //--- item 여러 입력값 배열 설정
@@ -107,7 +105,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
         left="back"
         leftClick={onBeforeClick}
         right={
-          <button className={styles.nextButton} onClick={onNextClick} disabled={false}>
+          <button className={styles.nextButton} onClick={onNextClick} disabled={!isValid}>
             {listLocale[language].next}
           </button>
         }

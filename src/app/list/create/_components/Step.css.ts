@@ -38,7 +38,7 @@ export const inputDiv = style({
   display: 'flex',
   padding: '1.2rem 1.6rem',
   borderRadius: '1.2rem',
-  color: vars.color.bluegray10,
+
   background: vars.color.white,
 });
 
@@ -46,6 +46,8 @@ export const input = style([
   fonts.BodyRegular,
   {
     width: '100%',
+
+    color: vars.color.bluegray10,
     '::placeholder': { color: vars.color.bluegray6 },
   },
 ]);
@@ -62,10 +64,12 @@ export const textarea = style([
     '::-webkit-scrollbar': {
       width: '0', // 스크롤바 너비를 0으로 설정하여 숨김
     },
+
+    color: vars.color.bluegray10,
   },
 ]);
 
-export const errorMessage = style([fonts.BodyRegular, { color: vars.color.red }]);
+export const errorMessage = style([fonts.Label, { marginLeft: '4px', color: vars.color.red }]);
 
 export const chipGroup = style({
   display: 'flex',

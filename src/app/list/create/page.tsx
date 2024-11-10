@@ -19,6 +19,13 @@ import StepOne from './_components/StepOne';
 import StepTwo from './_components/StepTwo';
 import StepThree from './_components/StepThree';
 
+/**
+ * TODO: 리
+ * 1. 리스트 생성 제대로 되는지 확인하기
+ * 2. 리스트 '수정'하기 기능 추가하기
+ * 3. 헤더 왼쪽 글자에 따라 중앙위치 달라지는 것 조정하기(새로운P로)
+ */
+
 //ReactHookForm 에러타입
 export type FormErrors = FieldErrors<ListCreateType>;
 
@@ -170,6 +177,7 @@ export default function CreatePage() {
     }
   };
 
+  // TODO: 완성 후 아래 삭제 필요.
   const allValues = methods.watch();
 
   useEffect(() => {

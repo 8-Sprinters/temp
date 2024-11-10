@@ -44,7 +44,8 @@ export const titleInput = style([
   fonts.BodyBold,
   {
     flexGrow: 1,
-    '::placeholder': { color: vars.color.gray },
+    color: vars.color.bluegray10,
+    '::placeholder': { color: vars.color.bluegray6 },
   },
 ]);
 
@@ -70,7 +71,9 @@ export const commentTextarea = style([
     '::-webkit-scrollbar': {
       width: '0', // 스크롤바 너비를 0으로 설정하여 숨김
     },
-    '::placeholder': { color: vars.color.gray },
+
+    color: vars.color.bluegray10,
+    '::placeholder': { color: vars.color.bluegray6 },
   },
 ]);
 
