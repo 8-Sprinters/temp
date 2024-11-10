@@ -1,45 +1,45 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter, useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
-import CreateItem from '@/app/list/create/_components/CreateItem';
-import CreateList from '@/app/list/create/_components/CreateList';
-
-import updateList from '@/app/_api/list/updateList';
-import getListDetail from '@/app/_api/list/getListDetail';
-import getCategories from '@/app/_api/category/getCategories';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { ItemImagesType, ListDetailType, ListEditType } from '@/lib/types/listType';
+import { ItemImagesType, ListCreateType, ListDetailType, ListEditType } from '@/lib/types/listType';
 import { CategoryType } from '@/lib/types/categoriesType';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import toasting from '@/lib/utils/toasting';
+import toastMessage from '@/lib/constants/toastMessage';
+import { useLanguage } from '@/store/useLanguage';
 import { useUser } from '@/store/useUser';
 
-export type FormErrors = FieldErrors<ListEditType>;
+import getListDetail from '@/app/_api/list/getListDetail';
+import getCategories from '@/app/_api/category/getCategories';
+import updateList from '@/app/_api/list/updateList';
+
+import StepOne from '@/app/list/create/_components/StepOne';
+import StepThree from '@/app/list/create/_components/StepThree';
+import StepTwo from '@/app/list/create/_components/StepTwo';
 
 export default function EditPage() {
   const router = useRouter();
+  const { user } = useUser();
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
   const param = useParams<{ listId: string }>();
-  const { user } = useUser();
 
-  const [step, setStep] = useState<'list' | 'item'>('list');
+  /** step 관리 */
+  const [step, setStep] = useState(1);
 
-  const { data: listDetailData } = useQuery<ListDetailType>({
-    queryKey: [QUERY_KEYS.getListDetail, param?.listId],
-    queryFn: () => getListDetail(Number(param?.listId)),
-  });
+  const handleNext = () => setStep((prev) => prev + 1);
+  const handleBack = () => setStep((prev) => prev - 1);
 
-  const { data: categories } = useQuery<CategoryType[]>({
-    queryKey: [QUERY_KEYS.getCategories],
-    queryFn: () => getCategories(),
-  });
-
-  const methods = useForm<ListEditType>({
+  /** React Hook Form */
+  //-- 초기세팅
+  const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      category: 'culture',
+      category: '',
       labels: [],
       collaboratorIds: [],
       title: '',
@@ -51,8 +51,47 @@ export default function EditPage() {
     },
   });
 
-  //request용 데이터 만드는 함수.
+  //--- 기존 데이터 불러오기
+  //기존 리스트 데이터
+  const { data: listDetailData } = useQuery<ListDetailType>({
+    queryKey: [QUERY_KEYS.getListDetail, param?.listId],
+    queryFn: () => getListDetail(Number(param?.listId)),
+  });
 
+  // 카테고리 목록
+  const { data: categories } = useQuery<CategoryType[]>({
+    queryKey: [QUERY_KEYS.getCategories],
+    queryFn: () => getCategories(),
+  });
+
+  //데이터 채워넣기
+  useEffect(() => {
+    if (listDetailData) {
+      methods.reset({
+        category: categories?.find((category) => category.korName === listDetailData.categoryKorName)?.engName,
+        labels: listDetailData.labels.map((obj) => obj.name),
+        collaboratorIds: listDetailData.collaborators.filter((c) => c.id !== user.id).map((c) => c.id),
+        title: listDetailData.title,
+        description: listDetailData.description,
+        isPublic: listDetailData.isPublic,
+        backgroundPalette: listDetailData.backgroundPalette,
+        backgroundColor: listDetailData.backgroundColor,
+        items: listDetailData.items.map(({ id, rank, title, comment, link, imageUrl }) => {
+          return {
+            rank: rank,
+            id: id,
+            title: title,
+            comment: comment ? comment : '',
+            link: link ? link : '',
+            imageUrl: typeof imageUrl === 'string' ? imageUrl : '',
+          };
+        }),
+      });
+    }
+  }, [listDetailData, categories, methods]);
+
+  /** Request 보내기 */
+  //--- 포맷 맞추기
   const formatData = () => {
     const originData = methods.getValues();
 
@@ -80,6 +119,7 @@ export default function EditPage() {
       }),
     };
 
+    //이미지rank,extension & 이미지파일 배열
     const imageData: ItemImagesType = {
       listId: Number(param?.listId),
       extensionRanks: originData.items
@@ -100,46 +140,16 @@ export default function EditPage() {
     return { listData, imageData, imageFileList };
   };
 
-  const handleStepChange = (step: 'list' | 'item') => {
-    setStep(step);
+  //--아이템 중복 확인
+  const getIsAllUnique = () => {
+    const allTitles = methods.getValues().items.map((item, itemIndex) => {
+      return item.title === '' ? itemIndex : item.title;
+    }); //TODO: 필요한 코드인지 다시 확인하기
+    const isAllUnique = new Set(allTitles).size === allTitles.length;
+    return isAllUnique;
   };
 
-  const handleSubmit = () => {
-    const { listData, imageData, imageFileList } = formatData();
-    const updateData = {
-      listId: Number(param?.listId) || 0,
-      listData: listData,
-      imageData: imageData,
-      imageFileList: imageFileList,
-    };
-    updateListMutation(updateData);
-  };
-
-  useEffect(() => {
-    if (listDetailData) {
-      methods.reset({
-        category: categories?.find((c) => c.korName === listDetailData.categoryKorName)?.engName || 'culture',
-        labels: listDetailData.labels.map((obj) => obj.name),
-        collaboratorIds: listDetailData.collaborators.filter((c) => c.id !== user.id).map((c) => c.id),
-        title: listDetailData.title,
-        description: listDetailData.description,
-        isPublic: listDetailData.isPublic,
-        backgroundPalette: listDetailData.backgroundPalette,
-        backgroundColor: listDetailData.backgroundColor,
-        items: listDetailData.items.map(({ id, rank, title, comment, link, imageUrl }) => {
-          return {
-            rank: rank,
-            id: id,
-            title: title,
-            comment: comment ? comment : '',
-            link: link ? link : '',
-            imageUrl: typeof imageUrl === 'string' ? imageUrl : '',
-          };
-        }),
-      });
-    }
-  }, [listDetailData, categories, methods]);
-
+  //--- 리스트 수정하기
   const {
     mutate: updateListMutation,
     isPending: isUpdatingList,
@@ -154,27 +164,34 @@ export default function EditPage() {
     },
   });
 
+  //--- 제출
+  const handleSubmit = () => {
+    if (getIsAllUnique()) {
+      const { listData, imageData, imageFileList } = formatData();
+      const updateData = {
+        listId: Number(param?.listId) || 0,
+        listData: listData,
+        imageData: imageData,
+        imageFileList: imageFileList,
+      };
+      updateListMutation(updateData);
+    } else {
+      toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
+    }
+  };
+
   return (
-    <>
-      <FormProvider {...methods}>
-        {step === 'list' ? (
-          <CreateList
-            onNextClick={() => {
-              handleStepChange('item');
-            }}
-            type="edit"
-          />
-        ) : (
-          <CreateItem
-            onBackClick={() => {
-              handleStepChange('list');
-            }}
-            onSubmitClick={handleSubmit}
-            isSubmitting={isUpdatingList || isSuccess}
-            type="edit"
-          />
-        )}
-      </FormProvider>
-    </>
+    <FormProvider {...methods}>
+      {step === 1 && <StepOne onNextClick={handleNext} type="edit" />}
+      {step === 2 && <StepTwo onBeforeClick={handleBack} onNextClick={handleNext} type="edit" />}
+      {step === 3 && (
+        <StepThree
+          onBeforeClick={handleBack}
+          onNextClick={handleSubmit}
+          isSubmitting={isUpdatingList || isSuccess}
+          type="edit"
+        />
+      )}
+    </FormProvider>
   );
 }

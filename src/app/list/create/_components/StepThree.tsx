@@ -63,7 +63,6 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     //자음모음 결합 중일 경우 return
     if (isComposing) {
-      console.log(isComposing);
       return;
     }
 
@@ -125,7 +124,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
   return (
     <>
       <Header
-        title={'리스트 만들기'}
+        title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="back"
         leftClick={onBeforeClick}
         right={

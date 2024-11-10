@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
@@ -21,9 +21,8 @@ import StepThree from './_components/StepThree';
 
 /**
  * TODO: 리
- * 1. 리스트 생성 제대로 되는지 확인하기
- * 2. 리스트 '수정'하기 기능 추가하기
- * 3. 헤더 왼쪽 글자에 따라 중앙위치 달라지는 것 조정하기(새로운P로)
+ * 헤더 왼쪽 글자에 따라 중앙위치 달라지는 것 조정하기(새로운P로)
+ * createList, updateList api 이미지 업로드 방식 무엇으로 할지 정해서 통일시키기.
  */
 
 //ReactHookForm 에러타입
@@ -31,12 +30,13 @@ export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
   const { language } = useLanguage();
-  const { user: userMeData } = useUser();
-  const [step, setStep] = useState(1);
+  const { user } = useUser();
   const queryClient = useQueryClient();
   const router = useRouter();
 
   /** step 관리 */
+  const [step, setStep] = useState(1);
+
   const handleNext = () => setStep((prev) => prev + 1);
   const handleBack = () => setStep((prev) => prev - 1);
 
@@ -157,7 +157,7 @@ export default function CreatePage() {
       queryClient.invalidateQueries({
         queryKey: [
           QUERY_KEYS.getAllList,
-          userMeData.id + '',
+          user.id + '',
           formatData().listData.collaboratorIds.length === 0 ? 'my' : 'collabo',
         ],
       });

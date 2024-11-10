@@ -101,7 +101,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
   return (
     <>
       <Header
-        title={'리스트 만들기'}
+        title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="back"
         leftClick={onBeforeClick}
         right={
@@ -132,11 +132,6 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
               {(provided) => (
                 <div className={styles.itemList} ref={provided.innerRef} {...provided.droppableProps}>
                   {items.map((item, index) => {
-                    const error = (field: 'title' | 'comment' | 'link' | 'imageUrl') =>
-                      (errors as FormErrors)?.items?.[index]?.[field];
-                    const titleError = error('title');
-                    const commentError = error('comment');
-                    const imageRegister = register(`items.${index}.imageUrl`);
                     return (
                       <Draggable key={item.id} draggableId={item.id} index={index}>
                         {(provided, snapshot) => (
@@ -148,6 +143,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
                           >
                             <ItemAccordion
                               index={index}
+                              type={type}
                               handleToggleItem={handleToggleItem}
                               isExpand={expandItem === index}
                               handleDeleteItem={handleDeleteItem}

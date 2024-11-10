@@ -1,36 +1,61 @@
 import { ChangeEvent } from 'react';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 
 import CollapseIcon from '/public/icons/collapse.svg';
 import ExpandIcon from '/public/icons/expand.svg';
 
 import { useLanguage } from '@/store/useLanguage';
 import useResizeTextarea from '@/hooks/useResizeTextarea';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { itemCommentRules, itemTitleRules } from '@/lib/constants/formInputValidationRules';
-import ItemImageUploader from './ItemImageUploader';
+import { ListDetailType } from '@/lib/types/listType';
+
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
+
+import getListDetail from '@/app/_api/list/getListDetail';
 
 import ItemImagePreview from './ItemImagePreview';
 import ItemLinkUploader from './ItemLinkUploader';
 import ItemLinkPreview from './ItemLinkPreview';
+import ItemImageUploader from './ItemImageUploader';
 
 import * as styles from './ItemAccordion.css';
+
 interface ItemAccordionProps {
+  type: 'create' | 'edit';
   index: number;
   handleToggleItem: (index: any) => void;
   isExpand: boolean;
   handleDeleteItem: (id: any) => void;
 }
 
-export default function ItemAccordion({ index, handleToggleItem, isExpand, handleDeleteItem }: ItemAccordionProps) {
+export default function ItemAccordion({
+  type,
+  index,
+  handleToggleItem,
+  isExpand,
+  handleDeleteItem,
+}: ItemAccordionProps) {
   const { language } = useLanguage();
   //props로 받아야하는 항목 mock data
   const rank = index + 1;
 
+  //--- (수정)기존 데이터 가져오기
+  const param = useParams<{ listId: string }>();
+  const listId = param?.listId;
+
+  const { data: listDetailData } = useQuery<ListDetailType>({
+    queryKey: [QUERY_KEYS.getListDetail, listId],
+    queryFn: () => getListDetail(Number(listId)),
+    enabled: type === 'edit',
+  });
+
   /** react-hook-form */
-  const { register, setValue, control } = useFormContext();
+  const { register, setValue, getValues, control } = useFormContext();
   const titleRegister = register(`items.${index}.title`, itemTitleRules);
   const commentRegister = register(`items.${index}.comment`, itemCommentRules);
   const imageRegister = register(`items.${index}.imageUrl`);
@@ -67,16 +92,37 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
 
   return (
     <div className={styles.accordion}>
-      <div
-        className={styles.header}
-        onClick={() => {
-          handleToggleItem(index);
-        }}
-      >
+      <div className={styles.header}>
         <Image src={'/icons/dnd.svg'} width={16} height={13} alt="drag and drop" />
         <div className={rank === 1 ? styles.variantRank.first : styles.variantRank.default}>{rank}위</div>
-        <input {...titleRegister} className={styles.titleInput} placeholder="아이템명을 작성해 주세요." />
-        {isExpand ? <CollapseIcon width="14" height="9" /> : <ExpandIcon width="14" height="9" />}
+        <input
+          {...titleRegister}
+          className={styles.titleInput}
+          placeholder="아이템명을 작성해 주세요."
+          readOnly={type === 'edit' && listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))}
+          onClick={() => {
+            if (type === 'edit' && listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))) {
+              toasting({ type: 'default', txt: '이미 등록한 아이템명은 수정이 불가능해요' });
+            }
+          }}
+        />
+        {isExpand ? (
+          <CollapseIcon
+            width="14"
+            height="9"
+            onClick={() => {
+              handleToggleItem(index);
+            }}
+          />
+        ) : (
+          <ExpandIcon
+            width="14"
+            height="9"
+            onClick={() => {
+              handleToggleItem(index);
+            }}
+          />
+        )}
       </div>
       {/** end-header */}
       {isExpand ? (

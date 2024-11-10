@@ -37,21 +37,11 @@ interface StepOneProps {
 export default function StepOne({ onNextClick, type }: StepOneProps) {
   const { language } = useLanguage();
   const router = useRouter();
-  const { user: me } = useUser();
-  const param = useParams<{ listId: string }>();
-  const listId = param?.listId;
 
   /** state */
   const [selectedCategory, setSelectedCategory] = useState('');
 
   /** 데이터 가져오기 */
-  //--- (수정)기존 데이터 가져오기
-  const { data: listDetailData } = useQuery<ListDetailType>({
-    queryKey: [QUERY_KEYS.getListDetail, listId],
-    queryFn: () => getListDetail(listId),
-    enabled: type === 'edit',
-  });
-
   //--- 카테고리 가져오기
   const { data: categories } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
@@ -86,13 +76,14 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
     register('category', listCategoryRules);
     //페이지 로드 시  'title', 'category'필 드 유효성 검사 강제 실행
     trigger(['title', 'category']);
-    console.log('실행');
   }, [trigger]);
+
+  console.log(errors.title);
 
   return (
     <>
       <Header
-        title={'리스트 만들기'}
+        title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="cancel"
         leftClick={() => {
           //TODO: 취소 바텀시트 필요
