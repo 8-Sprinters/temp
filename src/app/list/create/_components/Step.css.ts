@@ -71,13 +71,13 @@ export const textarea = style([
 
 export const errorMessage = style([fonts.Label, { marginLeft: '4px', color: vars.color.red }]);
 
-export const chipGroup = style({
+export const categoryChipGroup = style({
   display: 'flex',
   flexWrap: 'wrap',
   gap: '0.8rem',
 });
 
-export const chip = style([
+export const categoryChip = style([
   fonts.Label,
   {
     width: 'auto',
@@ -91,9 +91,9 @@ export const chip = style([
   },
 ]);
 
-export const selectedChip = style([
+export const selectedCategoryChip = style([
   fonts.Label,
-  chip,
+  categoryChip,
   {
     color: vars.color.blue,
     backgroundColor: vars.color.lightblue,

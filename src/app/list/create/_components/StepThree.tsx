@@ -49,20 +49,35 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
   });
 
   /** 태그(라벨) */
+  const [isComposing, setIsComposing] = useState(false); //자음모음결합중
+
+  const isValidLabel = (label: string): boolean => {
+    const reg = /^[a-zA-Z0-9가-힣]{1,10}$/;
+    return reg.test(label);
+  };
+
   const isDuplicatedLabel = (label: string): boolean => {
     return watchLabels.some((existingLabel: string) => existingLabel.toLowerCase() === label.toLowerCase());
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     //자음모음 결합 중일 경우 return
-    if (e.nativeEvent.isComposing) {
+    if (isComposing) {
+      console.log(isComposing);
       return;
     }
+
     //Enter, Space 시 등록
     const label = e.currentTarget.value;
 
     if ((e.key === 'Enter' || e.key === ' ') && label) {
       e.preventDefault();
+
+      //영어,숫자,한글만 가능하게 처리
+      if (!isValidLabel(label)) {
+        setError('newLabel', { type: 'pattern', message: '유효한 한글, 영어, 숫자만 입력해 주세요.' });
+        return;
+      }
 
       //3개 초과 에러처리
       if (fields.length === 3) {
@@ -131,6 +146,8 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
               placeholder={listPlaceholder[language].label}
               autoComplete="off"
               onKeyDown={handleKeyDown}
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
               onChange={(e) => {
                 labelRegister('newLabel', listLabelRules).onChange(e);
                 clearErrors('newLabel');

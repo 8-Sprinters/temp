@@ -21,6 +21,7 @@ import { listError, listLocale } from '@/app/list/create/locale';
 import * as styles from './Step.css';
 
 //TODO: '리스트 수정'버전 추가 필요(데이터삽입, 헤더제목변경)
+
 interface StepOneProps {
   onNextClick: () => void;
   type: 'create' | 'edit';
@@ -55,6 +56,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
   const { data: categories } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
     queryFn: getCategories,
+    staleTime: Infinity,
   });
 
   /** React Hook Form */
@@ -143,12 +145,12 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
           <label className={styles.label}>
             카테고리 <span className={styles.requiredIcon}>*</span>
           </label>
-          <div className={styles.chipGroup}>
+          <div className={styles.categoryChipGroup}>
             {categories
               ?.filter((category) => category.code !== '0')
               .map((category) => (
                 <button
-                  className={selectedCategory === category.engName ? styles.selectedChip : styles.chip}
+                  className={selectedCategory === category.engName ? styles.selectedCategoryChip : styles.categoryChip}
                   key={category.code}
                   onClick={() => {
                     handleSelectCategory(category.engName);

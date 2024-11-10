@@ -39,10 +39,6 @@ export const itemLinkRules = {
 //list-step3
 export const listLabelRules = {
   maxLength: { value: 10, message: '최대 10글자까지 입력할 수 있어요.' },
-  pattern: {
-    value: /^[a-zA-Z0-9가-힣]{1,10}$/,
-    message: '유효한 한글, 영어, 숫자만 입력해 주세요.',
-  },
 };
 
 //profile
