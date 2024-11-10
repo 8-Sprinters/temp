@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 
@@ -11,18 +12,16 @@ import { FormErrors } from '@/app/list/create/page';
 
 import Header from '@/components/Header/Header';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
+import ItemAccordion from './ItemAccordion';
 
 import AddIcon from '/public/icons/add.svg';
 
 import * as styles from './Step.css';
-import ItemAccordion from './ItemAccordion';
-import { useState } from 'react';
 
 //TODO: 브라우저 뒤로가기 눌렀을 경우 내용 사라짐 경고
 
 /**
  * TODO:
- * 2. 이미지 추가하기 기능(기존과 동일)
  * 3. 링크 추가하기 기능(기존과 동일) -> 추후에 디벨롭
  */
 

@@ -1,20 +1,22 @@
 import { ChangeEvent } from 'react';
 import Image from 'next/image';
-import { useFormContext, UseFormRegisterReturn, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 
 import CollapseIcon from '/public/icons/collapse.svg';
 import ExpandIcon from '/public/icons/expand.svg';
 
 import { useLanguage } from '@/store/useLanguage';
 import useResizeTextarea from '@/hooks/useResizeTextarea';
-
-import * as styles from './ItemAccordion.css';
 import { itemCommentRules, itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import ItemImageUploader from './ItemImageUploader';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
-import ItemImagePreview from './ItemImagePreview';
 
+import ItemImagePreview from './ItemImagePreview';
+import ItemLinkUploader from './ItemLinkUploader';
+import ItemLinkPreview from './ItemLinkPreview';
+
+import * as styles from './ItemAccordion.css';
 interface ItemAccordionProps {
   index: number;
   handleToggleItem: (index: any) => void;
@@ -35,6 +37,7 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
 
   const watchComment = useWatch({ control, name: `items.${index}.comment` });
   const watchImage = useWatch({ control, name: `items.${index}.imageUrl` });
+  const watchLink = useWatch({ control, name: `items.${index}.link` });
 
   //--- 글자 길이에 맞춘 높이 조절
   const { textareaRef, handleResizeHeight } = useResizeTextarea();
@@ -56,6 +59,10 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
 
   const handleImageClear = () => {
     setValue(`items.${index}.imageUrl`, '');
+  };
+
+  const handleLinkClear = () => {
+    setValue(`items.${index}.link`, '');
   };
 
   return (
@@ -109,7 +116,7 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
                     }}
                   />
                 </ItemImageUploader>
-                <Image src={'/icons/link.svg'} width={17} height={17} alt="add link" />
+                <ItemLinkUploader index={index} />
               </div>
               {/** end-toolsWrapper*/}
               <button
@@ -124,6 +131,7 @@ export default function ItemAccordion({ index, handleToggleItem, isExpand, handl
             {/** end-toolsContainer */}
             <div className={styles.previewContainer}>
               {watchImage !== '' && <ItemImagePreview image={watchImage} handleClearButtonClick={handleImageClear} />}
+              {watchLink !== '' && <ItemLinkPreview url={watchLink} handleClearButtonClick={handleLinkClear} />}
             </div>
             {/** end-previewContainer */}
           </div>

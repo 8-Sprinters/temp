@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 
 export const previewBox = style({
   width: '90px',
@@ -30,7 +30,7 @@ export const domainText = style({
   marginTop: '0.5rem',
 
   fontSize: '1rem',
-  color: vars.color.gray9,
+  color: vars.color.bluegray8,
 });
 
 export const previewImage = style({

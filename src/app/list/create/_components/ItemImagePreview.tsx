@@ -5,6 +5,7 @@ import fileToBase64 from '@/lib/utils/fileToBase64';
 import { useLanguage } from '@/store/useLanguage';
 import { listLocale } from '@/app/list/create/locale';
 import ClearBlackIcon from '/public/icons/clear_x_black.svg';
+
 import * as styles from './Preview.css';
 
 type ImagePreviewProps = {
