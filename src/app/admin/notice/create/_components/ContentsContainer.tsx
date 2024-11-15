@@ -12,12 +12,18 @@ import NoteContent from './NoteContent';
 
 interface ContainerProps {
   content: NoticeContentsType;
+  order: number;
 }
 
-const formAboutContent = (content: NoticeContentsType) => {
+interface FormAboutContentProps {
+  content: NoticeContentsType;
+  order: number;
+}
+
+const formAboutContent = ({ content, order }: FormAboutContentProps) => {
   switch (content) {
     case 'body':
-      return <BodyContent />;
+      return <BodyContent order={order} />;
     case 'subtitle':
       return <SubTitleContent />;
     case 'button':
@@ -33,11 +39,11 @@ const formAboutContent = (content: NoticeContentsType) => {
   }
 };
 
-export default function ContentsContainer({ content }: ContainerProps) {
+export default function ContentsContainer({ content, order }: ContainerProps) {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>{NOTICE_CONTENT[content]}</h3>
-      <div className={styles.content}>{formAboutContent(content)}</div>
+      <div className={styles.content}>{formAboutContent({ content, order })}</div>
     </div>
   );
 }
