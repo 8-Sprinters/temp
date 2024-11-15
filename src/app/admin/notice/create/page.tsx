@@ -74,7 +74,7 @@ export default function CreateNotice() {
       </div>
       <section>
         {contentsType.map((content, index) => (
-          <ContentsContainer key={index} content={content} index={index} />
+          <ContentsContainer key={index} content={content} />
         ))}
       </section>
       <section className={styles.contents}>

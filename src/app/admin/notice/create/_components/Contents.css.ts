@@ -12,6 +12,6 @@ export const container = style({
 export const title = style([BodyRegular]);
 
 export const content = style({
-  height: 100,
+  height: '100%',
   backgroundColor: vars.color.white,
 });

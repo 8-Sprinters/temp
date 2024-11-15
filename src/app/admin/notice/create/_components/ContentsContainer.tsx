@@ -12,7 +12,6 @@ import NoteContent from './NoteContent';
 
 interface ContainerProps {
   content: NoticeContentsType;
-  index: number;
 }
 
 const formAboutContent = (content: NoticeContentsType) => {
@@ -34,7 +33,7 @@ const formAboutContent = (content: NoticeContentsType) => {
   }
 };
 
-export default function ContentsContainer({ content, index }: ContainerProps) {
+export default function ContentsContainer({ content }: ContainerProps) {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>{NOTICE_CONTENT[content]}</h3>
