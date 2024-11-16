@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
 import * as styles from './page.css';
 
@@ -21,10 +21,25 @@ export default function CreateNotice() {
       categoryCode: 1,
       title: '',
       description: '',
-      contents: [],
+      contents: [
+        {
+          order: 1,
+          type: 'body',
+          description: '',
+          imageUrl: '',
+          buttonName: '',
+          buttonLink: '',
+        },
+      ],
     },
   });
-  const { register, handleSubmit } = methods;
+  const { register, handleSubmit, control } = methods;
+  const { fields, append, remove } = useFieldArray({
+    name: 'contents',
+    control,
+  });
+
+  console.log(fields); // 삭제
 
   /** 게시물 카테고리 조회 */
   const { data: categories } = useQuery({
@@ -34,8 +49,21 @@ export default function CreateNotice() {
   });
 
   /** Contents를 추가할때마다 배열에 Type을 저장하는 함수 */
-  const handleAddContents = (key: NoticeContentsType) => () => {
-    setContentsType([...contentsType, key]);
+  const handleAddContents = (type: NoticeContentsType, order: number) => () => {
+    setContentsType([...contentsType, type]);
+    append({
+      order,
+      type,
+      description: '',
+      imageUrl: '',
+      buttonName: '',
+      buttonLink: '',
+    });
+  };
+
+  /** Contents 블럭 삭제 함수 */
+  const handleDeleteBlock = (order: number) => {
+    remove(order);
   };
 
   /** 게시물 생성 */
@@ -78,8 +106,8 @@ export default function CreateNotice() {
           />
         </div>
         <section>
-          {contentsType.map((content, index) => (
-            <ContentsContainer key={index} content={content} order={index} />
+          {fields.map((field, index) => (
+            <ContentsContainer key={field.id} content={field} order={index} handleDeleteBlock={handleDeleteBlock} />
           ))}
         </section>
         <section className={styles.contents}>
@@ -87,7 +115,7 @@ export default function CreateNotice() {
             <button
               key={index}
               className={styles.block}
-              onClick={handleAddContents(key as NoticeContentsType)}
+              onClick={handleAddContents(key as NoticeContentsType, fields.length + 1)}
               type="button"
             >{`+ ${value} 추가`}</button>
           ))}

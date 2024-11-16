@@ -9,6 +9,14 @@ export interface NoticeCategoryType {
 // Contents Type
 export type NoticeContentsType = keyof typeof NOTICE_CONTENT;
 
+// 게시물 생성 타입
+export interface NoticeCreateType {
+  categoryCode: number;
+  title: string;
+  description: string;
+  contents: NoticeContentType[] & { order: number };
+}
+
 export interface NoticeListItemType {
   id: number;
   createdDate: string;
@@ -38,7 +46,8 @@ export interface NoticeDetailType {
 }
 
 export interface NoticeContentType {
-  type: string;
+  [key: string]: string | NoticeContentsType | number;
+  type: NoticeContentsType;
   description: string;
   imageUrl: string;
   buttonName: string;

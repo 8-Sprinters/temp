@@ -1,7 +1,9 @@
-import { NOTICE_CONTENT } from '@/lib/constants/notice';
-import { NoticeContentsType } from '@/lib/types/noticeType';
+import { FieldArrayWithId } from 'react-hook-form';
 
 import * as styles from './Contents.css';
+
+import { NOTICE_CONTENT } from '@/lib/constants/notice';
+import { NoticeContentsType, NoticeCreateType } from '@/lib/types/noticeType';
 
 import BodyContent from './BodyContent';
 import SubTitleContent from './SubTitleContet';
@@ -10,18 +12,13 @@ import ImageContent from './ImageContent';
 import LineContent from './LintContent';
 import NoteContent from './NoteContent';
 
-interface ContainerProps {
-  content: NoticeContentsType;
-  order: number;
-}
-
 interface FormAboutContentProps {
-  content: NoticeContentsType;
+  type: NoticeContentsType;
   order: number;
 }
 
-const formAboutContent = ({ content, order }: FormAboutContentProps) => {
-  switch (content) {
+const formAboutContent = ({ type, order }: FormAboutContentProps) => {
+  switch (type) {
     case 'body':
       return <BodyContent order={order} />;
     case 'subtitle':
@@ -39,11 +36,24 @@ const formAboutContent = ({ content, order }: FormAboutContentProps) => {
   }
 };
 
-export default function ContentsContainer({ content, order }: ContainerProps) {
+interface ContainerProps {
+  content: FieldArrayWithId<NoticeCreateType, 'contents', 'id'>;
+  handleDeleteBlock: (order: number) => void;
+  order: number;
+}
+
+export default function ContentsContainer({ content, handleDeleteBlock, order }: ContainerProps) {
+  const { type } = content;
+
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{NOTICE_CONTENT[content]}</h3>
-      <div className={styles.content}>{formAboutContent({ content, order })}</div>
+      <div>
+        <h3 className={styles.title}>{NOTICE_CONTENT[type]}</h3>
+        <button type="button" onClick={() => handleDeleteBlock(order)}>
+          x
+        </button>
+      </div>
+      <div className={styles.content}>{formAboutContent({ type, order })}</div>
     </div>
   );
 }

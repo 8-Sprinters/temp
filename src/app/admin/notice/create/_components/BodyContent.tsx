@@ -35,7 +35,7 @@ export default function BodyContent({ order }: BodyContentProps) {
     const contents: NoticeContentType[] = getValues('contents');
 
     // 새로운 데이터 객체 생성
-    const newData = {
+    const newData: Partial<NoticeContentType> = {
       order,
       type: 'body',
       description: text,
