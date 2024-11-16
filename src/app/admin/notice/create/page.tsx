@@ -23,7 +23,7 @@ export default function CreateNotice() {
       description: '',
       contents: [
         {
-          order: 1,
+          order: 0,
           type: 'body',
           description: '',
           imageUrl: '',
@@ -49,10 +49,10 @@ export default function CreateNotice() {
   });
 
   /** Contents를 추가할때마다 배열에 Type을 저장하는 함수 */
-  const handleAddContents = (type: NoticeContentsType, order: number) => () => {
+  const handleAddContents = (type: NoticeContentsType) => () => {
     setContentsType([...contentsType, type]);
     append({
-      order,
+      order: 0,
       type,
       description: '',
       imageUrl: '',
@@ -115,7 +115,7 @@ export default function CreateNotice() {
             <button
               key={index}
               className={styles.block}
-              onClick={handleAddContents(key as NoticeContentsType, fields.length + 1)}
+              onClick={handleAddContents(key as NoticeContentsType)}
               type="button"
             >{`+ ${value} 추가`}</button>
           ))}

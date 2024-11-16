@@ -2,6 +2,7 @@ import { BodyRegular } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
+/** ContentsContainer */
 export const container = style({
   padding: '1rem 1rem',
   display: 'flex',
@@ -9,7 +10,17 @@ export const container = style({
   gap: '1rem',
 });
 
+export const wrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
 export const title = style([BodyRegular]);
+
+export const deleteButton = style({
+  color: vars.color.red,
+});
 
 export const content = style({
   height: '100%',
@@ -18,6 +29,7 @@ export const content = style({
   gap: '1rem',
 });
 
+/** BodyContent */
 export const contentButton = style({
   width: 100,
   padding: '1rem 1.5rem',

@@ -47,10 +47,10 @@ export default function ContentsContainer({ content, handleDeleteBlock, order }:
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.wrapper}>
         <h3 className={styles.title}>{NOTICE_CONTENT[type]}</h3>
-        <button type="button" onClick={() => handleDeleteBlock(order)}>
-          x
+        <button type="button" onClick={() => handleDeleteBlock(order)} className={styles.deleteButton}>
+          삭제
         </button>
       </div>
       <div className={styles.content}>{formAboutContent({ type, order })}</div>
