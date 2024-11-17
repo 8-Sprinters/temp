@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
@@ -10,12 +9,11 @@ import getNoticeCategories from '@/app/_api/notice/getNoticeCategories';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
-import { NoticeContentsType, NoticeCreateType } from '@/lib/types/noticeType';
+import { ItemsType, NoticeContentsType, NoticeCreateType } from '@/lib/types/noticeType';
 
 import ContentsContainer from './_components/ContentsContainer';
 
 export default function CreateNotice() {
-  const [contentsType, setContentsType] = useState<NoticeContentsType[]>([]);
   const methods = useForm<NoticeCreateType>({
     defaultValues: {
       categoryCode: 1,
@@ -48,17 +46,34 @@ export default function CreateNotice() {
     staleTime: Infinity,
   });
 
-  /** Contents를 추가할때마다 배열에 Type을 저장하는 함수 */
-  const handleAddContents = (type: NoticeContentsType) => () => {
-    setContentsType([...contentsType, type]);
-    append({
+  /** 타입에 따른 Contents 블럭 포멧 지정 함수 */
+  const itemDataFormatByType = (type: NoticeContentsType) => {
+    const data: ItemsType = {
       order: 0,
       type,
-      description: '',
-      imageUrl: '',
-      buttonName: '',
-      buttonLink: '',
-    });
+    };
+
+    switch (type) {
+      case 'body':
+      case 'subtitle':
+      case 'note':
+        data.description = '';
+        break;
+      case 'button':
+        data.buttonName = '';
+        data.buttonLink = '';
+        break;
+      case 'image':
+        data.imageUrl = '';
+      default:
+        data;
+    }
+    return data;
+  };
+
+  /** Contents 블럭 추가 함수 */
+  const handleAddContents = (type: NoticeContentsType) => () => {
+    append(itemDataFormatByType(type));
   };
 
   /** Contents 블럭 삭제 함수 */
