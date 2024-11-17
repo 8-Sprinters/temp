@@ -9,12 +9,15 @@ export interface NoticeCategoryType {
 // Contents Type
 export type NoticeContentsType = keyof typeof NOTICE_CONTENT;
 
+// item 타입
+export type ItemsType = NoticeContentType & { order: number };
+
 // 게시물 생성 타입
 export interface NoticeCreateType {
   categoryCode: number;
   title: string;
   description: string;
-  contents: NoticeContentType[] & { order: number };
+  contents: ItemsType[];
 }
 
 export interface NoticeListItemType {
@@ -46,10 +49,10 @@ export interface NoticeDetailType {
 }
 
 export interface NoticeContentType {
-  [key: string]: string | NoticeContentsType | number;
+  [key: string]: unknown;
   type: NoticeContentsType;
-  description: string;
-  imageUrl: string;
-  buttonName: string;
-  buttonLink: string;
+  description?: string;
+  imageUrl?: string;
+  buttonName?: string;
+  buttonLink?: string;
 }
