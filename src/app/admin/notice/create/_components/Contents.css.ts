@@ -7,7 +7,7 @@ export const container = style({
   padding: '1rem 1rem',
   display: 'flex',
   flexDirection: 'column',
-  gap: '1rem',
+  gap: '1.5rem',
 });
 
 export const wrapper = style({
@@ -41,7 +41,7 @@ export const contentButton = style({
   fontSize: 14,
 });
 
-/** SubTitleContent */
+/** SubTitleContent, ButtonContent */
 export const input = style([
   BodyRegular,
   {
@@ -72,3 +72,10 @@ export const textArea = style([
     },
   },
 ]);
+
+/** ButtonContent */
+export const buttonTitle = style({
+  display: 'block',
+  marginBottom: '1rem',
+  fontSize: 14,
+});

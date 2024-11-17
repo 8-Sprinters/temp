@@ -24,7 +24,7 @@ const formAboutContent = ({ type, order }: FormAboutContentProps) => {
     case 'subtitle':
       return <SubTitleContent order={order} />;
     case 'button':
-      return <ButtonContent />;
+      return <ButtonContent order={order} />;
     case 'image':
       return <ImageContent />;
     case 'line':
