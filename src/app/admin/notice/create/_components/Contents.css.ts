@@ -40,3 +40,35 @@ export const contentButton = style({
   fontWeight: 500,
   fontSize: 14,
 });
+
+/** SubTitleContent */
+export const input = style([
+  BodyRegular,
+  {
+    width: '100%',
+    padding: '8px',
+    borderRadius: '8px',
+    '::placeholder': {
+      fontSize: '14px',
+    },
+  },
+]);
+
+/** NoteContent */
+export const textArea = style([
+  BodyRegular,
+  {
+    width: '100%',
+    height: '120px',
+    padding: '8px',
+
+    borderRadius: '8px',
+    border: 'none',
+    resize: 'none',
+    outline: 'none',
+
+    '::placeholder': {
+      fontSize: '14px',
+    },
+  },
+]);

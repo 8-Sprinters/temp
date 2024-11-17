@@ -22,7 +22,7 @@ const formAboutContent = ({ type, order }: FormAboutContentProps) => {
     case 'body':
       return <BodyContent order={order} />;
     case 'subtitle':
-      return <SubTitleContent />;
+      return <SubTitleContent order={order} />;
     case 'button':
       return <ButtonContent />;
     case 'image':
@@ -30,7 +30,7 @@ const formAboutContent = ({ type, order }: FormAboutContentProps) => {
     case 'line':
       return <LineContent />;
     case 'note':
-      return <NoteContent />;
+      return <NoteContent order={order} />;
     default:
       return null;
   }
