@@ -99,6 +99,13 @@ export const articleNotice = style({
 
   fontSize: '1.3rem',
   color: vars.color.bluegray8,
+
+  width: '100%',
+  minHeight: '120px',
+
+  border: 'none',
+  outline: 'none',
+  resize: 'none',
 });
 
 export const signPostWrapper = style({

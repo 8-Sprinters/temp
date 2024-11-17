@@ -102,7 +102,7 @@ export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
     },
     {
       type: 'note',
-      description: '업데이트 안됨!',
+      description: '유의사항\ntextarea로\n작성\n...\n...\n...',
       imageUrl: '',
       buttonName: '',
       buttonLink: '',
