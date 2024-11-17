@@ -106,23 +106,15 @@ export default function ItemAccordion({
             }
           }}
         />
-        {isExpand ? (
-          <CollapseIcon
-            width="14"
-            height="9"
-            onClick={() => {
-              handleToggleItem(index);
-            }}
-          />
-        ) : (
-          <ExpandIcon
-            width="14"
-            height="9"
-            onClick={() => {
-              handleToggleItem(index);
-            }}
-          />
-        )}
+        <div
+          className={styles.accordionIconWrapper}
+          onClick={() => {
+            handleToggleItem(index);
+          }}
+        >
+          {isExpand ? <CollapseIcon width="14" height="9" /> : <ExpandIcon width="14" height="9" />}
+        </div>
+        {/** end-아코디언 확장축소 아이콘 */}
       </div>
       {/** end-header */}
       {isExpand ? (

@@ -49,6 +49,15 @@ export const titleInput = style([
   },
 ]);
 
+export const accordionIconWrapper = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  width: '2rem',
+  height: '2.6rem',
+});
+
 //콘텐트
 export const hr = style({
   width: '100%',
