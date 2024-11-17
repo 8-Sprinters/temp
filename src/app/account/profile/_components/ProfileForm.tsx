@@ -151,9 +151,9 @@ export default function ProfileForm({
       ) : (
         <div className={styles.form}>
           {/* 닉네임 */}
-          <div>
+          <div className={styles.field}>
+            <label className={styles.label}>{accountLocale[language].nickname}</label>
             <div className={styles.inputContainer}>
-              <label className={styles.label}>{accountLocale[language].nickname}</label>
               <input
                 className={styles.inputText}
                 placeholder={profilePlaceholder[language].nickname}
@@ -181,9 +181,9 @@ export default function ProfileForm({
             )}
           </div>
 
-          <div>
+          <div className={styles.field}>
+            <label className={styles.label}>{accountLocale[language].introduce}</label>
             <div className={styles.inputContainer}>
-              <label className={styles.label}>{accountLocale[language].introduce}</label>
               <textarea
                 className={styles.textarea}
                 placeholder={profilePlaceholder[language].description}
@@ -200,62 +200,67 @@ export default function ProfileForm({
             )}
           </div>
 
-          <div className={styles.inputContainer}>
-            <p className={styles.label}>{accountLocale[language].backgroundImage}</p>
-            <div className={styles.backgroundOptionContainer}>
-              <label className={styles.backgroundOption} htmlFor="backgroundImage">
-                <Camera />
-              </label>
-              <input
-                type="file"
-                id="backgroundImage"
-                className={styles.inputFile}
-                accept=".jpg, .jpeg, .png"
-                {...newBackgroundImageRegister}
-                onChange={(e) => handleBackgroundFileInput(e)}
-              />
-              {defaultBackgroundImages?.map((image) => (
-                <button
-                  key={image.name}
-                  type="button"
-                  className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
-                  style={assignInlineVars({
-                    [styles.imageUrl]: `url(${image?.imageUrl})`,
-                  })}
-                  onClick={() => {
-                    handleDefaultImageClick('background', image.imageUrl);
-                  }}
+          <div className={styles.field}>
+            <span className={styles.label}>{accountLocale[language].backgroundImage}</span>
+            <div className={styles.inputContainer}>
+              <div className={styles.backgroundOptionContainer}>
+                <label className={styles.backgroundOption} htmlFor="backgroundImage">
+                  <Camera />
+                </label>
+                <input
+                  type="file"
+                  id="backgroundImage"
+                  className={styles.inputFile}
+                  accept=".jpg, .jpeg, .png"
+                  {...newBackgroundImageRegister}
+                  onChange={(e) => handleBackgroundFileInput(e)}
                 />
-              ))}
+                {defaultBackgroundImages?.map((image) => (
+                  <button
+                    key={image.name}
+                    type="button"
+                    className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
+                    style={assignInlineVars({
+                      [styles.imageUrl]: `url(${image?.imageUrl})`,
+                    })}
+                    onClick={() => {
+                      handleDefaultImageClick('background', image.imageUrl);
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-          <div className={styles.inputContainer}>
-            <p className={styles.label}>{accountLocale[language].profileImageAlt}</p>
-            <div className={styles.profileOptionContainer}>
-              <label className={styles.profileOption} htmlFor="profileImage">
-                <Camera />
-              </label>
-              <input
-                type="file"
-                id="profileImage"
-                className={styles.inputFile}
-                accept=".jpg, .jpeg, .png"
-                {...newProfileImageRegister}
-                onChange={(e) => handleProfileFileInput(e)}
-              />
-              {defaultProfileImages?.map((image) => (
-                <button
-                  key={image.name}
-                  type="button"
-                  className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
-                  style={assignInlineVars({
-                    [styles.imageUrl]: `url(${image?.imageUrl})`,
-                  })}
-                  onClick={() => {
-                    handleDefaultImageClick('profile', image.imageUrl);
-                  }}
+
+          <div className={styles.field}>
+            <span className={styles.label}>{accountLocale[language].profileImageAlt}</span>
+            <div className={styles.inputContainer}>
+              <div className={styles.profileOptionContainer}>
+                <label className={styles.profileOption} htmlFor="profileImage">
+                  <Camera />
+                </label>
+                <input
+                  type="file"
+                  id="profileImage"
+                  className={styles.inputFile}
+                  accept=".jpg, .jpeg, .png"
+                  {...newProfileImageRegister}
+                  onChange={(e) => handleProfileFileInput(e)}
                 />
-              ))}
+                {defaultProfileImages?.map((image) => (
+                  <button
+                    key={image.name}
+                    type="button"
+                    className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
+                    style={assignInlineVars({
+                      [styles.imageUrl]: `url(${image?.imageUrl})`,
+                    })}
+                    onClick={() => {
+                      handleDefaultImageClick('profile', image.imageUrl);
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

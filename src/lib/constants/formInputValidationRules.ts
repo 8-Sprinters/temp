@@ -1,3 +1,5 @@
+import { m } from 'framer-motion';
+
 //item
 export const itemTitleRules = {
   required: '아이템을 입력해주세요.',
@@ -54,4 +56,9 @@ export const profileDescriptionRules = {
 export const nicknameDuplicateRules = {
   type: 'duplicated',
   message: '이미 사용중인 닉네임이에요.',
+};
+
+export const nicknameUnavailableRules = {
+  type: 'unavailable',
+  message: '사용할 수 없는 닉네임이에요.',
 };

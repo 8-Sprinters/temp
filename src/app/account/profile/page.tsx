@@ -19,7 +19,6 @@ import BlueButton from '@/components/BlueButton/BlueButton';
 import ProfileForm from './_components/ProfileForm';
 import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
-import ProfileSkeleton from './_components/ProfileSkeleton';
 import { useLanguage } from '@/store/useLanguage';
 import { accountLocale } from '@/app/account/locale';
 
