@@ -2,25 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 
 import { CategoryType } from '@/lib/types/categoriesType';
-import { ListDetailType } from '@/lib/types/listType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { listCategoryRules, listDescriptionRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
 import { useLanguage } from '@/store/useLanguage';
-import { useUser } from '@/store/useUser';
 import Header from '@/components/Header/Header';
 
-import { getListDetail } from '@/app/_api/list/getLists';
+import { getListDetail } from '@/app/_api/list/getLists'; //TODO: 확인하기
 import getCategories from '@/app/_api/category/getCategories';
 
 import { listError, listLocale } from '@/app/list/create/locale';
 import * as styles from './Step.css';
-
-//TODO: '리스트 수정'버전 추가 필요(데이터삽입, 헤더제목변경)
 
 interface StepOneProps {
   onNextClick: () => void;
@@ -38,9 +33,6 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
   const { language } = useLanguage();
   const router = useRouter();
 
-  /** state */
-  const [selectedCategory, setSelectedCategory] = useState('');
-
   /** 데이터 가져오기 */
   //--- 카테고리 가져오기
   const { data: categories } = useQuery<CategoryType[]>({
@@ -54,6 +46,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
     register,
     trigger,
     setValue,
+    getValues,
     control,
     formState: { errors },
   } = useFormContext();
@@ -63,7 +56,6 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
 
   /** 카테고리 선택 */
   const handleSelectCategory = (name: string) => {
-    setSelectedCategory(name);
     setValue('category', name);
     //setValue 후 유효성 재검사
     trigger('category');
@@ -76,9 +68,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
     register('category', listCategoryRules);
     //페이지 로드 시  'title', 'category'필 드 유효성 검사 강제 실행
     trigger(['title', 'category']);
-  }, [trigger]);
-
-  console.log(errors.title);
+  }, [trigger, register, watchTitle]);
 
   return (
     <>
@@ -114,7 +104,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
               {...register('title', listTitleRules)}
             />
             <p className={watchTitle.length && errors.title ? styles.errorMessage : styles.length}>
-              {watchTitle?.length}/30
+              {(watchTitle || '').length}/30
             </p>
           </div>
           {/** end-input과 length 묶은 div */}
@@ -141,7 +131,9 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
               ?.filter((category) => category.code !== '0')
               .map((category) => (
                 <button
-                  className={selectedCategory === category.engName ? styles.selectedCategoryChip : styles.categoryChip}
+                  className={
+                    getValues('category') === category.engName ? styles.selectedCategoryChip : styles.categoryChip
+                  }
                   key={category.code}
                   onClick={() => {
                     handleSelectCategory(category.engName);
