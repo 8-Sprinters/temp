@@ -7,8 +7,6 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
-
-  height: '100vh',
   background: vars.color.bggray,
 });
 

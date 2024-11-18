@@ -37,8 +37,6 @@ export default function CreateNotice() {
     control,
   });
 
-  console.log(fields); // 삭제
-
   /** 게시물 카테고리 조회 */
   const { data: categories } = useQuery({
     queryKey: [QUERY_KEYS.getNoticeCategories],

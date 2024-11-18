@@ -1,6 +1,6 @@
 import { BodyRegular } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 /** ContentsContainer */
 export const container = style({
@@ -78,4 +78,41 @@ export const buttonTitle = style({
   display: 'block',
   marginBottom: '1rem',
   fontSize: 14,
+});
+
+/** ImageContent */
+export const imageContainer = style({
+  position: 'relative',
+});
+
+const defaultImageBox = style({
+  width: 700,
+  height: 300,
+  objectFit: 'cover',
+  borderRadius: '8px',
+  display: 'block',
+  background: vars.color.white,
+});
+
+export const deleteImageButton = style({
+  position: 'absolute',
+  top: '10px',
+  left: '10px',
+});
+
+export const imageBox = styleVariants({
+  empty: [
+    defaultImageBox,
+    {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      cursor: 'pointer',
+    },
+  ],
+  full: [defaultImageBox],
+});
+
+export const hidden = style({
+  display: 'none',
 });
