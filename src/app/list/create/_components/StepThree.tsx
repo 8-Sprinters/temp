@@ -19,6 +19,8 @@ interface StepThreeProps {
   isSubmitting: boolean;
 }
 
+//TODO: 태그입력에 대해 키보드 자판, 기종 별 테스트 필요
+
 export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitting }: StepThreeProps) {
   const { language } = useLanguage();
 
@@ -66,9 +68,12 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
 
     //Enter, Space 시 등록
     const label = e.currentTarget.value;
-    const trimmedLabel = label.trim();
+    let trimmedLabel = label.trim();
+    if (trimmedLabel.endsWith(',')) {
+      trimmedLabel = trimmedLabel.slice(0, -1);
+    }
 
-    if ((e.key === 'Enter' || e.key === ' ') && trimmedLabel) {
+    if ((e.key === 'Enter' || e.key === ' ' || e.key === ',') && trimmedLabel) {
       e.preventDefault();
 
       //영어,숫자,한글만 가능하게 처리
