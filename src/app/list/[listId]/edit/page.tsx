@@ -88,6 +88,8 @@ export default function EditPage() {
         }),
       });
     }
+
+    methods.trigger(['title']);
   }, [listDetailData, categories, methods]);
 
   /** Request 보내기 */
