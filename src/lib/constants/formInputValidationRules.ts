@@ -56,6 +56,11 @@ export const profileDescriptionRules = {
 };
 
 export const nicknameDuplicateRules = {
-  type: 'duplicated',
+  type: 'error',
   message: '이미 사용중인 닉네임이에요.',
+};
+
+export const nicknamePolicyRules = {
+  type: 'error',
+  message: '사용할 수 없는 닉네임이에요.',
 };
