@@ -231,7 +231,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
                   className={styles.radioInput}
                   type="radio"
                   checked={isPublic}
-                  onChange={(e) => {
+                  onChange={() => {
                     setIsPublic(true);
                     setValue('isPublic', true);
                   }}

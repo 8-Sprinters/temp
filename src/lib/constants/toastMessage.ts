@@ -9,6 +9,7 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     limitFollow: `최대 ${MAX_FOLLOWING.toLocaleString('ko-KR')}명까지 팔로우할 수 있어요.`,
     uploadImageError: '이미지를 업로드에 실패했어요. 다시 업로드해주세요.🥲',
     createListError: '리스트 생성에 실패했어요. 다시 시도해주세요.🥲',
+    updateListError: '리스트 수정에 실패했어요. 다시 시도해주세요.🥲',
     updateProfileSuccess: '프로필을 수정했습니다.🥰',
     updateProfileError: '프로필 수정에 실패했어요. 다시 시도해주세요.🥲',
     imageSizeError: '사진이 너무 커요. 50MB 이하 사진을 넣어주세요.🥹',
