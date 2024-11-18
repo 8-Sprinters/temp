@@ -100,6 +100,7 @@ export default function ItemAccordion({
           className={styles.titleInput}
           placeholder="아이템명을 작성해 주세요."
           readOnly={type === 'edit' && listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))}
+          autoComplete="off"
           onClick={() => {
             if (type === 'edit' && listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))) {
               toasting({ type: 'default', txt: '이미 등록한 아이템명은 수정이 불가능해요' });
@@ -152,6 +153,7 @@ export default function ItemAccordion({
                     onChange={(e) => {
                       handleImageChange(e);
                     }}
+                    autoComplete="off"
                   />
                 </ItemImageUploader>
                 <ItemLinkUploader index={index} />

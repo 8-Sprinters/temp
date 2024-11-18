@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useFieldArray, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { useLanguage } from '@/store/useLanguage';
 import { vars } from '@/styles/theme.css';
-import { BACKGROUND_COLOR_CREATE, BACKGROUND_COLOR_PALETTE_TYPE } from '@/styles/Color';
+import { BACKGROUND_COLOR_CREATE, BACKGROUND_COLOR_PALETTE_TYPE, BACKGROUND_COLOR_READ } from '@/styles/Color';
 import { listPlaceholder } from '@/lib/constants/placeholder';
 import Header from '@/components/Header/Header';
 import { listLocale } from '@/app/list/create/locale';
@@ -106,14 +106,17 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
   };
 
   /** 배경색상*/
+  type BackgroundColorKeys = keyof typeof BACKGROUND_COLOR_READ;
+
   const [selectedPalette, setSelectedPalette] = useState<BACKGROUND_COLOR_PALETTE_TYPE>(getValues('backgroundPalette'));
-  const [selectedColorID, setSelectedColorID] = useState(getValues('backgroundColor'));
+  const [selectedColorID, setSelectedColorID] = useState<BackgroundColorKeys>(getValues('backgroundColor'));
+  const [selectedColorHex, setSelectedColorHex] = useState<string>(BACKGROUND_COLOR_READ[selectedColorID]);
 
   const handleClickPalette = (palette: string) => {
     setSelectedPalette(palette as BACKGROUND_COLOR_PALETTE_TYPE);
   };
 
-  const handleClickColor = (colorID: string) => {
+  const handleClickColor = (colorID: BackgroundColorKeys) => {
     setSelectedColorID(colorID);
     setValue('backgroundPalette', selectedPalette);
     setValue('backgroundColor', colorID);
@@ -194,6 +197,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
                 {palette}
               </div>
             ))}
+            <div className={styles.colorPreview} style={{ backgroundColor: selectedColorHex }} />
           </div>
           {/** end-tapContainer(팔레트) */}
           <div className={styles.colorChipContainer}>
@@ -203,7 +207,8 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
                 className={styles.colorChip}
                 style={{ backgroundColor: hex }}
                 onClick={() => {
-                  handleClickColor(colorID);
+                  handleClickColor(colorID as BackgroundColorKeys);
+                  setSelectedColorHex(hex);
                 }}
               >
                 {selectedColorID === colorID && <SelectIcon width={27} height={19} stroke={vars.color.deepblue10} />}

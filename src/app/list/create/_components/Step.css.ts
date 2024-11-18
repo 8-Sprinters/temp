@@ -189,9 +189,17 @@ export const labelChip = style([
 ]);
 
 //배경색상
+
+export const colorPreview = style({
+  width: '6rem',
+  height: '2.5rem',
+  borderRadius: '2rem',
+});
+
 export const tapContainer = style({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
 });
 
 export const tapButton = style([
