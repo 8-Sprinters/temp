@@ -17,6 +17,7 @@ import {
   nicknameRules,
   profileDescriptionRules,
   nicknameDuplicateRules,
+  nicknamePolicyRules,
 } from '@/lib/constants/formInputValidationRules';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { DefaultImagesType, UserProfileEditType } from '@/lib/types/userProfileType';
@@ -27,6 +28,8 @@ import * as styles from './ProfileForm.css';
 import { useLanguage } from '@/store/useLanguage';
 import { accountLocale } from '@/app/account/locale';
 import ProfileSkeleton from './ProfileSkeleton';
+import checkNicknamePolicy from '@/app/_api/user/checkNicknamePolicy';
+import axios from 'axios';
 
 interface ProfileFormProps {
   userNickname: string;
@@ -64,9 +67,10 @@ export default function ProfileForm({
     queryFn: getDefaultProfileImages,
   });
 
-  //닉네임 중복 검사
+  //--- 닉네임 검사
   const nicknameRegister = register('nickname', nicknameRules);
 
+  //중복검사
   const { mutate: checkNickname } = useMutation({
     mutationFn: checkNicknameDuplication,
     onSuccess: (result) => {
@@ -77,7 +81,25 @@ export default function ProfileForm({
     },
   });
 
-  const debouncedOnNicknameChange = useDebounce<typeof checkNickname>(checkNickname, 500);
+  //유효성 검사(정책에 어긋나는지)
+  const { mutate: checkNicknameAllowed } = useMutation({
+    mutationFn: checkNicknamePolicy,
+    onSuccess: (result) => {
+      setIsNicknameValidated(result);
+    },
+    onError: (error) => {
+      // error 객체가 axios 에러인지 확인
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        setError('nickname', nicknamePolicyRules);
+      }
+    },
+  });
+
+  const debouncedOnNicknameChange = useDebounce<(value: string) => void>((value) => {
+    checkNicknameAllowed(value); // 정책 검사
+    checkNickname(value); // 중복 검사
+  }, 500);
+
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     nicknameRegister.onChange(e);
     setIsNicknameValidated(false);
