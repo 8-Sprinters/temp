@@ -60,38 +60,34 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
     return watchLabels.some((existingLabel: string) => existingLabel.toLowerCase() === label.toLowerCase());
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     //자음모음 결합 중일 경우 return
-    if (isComposing) {
-      return;
-    }
+    if (isComposing && e.key !== ' ') return;
 
     //Enter, Space 시 등록
     const label = e.currentTarget.value;
+    const trimmedLabel = label.trim();
 
-    if ((e.key === 'Enter' || e.key === ' ') && label) {
+    if ((e.key === 'Enter' || e.key === ' ') && trimmedLabel) {
       e.preventDefault();
 
       //영어,숫자,한글만 가능하게 처리
-      if (!isValidLabel(label)) {
+      if (!isValidLabel(trimmedLabel)) {
         setError('newLabel', { type: 'pattern', message: '유효한 한글, 영어, 숫자만 입력해 주세요.' });
         return;
       }
-
       //3개 초과 에러처리
       if (fields.length === 3) {
         setError('newLabel', { type: 'maxLength', message: '태그는 3개까지 등록할 수 있어요.' });
         return;
       }
-
       //중복라벨 에러처리
-      if (isDuplicatedLabel(label)) {
+      if (isDuplicatedLabel(trimmedLabel)) {
         setError('newLabel', { type: 'unique', message: '이미 등록한 태그예요.' });
         return;
       }
-
       //최종 라벨 등록
-      append(label); //배열에 라벨추가
+      append(trimmedLabel); //배열에 라벨추가
       e.currentTarget.value = ''; //입력필드 비우기
     }
   };
@@ -142,9 +138,10 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
               className={styles.input}
               {...labelRegister('newLabel', listLabelRules)}
               type="text"
+              enterKeyHint="done"
               placeholder={listPlaceholder[language].label}
               autoComplete="off"
-              onKeyDown={handleKeyDown}
+              onKeyUp={handleKeyUp}
               onCompositionStart={() => setIsComposing(true)}
               onCompositionEnd={() => setIsComposing(false)}
               onChange={(e) => {
