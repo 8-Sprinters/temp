@@ -28,9 +28,9 @@ import * as styles from './ItemAccordion.css';
 interface ItemAccordionProps {
   type: 'create' | 'edit';
   index: number;
-  handleToggleItem: (index: any) => void;
+  handleToggleItem: (index: number) => void;
   isExpand: boolean;
-  handleDeleteItem: (id: any) => void;
+  handleDeleteItem: (id: number) => void;
 }
 
 export default function ItemAccordion({

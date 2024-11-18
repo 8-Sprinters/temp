@@ -49,6 +49,7 @@ export const titleInput = style([
   },
 ]);
 
+//TODO: 모바일에서 아코디언 아이콘 잘 눌리는지 확인하기
 export const accordionIconWrapper = style({
   display: 'flex',
   justifyContent: 'center',

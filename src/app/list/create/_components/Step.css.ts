@@ -148,6 +148,23 @@ export const addButton = style([
   },
 ]);
 
+export const minimumMessage = style([
+  fonts.LabelBold,
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    width: '100%',
+    padding: '0.6rem',
+    marginBottom: '1rem',
+
+    borderRadius: '1rem',
+    backgroundColor: vars.color.blue,
+    color: vars.color.white,
+  },
+]);
+
 /** STEP3 */
 //라벨(태그)
 export const labelList = style({

@@ -130,15 +130,6 @@ export default function CreatePage() {
     },
   });
 
-  //--아이템 중복 확인
-  const getIsAllUnique = () => {
-    const allTitles = methods.getValues().items.map((item, itemIndex) => {
-      return item.title === '' ? itemIndex : item.title;
-    }); //TODO: 필요한 코드인지 다시 확인하기
-    const isAllUnique = new Set(allTitles).size === allTitles.length;
-    return isAllUnique;
-  };
-
   //--- 리스트생성
   const {
     mutate: createListMutate,
@@ -170,12 +161,8 @@ export default function CreatePage() {
 
   //--- 제출
   const handleSubmit = () => {
-    if (getIsAllUnique()) {
-      const { listData } = formatData();
-      createListMutate(listData);
-    } else {
-      toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
-    }
+    const { listData } = formatData();
+    createListMutate(listData);
   };
 
   return (

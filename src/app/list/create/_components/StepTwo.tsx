@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 
@@ -8,7 +8,6 @@ import { useLanguage } from '@/store/useLanguage';
 import { vars } from '@/styles/theme.css';
 
 import { listLocale } from '@/app/list/create/locale';
-import { FormErrors } from '@/app/list/create/page';
 
 import Header from '@/components/Header/Header';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
@@ -17,10 +16,16 @@ import ItemAccordion from './ItemAccordion';
 import AddIcon from '/public/icons/add.svg';
 
 import * as styles from './Step.css';
+import { ItemType, ListCreateType } from '@/lib/types/listType';
+import toasting from '@/lib/utils/toasting';
+import toastMessage from '@/lib/constants/toastMessage';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 /**
  * TODO:
  * 1. 브라우저 뒤로가기 눌렀을 경우 내용 사라짐 경고
  * 2. 링크 추가하기에 임베딩 미리보기 기능 추가
+ * 3. (사용자테스트) 아이템 최소 기준 인지 잘 되는지.
+ * 4. 아이템 모두 빈값일 경우 '다음' 클릭 시 자동 삭제 되도록.
  */
 
 interface StepTwoProps {
@@ -41,12 +46,15 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
 
   /** react-hook-form */
   const {
-    register,
     control,
     getValues,
     setValue,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useFormContext();
+
+  //--- item 갯수 기준
+  const MIN_ITEM_COUNT = 3;
+  const MAX_ITEM_COUNT = 10;
 
   //--- item 여러 입력값 배열 설정
   const {
@@ -56,7 +64,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
   } = useFieldArray({
     name: 'items',
     control,
-    rules: { minLength: 3, maxLength: 10 },
+    rules: { minLength: MIN_ITEM_COUNT, maxLength: MAX_ITEM_COUNT },
   });
 
   const watchItems = useWatch({ control, name: 'items' });
@@ -98,6 +106,29 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
     }
   };
 
+  //--- 아이템 중복 확인
+  const getIsAllUnique = () => {
+    //타입명시
+    const allItems = getValues().items;
+
+    const allTitles = allItems.map((item: ItemType, itemIndex: number) => {
+      return item.title === '' ? itemIndex.toString() : item.title;
+    });
+
+    // 중복 여부 확인
+    const isAllUnique = new Set(allTitles).size === allTitles.length;
+    return isAllUnique;
+  };
+
+  //--- Step2 -> Step3 다음 버튼 클릭
+  const handleNextClick = () => {
+    if (getIsAllUnique()) {
+      onNextClick();
+    } else {
+      toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
+    }
+  };
+
   return (
     <>
       <Header
@@ -105,7 +136,11 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
         left="back"
         leftClick={onBeforeClick}
         right={
-          <button className={styles.nextButton} onClick={onNextClick} disabled={!isValid}>
+          <button
+            className={styles.nextButton}
+            onClick={handleNextClick}
+            disabled={!isValid || watchItems.length < MIN_ITEM_COUNT}
+          >
             {listLocale[language].next}
           </button>
         }
@@ -120,9 +155,9 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
             {/**TODO:Locale 적용 */}
             <p className={styles.subLabel}>리스트에 무엇을 담고 싶나요?</p>
             <p className={styles.description}>
-              ・ 이미 등록한 아이템명은 수정이 불가능해요. <br />
               ・ 최소 3개, 최대 10개까지 추가할 수 있어요. <br />
-              ・ 삭제와 추가는 언제든 가능해요. <br />・ 순서대로 순위가 정해져요. 순서는 언제든 바꿀 수 있어요.
+              ・ 이미 등록한 아이템명은 수정이 불가능해요. 삭제는 할 수 있어요. <br />・ 순서대로 순위가 정해져요.
+              순서는 언제든 바꿀 수 있어요.
             </p>
           </div>
           {/** end-아이템 필드 설명 */}
@@ -131,28 +166,32 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
             <StrictModeDroppable droppableId="items">
               {(provided) => (
                 <div className={styles.itemList} ref={provided.innerRef} {...provided.droppableProps}>
-                  {items.map((item, index) => {
-                    return (
-                      <Draggable key={item.id} draggableId={item.id} index={index}>
-                        {(provided, snapshot) => (
-                          <div
-                            className={snapshot.isDragging ? styles.draggingItem : styles.item}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <ItemAccordion
-                              index={index}
-                              type={type}
-                              handleToggleItem={handleToggleItem}
-                              isExpand={expandItem === index}
-                              handleDeleteItem={handleDeleteItem}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    );
-                  })}
+                  {getValues('items').length ? (
+                    items.map((item, index) => {
+                      return (
+                        <Draggable key={item.id} draggableId={item.id} index={index}>
+                          {(provided, snapshot) => (
+                            <div
+                              className={snapshot.isDragging ? styles.draggingItem : styles.item}
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <ItemAccordion
+                                index={index}
+                                type={type}
+                                handleToggleItem={handleToggleItem}
+                                isExpand={expandItem === index}
+                                handleDeleteItem={handleDeleteItem}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })
+                  ) : (
+                    <NoDataComponent message="아이템을 추가해 주세요." />
+                  )}
                 </div>
               )}
             </StrictModeDroppable>
@@ -161,11 +200,17 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
         {/** end-아이템field */}
 
         {/* 아이템 추가 버튼 */}
-        {watchItems.length < 10 && (
-          <button className={styles.addButton} onClick={handleClickAddItem}>
-            <AddIcon width={16} height={16} fill={vars.color.blue} /> {listLocale[language].addItem}
-          </button>
-        )}
+        <div>
+          {watchItems.length < MIN_ITEM_COUNT && (
+            <div className={styles.minimumMessage}>⚠️ 아이템은 최소 3개가 필요해요.</div>
+          )}
+
+          {watchItems.length < MAX_ITEM_COUNT && (
+            <button className={styles.addButton} onClick={handleClickAddItem}>
+              <AddIcon width={16} height={16} fill={vars.color.blue} /> {listLocale[language].addItem}
+            </button>
+          )}
+        </div>
       </div>
       {/** end-section */}
     </>
