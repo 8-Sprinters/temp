@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DropResult } from '@hello-pangea/dnd';
 
 import { useLanguage } from '@/store/useLanguage';
 import { vars } from '@/styles/theme.css';
@@ -192,6 +192,8 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
                   ) : (
                     <NoDataComponent message="아이템을 추가해 주세요." />
                   )}
+                  {provided.placeholder}
+                  {/**이동 시 자리 배열 위치 맞추도록(레이아웃 안깨지도록하는 함수*/}
                 </div>
               )}
             </StrictModeDroppable>
