@@ -1,11 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { BaseSyntheticEvent } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
 import * as styles from './page.css';
 
 import getNoticeCategories from '@/app/_api/notice/getNoticeCategories';
+import createNotice from '@/app/_api/notice/createNotice';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
@@ -15,6 +17,7 @@ import ContentsContainer from './_components/ContentsContainer';
 
 export default function CreateNotice() {
   const methods = useForm<NoticeCreateType>({
+    mode: 'onChange',
     defaultValues: {
       categoryCode: 1,
       title: '',
@@ -22,11 +25,8 @@ export default function CreateNotice() {
       contents: [
         {
           order: 0,
-          type: 'body',
+          type: 'subtitle',
           description: '',
-          imageUrl: '',
-          buttonName: '',
-          buttonLink: '',
         },
       ],
     },
@@ -79,12 +79,38 @@ export default function CreateNotice() {
     remove(order);
   };
 
-  /** 게시물 생성 */
-  const onSubmit = (data: NoticeCreateType, e: any) => {
-    e.preventDefault();
+  const createNoticeMutation = useMutation({
+    mutationFn: createNotice,
+    onSuccess: (data) => {
+      console.log(data); // 5
+      // TODO 생성된 리스트 아이디로 이미지 업로드
+    },
+  });
 
-    // 게시물 생성하기
-    console.log(data);
+  const formatOnData = (originData: NoticeCreateType) => {
+    // order 정리 및 이미지 url 초기화
+    const updatedContents = originData.contents.map((item, index) => {
+      const newContents = { ...item, order: index + 1 };
+      if (newContents.type === 'image') {
+        newContents.imageUrl = '';
+      }
+      return newContents;
+    });
+
+    // 새로운 데이터 객체 반환
+    const noticeData: NoticeCreateType = {
+      ...originData,
+      contents: updatedContents,
+    };
+    return noticeData;
+  };
+
+  /** 게시물 생성 */
+  const onSubmit = (data: NoticeCreateType, e?: BaseSyntheticEvent) => {
+    e?.preventDefault();
+
+    const newData = formatOnData(data);
+    createNoticeMutation.mutate(newData);
   };
 
   return (
@@ -110,7 +136,7 @@ export default function CreateNotice() {
           />
         </div>
         <div className={styles.row}>
-          <label className={styles.rowLabel}>소개</label>
+          <label className={styles.rowLabel}>소개 *</label>
           <input
             className={styles.rowInput}
             placeholder="글 소개하는 짧은 문구를 입력해 주세요. (최대 30자)"
