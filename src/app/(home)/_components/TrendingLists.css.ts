@@ -57,9 +57,7 @@ export const testItem = style({
   height: '100%',
 });
 
-export const slide = style({
-  maxWidth: 430,
-});
+export const slide = style({});
 
 export const itemWrapper = style({
   width: '100%',

@@ -73,6 +73,9 @@ function FeedLists({ category, tab = 'recent' }: FeedListsType) {
   //     </section>
   //   );
   // }
+  console.log(category);
+
+  console.log(feedLists);
 
   return (
     <section className={styles.wrapperOuter}>
@@ -84,7 +87,7 @@ function FeedLists({ category, tab = 'recent' }: FeedListsType) {
             feedLists?.map((item, index) => {
               return (
                 <Link href={`/list/${item.id}`} key={item.id}>
-                  <li className={styles.feedList}>
+                  <li>
                     <FeedListItem item={item} index={index} />
                   </li>
                 </Link>

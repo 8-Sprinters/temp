@@ -4,15 +4,11 @@ import { vars } from '@/styles/__theme.css';
 export const listBackground = createVar();
 
 export const wrapperOuter = style({
-  padding: '0 16px 84px 16px',
+  padding: '0 16px 30px',
   marginTop: '12px',
 
   display: 'flex',
   flexDirection: 'column',
-});
-
-export const feedList = style({
-  listStyle: 'none',
 });
 
 export const titleWrapper = style({
