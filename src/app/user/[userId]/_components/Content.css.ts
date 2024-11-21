@@ -81,7 +81,6 @@ export const scrollDivBottom = style({
   bottom: '84px',
 
   width: '100%',
-  maxWidth: 430,
   height: '83px',
 
   background: 'linear-gradient(180deg, rgba(245, 246, 250, 0.00) 0%, #F5F6FA 100%)',

@@ -8,7 +8,6 @@ export const folders = style({
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridColumnGap: 34,
   gridRowGap: 24,
-  background: vars.color.bggray,
 });
 
 export const folder = style({

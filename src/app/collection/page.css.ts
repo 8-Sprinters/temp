@@ -2,8 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const wrapper = style({
-  margin: 'auto',
-  maxWidth: 430,
   height: '100vh',
 });
 
@@ -16,9 +14,6 @@ export const container = style({
 // 폴더 버튼
 export const addFolderButtonContainer = style({
   position: 'fixed',
-  margin: 'auto',
-  maxWidth: 430,
-
   bottom: 0,
   padding: '1.6rem',
   width: '100%',

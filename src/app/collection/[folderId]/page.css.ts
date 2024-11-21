@@ -3,8 +3,6 @@ import { vars } from '@/styles/theme.css';
 import { Subtitle } from '@/styles/font.css';
 
 export const container = style({
-  maxWidth: 430,
-  margin: 'auto',
   height: '100vh',
   backgroundColor: vars.color.bggray,
 });
