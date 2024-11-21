@@ -21,6 +21,7 @@ export default function ImageContent({ order }: ImageContentProps) {
       fileToBase64(e.target.files[0], setPreviewImage);
       setValue(`contents.${order}.imageUrl`, e.target.files[0]);
     }
+    e.target.value = ''; // 기존 file value 초기화
   };
 
   const handleDeleteImage = (e: MouseEvent<HTMLButtonElement>) => {
