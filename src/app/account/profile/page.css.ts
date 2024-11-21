@@ -1,9 +1,16 @@
+import { vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const page = style({
+  margin: 'auto',
+  maxWidth: 430,
+  height: '100vh',
+
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+
+  backgroundColor: vars.color.bggray,
 });
 
 export const content = style({

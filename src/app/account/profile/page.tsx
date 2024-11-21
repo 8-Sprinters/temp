@@ -13,7 +13,7 @@ import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
 import getUserOne from '@/app/_api/user/getUserOne';
 import updateProfile from '@/app/_api/user/updateProfile';
-import Header from '@/components/Header/__Header';
+import Header from '@/components/Header/Header';
 import BlueButton from '@/components/BlueButton/BlueButton';
 
 import ProfileForm from './_components/ProfileForm';

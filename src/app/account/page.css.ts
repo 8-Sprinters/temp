@@ -3,13 +3,18 @@ import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
+  height: '100vh',
+
   marginTop: 18,
+  maxWidth: 430,
+  margin: 'auto',
 
   display: 'flex',
   flexDirection: 'column',
   gap: 12,
 
   padding: '0 1.6rem',
+  backgroundColor: vars.color.bggray,
 });
 
 export const section = style({
