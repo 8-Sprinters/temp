@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import * as styles from './Contents.css';
+import * as styles from './index.css';
 import ClearBlackIcon from '/public/icons/clear_x_black.svg';
 import AttachedImageIcon from '/public/icons/attach_image.svg';
 

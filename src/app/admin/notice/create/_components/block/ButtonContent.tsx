@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
-import * as styles from './Contents.css';
+import * as styles from './index.css';
 
 interface ButtonContentProps {
   order: number;

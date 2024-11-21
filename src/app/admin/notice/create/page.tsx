@@ -2,20 +2,19 @@
 
 import { useRouter } from 'next/navigation';
 import { BaseSyntheticEvent } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
 import * as styles from './page.css';
 
-import getNoticeCategories from '@/app/_api/notice/getNoticeCategories';
 import createNotice from '@/app/_api/notice/createNotice';
 import uploadNoticeImages from '@/app/_api/notice/uploadNoticeImages';
 
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
 import { ItemsType, NoticeContentsType, NoticeCreateType } from '@/lib/types/noticeType';
 
 import ContentsContainer from './_components/ContentsContainer';
+import CategoryDropdown from './_components/CategoryDropdown';
 
 const noticeTitleRules = {
   required: '제목은 필수값입니다.',
@@ -50,13 +49,6 @@ export default function CreateNotice() {
   const { fields, append, remove } = useFieldArray({
     name: 'contents',
     control,
-  });
-
-  /** 게시물 카테고리 조회 */
-  const { data: categories } = useQuery({
-    queryKey: [QUERY_KEYS.getNoticeCategories],
-    queryFn: getNoticeCategories,
-    staleTime: Infinity,
   });
 
   /** 타입에 따른 Contents 블럭 포멧 지정 함수 */
@@ -172,15 +164,7 @@ export default function CreateNotice() {
     <FormProvider {...methods}>
       <form className={styles.container}>
         <h1>게시물 생성</h1>
-        <div>
-          <select {...register('categoryCode')} className={styles.dropdown}>
-            {categories?.map((category) => (
-              <option key={category.code} value={category.code}>
-                {category.viewName}
-              </option>
-            ))}
-          </select>
-        </div>
+        <CategoryDropdown />
         <div className={styles.row}>
           <label className={styles.rowLabel}>제목 *</label>
           <div className={styles.field}>

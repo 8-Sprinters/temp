@@ -1,16 +1,10 @@
 import { FieldArrayWithId } from 'react-hook-form';
 
-import * as styles from './Contents.css';
+import * as styles from './ContentsContainer.css';
 
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
 import { NoticeContentsType, NoticeCreateType } from '@/lib/types/noticeType';
-
-import BodyContent from './BodyContent';
-import SubTitleContent from './SubTitleContet';
-import ButtonContent from './ButtonContent';
-import ImageContent from './ImageContent';
-import LineContent from './LineContent';
-import NoteContent from './NoteContent';
+import { BodyContent, ButtonContent, ImageContent, LineContent, NoteContent, SubTitleContent } from './block/index';
 
 interface FormAboutContentProps {
   type: NoticeContentsType;

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { useFormContext } from 'react-hook-form';
 
-import * as styles from './Contents.css';
+import * as styles from './index.css';
 
 interface BodyContentProps {
   order: number;

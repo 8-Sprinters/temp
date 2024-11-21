@@ -10,14 +10,6 @@ export const container = style({
   background: vars.color.bggray,
 });
 
-export const dropdown = style([
-  BodyBold,
-  {
-    padding: '0.5rem',
-    borderRadius: '8px',
-  },
-]);
-
 export const field = style({
   width: '100%',
   display: 'flex',
