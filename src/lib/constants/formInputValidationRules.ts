@@ -55,3 +55,14 @@ export const nicknameDuplicateRules = {
   type: 'duplicated',
   message: '이미 사용중인 닉네임이에요.',
 };
+
+// notice input validation rule
+export const noticeTitleRules = {
+  required: '제목은 필수값입니다.',
+  maxLength: { value: 30, message: '제목은 최대 30자까지 입력할 수 있어요.' },
+};
+
+export const noticeDescriptionRules = {
+  required: '소개는 필수값입니다.',
+  maxLength: { value: 30, message: '소개는 최대 30자까지 입력할 수 있어요.' },
+};

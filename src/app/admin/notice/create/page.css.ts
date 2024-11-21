@@ -53,20 +53,6 @@ export const rowErrorMessage = style([
   },
 ]);
 
-export const contents = style({
-  padding: '1rem 1rem',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 6,
-});
-
-export const block = style({
-  padding: '0.5rem',
-  borderRadius: 4,
-  background: vars.color.bluegray6,
-  fontSize: 14,
-});
-
 const button = style({
   padding: '1rem 0.8rem',
   margin: '1rem',

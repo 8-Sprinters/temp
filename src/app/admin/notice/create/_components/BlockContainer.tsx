@@ -1,6 +1,6 @@
 import { FieldArrayWithId } from 'react-hook-form';
 
-import * as styles from './ContentsContainer.css';
+import * as styles from './BlockContainer.css';
 
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
 import { NoticeContentsType, NoticeCreateType } from '@/lib/types/noticeType';
