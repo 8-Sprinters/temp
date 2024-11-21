@@ -37,6 +37,10 @@ export const itemsWrapper = style({
   },
 });
 
+export const topicList = style({
+  listStyle: 'none',
+});
+
 export const topic = style({
   padding: '14px',
 

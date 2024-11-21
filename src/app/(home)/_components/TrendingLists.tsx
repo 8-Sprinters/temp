@@ -25,7 +25,6 @@ function TrendingList() {
 
   const SWIPER_STYLE = useMemo(
     () => ({
-      width: '100vw',
       height: '280px',
       padding: '10px 0',
     }),
