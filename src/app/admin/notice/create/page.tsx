@@ -8,6 +8,7 @@ import * as styles from './page.css';
 
 import getNoticeCategories from '@/app/_api/notice/getNoticeCategories';
 import createNotice from '@/app/_api/notice/createNotice';
+import uploadNoticeImages from '@/app/_api/notice/uploadNoticeImages';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
@@ -79,15 +80,8 @@ export default function CreateNotice() {
     remove(order);
   };
 
-  const createNoticeMutation = useMutation({
-    mutationFn: createNotice,
-    onSuccess: (data) => {
-      console.log(data); // 5
-      // TODO 생성된 리스트 아이디로 이미지 업로드
-    },
-  });
-
-  const formatOnData = (originData: NoticeCreateType) => {
+  /** 공지 작성 데이터 포맷 */
+  const formatNoticeData = (originData: NoticeCreateType) => {
     // order 정리 및 이미지 url 초기화
     const updatedContents = originData.contents.map((item, index) => {
       const newContents = { ...item, order: index + 1 };
@@ -105,12 +99,58 @@ export default function CreateNotice() {
     return noticeData;
   };
 
+  /** 이미지 업로드 데이터 포맷 */
+  const formatImageData = (originData: NoticeCreateType) => {
+    const imageExtensionData = originData.contents
+      .map((item, index) => {
+        return { ...item, order: index + 1 };
+      })
+      .filter((item) => item.type === 'image' && item.imageUrl !== '')
+      .map(({ order, imageUrl }) => {
+        return {
+          order: order,
+          extension: (imageUrl as File).type.split('/')[1],
+        };
+      });
+
+    const imageFileData = originData.contents
+      .filter((item) => item.type === 'image' && item.imageUrl !== '')
+      .map((item) => {
+        return item.imageUrl as File;
+      });
+
+    return { imageExtensionData, imageFileData };
+  };
+
+  const uploadImageMutation = useMutation({
+    mutationFn: uploadNoticeImages,
+    onError: () => console.log('이미지 업로드를 다시 시도해주세요.'), // TODO 토스트메세지
+  });
+
+  const createNoticeMutation = useMutation({
+    mutationFn: createNotice,
+    onSuccess: (data) => {
+      const originData = methods.getValues();
+      const { imageExtensionData, imageFileData } = formatImageData(originData);
+
+      // 생성된 공지 ID에 이미지 업로드
+      if (imageExtensionData.length !== 0) {
+        uploadImageMutation.mutate({
+          noticeId: data.id,
+          imageExtensionData,
+          imageFileData,
+        });
+      }
+      // TODO 공지 조회 페이지 이동 및 에러 처리
+    },
+  });
+
   /** 게시물 생성 */
   const onSubmit = (data: NoticeCreateType, e?: BaseSyntheticEvent) => {
     e?.preventDefault();
 
-    const newData = formatOnData(data);
-    createNoticeMutation.mutate(newData);
+    const noticeData = formatNoticeData(data);
+    createNoticeMutation.mutate(noticeData);
   };
 
   return (
