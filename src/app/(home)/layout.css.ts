@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
   maxWidth: 430,
+  height: '100vh',
   margin: 'auto',
-  background: vars.color.bggray,
-  position: 'relative',
+  backgroundColor: vars.color.bggray,
 });
