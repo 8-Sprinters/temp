@@ -52,7 +52,7 @@ export interface NoticeContentType {
   [key: string]: unknown;
   type: NoticeContentsType;
   description?: string;
-  imageUrl?: string;
+  imageUrl?: unknown; // FileList 타입일수도, String 타입일수도, undefined일수도 있으므로 사용처에서 타입 지정
   buttonName?: string;
   buttonLink?: string;
 }
