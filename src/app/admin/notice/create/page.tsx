@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { BaseSyntheticEvent } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
@@ -16,7 +17,18 @@ import { ItemsType, NoticeContentsType, NoticeCreateType } from '@/lib/types/not
 
 import ContentsContainer from './_components/ContentsContainer';
 
+const noticeTitleRules = {
+  required: '제목은 필수값입니다.',
+  maxLength: { value: 30, message: '제목은 최대 30자까지 입력할 수 있어요.' },
+};
+
+const noticeDescriptionRules = {
+  required: '소개는 필수값입니다.',
+  maxLength: { value: 30, message: '소개는 최대 30자까지 입력할 수 있어요.' },
+};
+
 export default function CreateNotice() {
+  const router = useRouter();
   const methods = useForm<NoticeCreateType>({
     mode: 'onChange',
     defaultValues: {
@@ -32,7 +44,9 @@ export default function CreateNotice() {
       ],
     },
   });
-  const { register, handleSubmit, control } = methods;
+
+  // prettier-ignore
+  const { register, handleSubmit, control, formState: { errors, isValid }} = methods;
   const { fields, append, remove } = useFieldArray({
     name: 'contents',
     control,
@@ -124,7 +138,7 @@ export default function CreateNotice() {
 
   const uploadImageMutation = useMutation({
     mutationFn: uploadNoticeImages,
-    onError: () => console.log('이미지 업로드를 다시 시도해주세요.'), // TODO 토스트메세지
+    onError: () => alert('이미지 업로드를 다시 시도해주세요.'),
   });
 
   const createNoticeMutation = useMutation({
@@ -141,8 +155,9 @@ export default function CreateNotice() {
           imageFileData,
         });
       }
-      // TODO 공지 조회 페이지 이동 및 에러 처리
+      router.push('/admin/notice');
     },
+    onError: () => alert('게시물 생성을 다시 시도해주세요.'),
   });
 
   /** 게시물 생성 */
@@ -168,21 +183,25 @@ export default function CreateNotice() {
         </div>
         <div className={styles.row}>
           <label className={styles.rowLabel}>제목 *</label>
-          <input
-            className={styles.rowInput}
-            placeholder="제목 겸 알림 메시지 문구를 입력해 주세요. (최대 30자)"
-            maxLength={30}
-            {...register('title')}
-          />
+          <div className={styles.field}>
+            <input
+              className={styles.rowInput}
+              placeholder="제목 겸 알림 메시지 문구를 입력해 주세요. (최대 30자)"
+              {...register('title', noticeTitleRules)}
+            />
+            <p className={styles.rowErrorMessage}>{errors.title && errors.title?.message}</p>
+          </div>
         </div>
         <div className={styles.row}>
           <label className={styles.rowLabel}>소개 *</label>
-          <input
-            className={styles.rowInput}
-            placeholder="글 소개하는 짧은 문구를 입력해 주세요. (최대 30자)"
-            maxLength={30}
-            {...register('description')}
-          />
+          <div className={styles.field}>
+            <input
+              className={styles.rowInput}
+              placeholder="글 소개하는 짧은 문구를 입력해 주세요. (최대 30자)"
+              {...register('description', noticeDescriptionRules)}
+            />
+            <p className={styles.rowErrorMessage}>{errors.description && errors.description.message}</p>
+          </div>
         </div>
         <section>
           {fields.map((field, index) => (
@@ -199,7 +218,12 @@ export default function CreateNotice() {
             >{`+ ${value} 추가`}</button>
           ))}
         </section>
-        <button type="button" onClick={handleSubmit(onSubmit)}>
+        <button
+          type="button"
+          onClick={handleSubmit(onSubmit)}
+          disabled={!isValid}
+          className={isValid ? styles.savedButton.active : styles.savedButton.default}
+        >
           저장하기
         </button>
       </form>
