@@ -10,8 +10,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-import * as styles from './page.css';
-
 import { useUser } from '@/store/useUser';
 import getUserOne from '../_api/user/getUserOne';
 
@@ -62,7 +60,7 @@ export default function StartListyPage() {
   return (
     <>
       {userData && (
-        <div className={styles.container}>
+        <div>
           {stepIndex === 0 && (
             <CreateNicknameStep userId={userData?.id} handleNextStep={handleNextStep} refetch={refetch} />
           )}

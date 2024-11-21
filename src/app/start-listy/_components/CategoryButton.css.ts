@@ -1,5 +1,5 @@
 import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
-import { titleLarge, bodyMedium } from '@/styles/__font.css';
+import { titleLarge, titleMedium } from '@/styles/__font.css';
 import { vars } from '@/styles/__theme.css';
 
 export const container = style({
@@ -7,11 +7,11 @@ export const container = style({
   padding: '1rem 0 1rem 0',
   display: 'grid',
   gridTemplateAreas: `
-    "restaurant_cafe restaurant_cafe movie_drama"
-    "entertainment_arts food_recipes food_recipes"
-    "place travel travel"
-    "dailylife_thoughts dailylife_thoughts music"
-    "etc hobby_leisure hobby_leisure"
+    "culture life life"
+    "movie movie music"
+    "place book book"
+    "animal animal animal"
+    "food food etc"
   `,
   gap: '1rem',
 });
@@ -19,7 +19,7 @@ export const container = style({
 export const title = style([titleLarge]);
 
 const category = style([
-  bodyMedium,
+  titleMedium,
   {
     padding: '0.8rem 1.2rem',
     height: '40px',
@@ -45,67 +45,60 @@ interface ColorVariantsType {
 }
 
 export const variants = styleVariants<ColorVariantsType>({
-  restaurant_cafeButton: [
+  lifeButton: [
     category,
     {
-      gridArea: 'restaurant_cafe',
+      gridArea: 'life',
       backgroundColor: vars.color.skyblue,
-    },
-  ],
-  musicButton: [
-    category,
-    {
-      gridArea: 'music',
-      backgroundColor: '#FFDCB2', // orange
-    },
-  ],
-  movie_dramaButton: [
-    category,
-    {
-      gridArea: 'movie_drama',
-      backgroundColor: vars.color.yellow,
-    },
-  ],
-  entertainment_artsButton: [
-    category,
-    {
-      gridArea: 'entertainment_arts',
-      backgroundColor: '#D0FF89', // green
-    },
-  ],
-  dailylife_thoughtsButton: [
-    category,
-    {
-      gridArea: 'dailylife_thoughts',
-      backgroundColor: '#E6C6FF', // purple
-    },
-  ],
-  travelButton: [
-    category,
-    {
-      gridArea: 'travel',
-      backgroundColor: '#E6C6FF', // purple,
     },
   ],
   placeButton: [
     category,
     {
       gridArea: 'place',
-      backgroundColor: vars.color.skyblue,
+      backgroundColor: '#FFDCB2', // orange
     },
   ],
-  hobby_leisureButton: [
+  musicButton: [
     category,
     {
-      gridArea: 'hobby_leisure',
+      gridArea: 'music',
+      backgroundColor: vars.color.yellow,
+    },
+  ],
+  movie_dramaButton: [
+    category,
+    {
+      gridArea: 'movie',
       backgroundColor: '#D0FF89', // green
     },
   ],
-  food_recipesButton: [
+  cultureButton: [
     category,
     {
-      gridArea: 'food_recipes',
-      backgroundColor: '#FFDCB2', // orange
+      gridArea: 'culture',
+      backgroundColor: '#E6C6FF', // purple
+    },
+  ],
+  bookButton: [
+    category,
+    {
+      gridArea: 'book',
+      backgroundColor: '#E6C6FF', // purple,
+    },
+  ],
+  animal_plantButton: [
+    category,
+    {
+      gridArea: 'animal',
+      backgroundColor: vars.color.skyblue,
+    },
+  ],
+  foodButton: [
+    category,
+    {
+      gridArea: 'food',
+      backgroundColor: '#D0FF89', // green
     },
   ],
   etcButton: [
