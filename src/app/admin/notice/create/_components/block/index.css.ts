@@ -1,4 +1,4 @@
-import { BodyRegular } from '@/styles/font.css';
+import { BodyRegular, LabelSmall } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 import { style, styleVariants } from '@vanilla-extract/css';
 
@@ -13,6 +13,13 @@ export const contentButton = style({
   fontWeight: 500,
   fontSize: 14,
 });
+
+export const comment = style([
+  LabelSmall,
+  {
+    color: vars.color.red,
+  },
+]);
 
 /** SubTitleContent, ButtonContent */
 export const input = style([

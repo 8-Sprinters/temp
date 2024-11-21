@@ -19,6 +19,7 @@ export default function BodyContent({ order }: BodyContentProps) {
 
   const addContentsBody = () => {
     setValue(`contents.${order}.description`, text);
+    alert('본문을 저장했습니다.');
   };
 
   return (
@@ -32,6 +33,7 @@ export default function BodyContent({ order }: BodyContentProps) {
       <button onClick={addContentsBody} type="button" className={styles.contentButton}>
         등록
       </button>
+      <span className={styles.comment}>* 본문을 작성하는 경우 반드시 등록 버튼을 눌러 내용을 저장해주세요.</span>
     </>
   );
 }

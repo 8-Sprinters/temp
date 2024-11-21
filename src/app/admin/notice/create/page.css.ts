@@ -28,7 +28,7 @@ export const row = style({
 export const rowLabel = style([
   BodyBold,
   {
-    width: 40,
+    width: 50,
   },
 ]);
 
