@@ -2,6 +2,13 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import * as fonts from '@/styles/__font.css';
 import { vars } from '@/styles/__theme.css';
 
+export const page = style({
+  maxWidth: 430,
+  minHeight: '100vh',
+  margin: 'auto',
+  backgroundColor: '#F5F6FA', // TODO 테마 교체
+});
+
 export const readAllButton = style([
   fonts.labelMedium,
   {
