@@ -1,11 +1,11 @@
 import { globalStyle } from '@vanilla-extract/css';
 import { Pretendard } from './pretendardFont.css';
-import { vars } from './__theme.css';
+import { vars } from './theme.css';
 
 globalStyle('html', {
   fontSize: '62.5%',
   color: vars.color.black,
-  backgroundColor: vars.color.gray3,
+  backgroundColor: vars.color.white,
 });
 
 globalStyle('body', {

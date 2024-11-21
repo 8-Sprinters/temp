@@ -1,6 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import { labelSmall, bodyMedium, caption } from '@/styles/__font.css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const form = style({
   maxWidth: 400,
@@ -8,37 +8,60 @@ export const form = style({
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '12px',
+  gap: '3.2rem',
+});
+
+export const field = style({
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const inputContainer = style({
   width: '100%',
-  padding: '10px 12px',
+  padding: '1.2rem 1.4rem',
 
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
 
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: 10,
+  borderRadius: '1.2rem',
+  backgroundColor: vars.color.white,
 });
 
-export const label = style([labelSmall, { color: vars.color.gray7 }]);
+export const label = style([
+  fonts.BodyBold,
+  {
+    marginBottom: '1.2rem',
+  },
+]);
 
-export const inputText = style([bodyMedium]);
+export const inputText = style([
+  fonts.BodyRegular,
+  {
+    color: vars.color.bluegray10,
+    '::placeholder': {
+      color: vars.color.bluegray6,
+    },
+  },
+]);
 
 export const textarea = style([
-  bodyMedium,
+  fonts.BodyRegular,
   {
     border: 'none',
     resize: 'none',
+
+    color: vars.color.bluegray10,
+    '::placeholder': {
+      color: vars.color.bluegray6,
+    },
   },
 ]);
 
 export const textLength = style([
-  bodyMedium,
+  fonts.BodyRegular,
   {
-    color: vars.color.gray7,
+    color: vars.color.bluegray6,
     textAlign: 'end',
   },
 ]);
@@ -54,7 +77,7 @@ const option = style({
   justifyContent: 'center',
   alignItems: 'center',
 
-  backgroundColor: vars.color.gray5 /**TODO: white로 대체예정*/,
+  backgroundColor: vars.color.bggray,
   backgroundImage: imageUrl,
   backgroundSize: 'cover',
 
@@ -124,7 +147,7 @@ export const profileOption = style([
 
 export const validationMessage = style({
   marginTop: '0.6rem',
-  marginLeft: '0.9rem',
+  marginLeft: '0.6rem',
 
   display: 'flex',
   alignItems: 'center',
@@ -132,14 +155,14 @@ export const validationMessage = style({
 });
 
 export const errorText = style([
-  caption,
+  fonts.Label,
   {
     color: vars.color.red,
   },
 ]);
 
 export const successText = style([
-  caption,
+  fonts.Label,
   {
     color: vars.color.blue,
   },

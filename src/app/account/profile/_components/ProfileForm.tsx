@@ -17,6 +17,7 @@ import {
   nicknameRules,
   profileDescriptionRules,
   nicknameDuplicateRules,
+  nicknamePolicyRules,
 } from '@/lib/constants/formInputValidationRules';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { DefaultImagesType, UserProfileEditType } from '@/lib/types/userProfileType';
@@ -27,6 +28,8 @@ import * as styles from './ProfileForm.css';
 import { useLanguage } from '@/store/useLanguage';
 import { accountLocale } from '@/app/account/locale';
 import ProfileSkeleton from './ProfileSkeleton';
+import checkNicknamePolicy from '@/app/_api/user/checkNicknamePolicy';
+import axios from 'axios';
 
 interface ProfileFormProps {
   userNickname: string;
@@ -64,9 +67,10 @@ export default function ProfileForm({
     queryFn: getDefaultProfileImages,
   });
 
-  //닉네임 중복 검사
+  //--- 닉네임 검사
   const nicknameRegister = register('nickname', nicknameRules);
 
+  //중복검사
   const { mutate: checkNickname } = useMutation({
     mutationFn: checkNicknameDuplication,
     onSuccess: (result) => {
@@ -77,7 +81,25 @@ export default function ProfileForm({
     },
   });
 
-  const debouncedOnNicknameChange = useDebounce<typeof checkNickname>(checkNickname, 500);
+  //유효성 검사(정책에 어긋나는지)
+  const { mutate: checkNicknameAllowed } = useMutation({
+    mutationFn: checkNicknamePolicy,
+    onSuccess: (result) => {
+      setIsNicknameValidated(result);
+    },
+    onError: (error) => {
+      // error 객체가 axios 에러인지 확인
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        setError('nickname', nicknamePolicyRules);
+      }
+    },
+  });
+
+  const debouncedOnNicknameChange = useDebounce<(value: string) => void>((value) => {
+    checkNicknameAllowed(value); // 정책 검사
+    checkNickname(value); // 중복 검사
+  }, 500);
+
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     nicknameRegister.onChange(e);
     setIsNicknameValidated(false);
@@ -151,9 +173,9 @@ export default function ProfileForm({
       ) : (
         <div className={styles.form}>
           {/* 닉네임 */}
-          <div>
+          <div className={styles.field}>
+            <label className={styles.label}>{accountLocale[language].nickname}</label>
             <div className={styles.inputContainer}>
-              <label className={styles.label}>{accountLocale[language].nickname}</label>
               <input
                 className={styles.inputText}
                 placeholder={profilePlaceholder[language].nickname}
@@ -181,9 +203,9 @@ export default function ProfileForm({
             )}
           </div>
 
-          <div>
+          <div className={styles.field}>
+            <label className={styles.label}>{accountLocale[language].introduce}</label>
             <div className={styles.inputContainer}>
-              <label className={styles.label}>{accountLocale[language].introduce}</label>
               <textarea
                 className={styles.textarea}
                 placeholder={profilePlaceholder[language].description}
@@ -200,62 +222,67 @@ export default function ProfileForm({
             )}
           </div>
 
-          <div className={styles.inputContainer}>
-            <p className={styles.label}>{accountLocale[language].backgroundImage}</p>
-            <div className={styles.backgroundOptionContainer}>
-              <label className={styles.backgroundOption} htmlFor="backgroundImage">
-                <Camera />
-              </label>
-              <input
-                type="file"
-                id="backgroundImage"
-                className={styles.inputFile}
-                accept=".jpg, .jpeg, .png"
-                {...newBackgroundImageRegister}
-                onChange={(e) => handleBackgroundFileInput(e)}
-              />
-              {defaultBackgroundImages?.map((image) => (
-                <button
-                  key={image.name}
-                  type="button"
-                  className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
-                  style={assignInlineVars({
-                    [styles.imageUrl]: `url(${image?.imageUrl})`,
-                  })}
-                  onClick={() => {
-                    handleDefaultImageClick('background', image.imageUrl);
-                  }}
+          <div className={styles.field}>
+            <span className={styles.label}>{accountLocale[language].backgroundImage}</span>
+            <div className={styles.inputContainer}>
+              <div className={styles.backgroundOptionContainer}>
+                <label className={styles.backgroundOption} htmlFor="backgroundImage">
+                  <Camera />
+                </label>
+                <input
+                  type="file"
+                  id="backgroundImage"
+                  className={styles.inputFile}
+                  accept=".jpg, .jpeg, .png"
+                  {...newBackgroundImageRegister}
+                  onChange={(e) => handleBackgroundFileInput(e)}
                 />
-              ))}
+                {defaultBackgroundImages?.map((image) => (
+                  <button
+                    key={image.name}
+                    type="button"
+                    className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
+                    style={assignInlineVars({
+                      [styles.imageUrl]: `url(${image?.imageUrl})`,
+                    })}
+                    onClick={() => {
+                      handleDefaultImageClick('background', image.imageUrl);
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-          <div className={styles.inputContainer}>
-            <p className={styles.label}>{accountLocale[language].profileImageAlt}</p>
-            <div className={styles.profileOptionContainer}>
-              <label className={styles.profileOption} htmlFor="profileImage">
-                <Camera />
-              </label>
-              <input
-                type="file"
-                id="profileImage"
-                className={styles.inputFile}
-                accept=".jpg, .jpeg, .png"
-                {...newProfileImageRegister}
-                onChange={(e) => handleProfileFileInput(e)}
-              />
-              {defaultProfileImages?.map((image) => (
-                <button
-                  key={image.name}
-                  type="button"
-                  className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
-                  style={assignInlineVars({
-                    [styles.imageUrl]: `url(${image?.imageUrl})`,
-                  })}
-                  onClick={() => {
-                    handleDefaultImageClick('profile', image.imageUrl);
-                  }}
+
+          <div className={styles.field}>
+            <span className={styles.label}>{accountLocale[language].profileImageAlt}</span>
+            <div className={styles.inputContainer}>
+              <div className={styles.profileOptionContainer}>
+                <label className={styles.profileOption} htmlFor="profileImage">
+                  <Camera />
+                </label>
+                <input
+                  type="file"
+                  id="profileImage"
+                  className={styles.inputFile}
+                  accept=".jpg, .jpeg, .png"
+                  {...newProfileImageRegister}
+                  onChange={(e) => handleProfileFileInput(e)}
                 />
-              ))}
+                {defaultProfileImages?.map((image) => (
+                  <button
+                    key={image.name}
+                    type="button"
+                    className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
+                    style={assignInlineVars({
+                      [styles.imageUrl]: `url(${image?.imageUrl})`,
+                    })}
+                    onClick={() => {
+                      handleDefaultImageClick('profile', image.imageUrl);
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

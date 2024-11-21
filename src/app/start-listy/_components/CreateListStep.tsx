@@ -44,7 +44,7 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
       title: '',
       description: '',
       isPublic: false,
-      backgroundColor: BACKGROUND_COLOR_READ.LISTY_BLUE,
+      backgroundColor: BACKGROUND_COLOR_READ.NEON_BLUE,
       items: Array.from({ length: 3 }, (_, index) => ({
         rank: index + 1,
         title: '',

@@ -14,7 +14,7 @@ const numberFormatter = (num: number, lang: 'ko' | 'en') => {
   const unit = 10000;
 
   if (num / unit < 1) {
-    return num.toLocaleString('ko-KR');
+    return num?.toLocaleString('ko-KR');
   }
 
   if (lang === 'ko') {

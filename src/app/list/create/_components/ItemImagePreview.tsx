@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import ClearBlackIcon from '/public/icons/clear_x_black.svg';
-import * as styles from './Preview.css';
 import fileToBase64 from '@/lib/utils/fileToBase64';
 import { useLanguage } from '@/store/useLanguage';
-import { itemLocale } from '@/app/list/create/locale';
+import { listLocale } from '@/app/list/create/locale';
+import ClearBlackIcon from '/public/icons/clear_x_black.svg';
+
+import * as styles from './Preview.css';
 
 type ImagePreviewProps = {
   handleClearButtonClick: () => void;
   image: FileList | string;
 };
 
-export default function ImagePreview({ handleClearButtonClick, image }: ImagePreviewProps) {
+export default function ItemImagePreview({ handleClearButtonClick, image }: ImagePreviewProps) {
   const { language } = useLanguage();
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -39,12 +40,12 @@ export default function ImagePreview({ handleClearButtonClick, image }: ImagePre
         <Image
           className={styles.previewImage}
           src={preview || '/icons/attach_image.svg'}
-          alt={itemLocale[language].imageAlt}
+          alt={listLocale[language].imageAlt}
           fill
         />
       )}
       <button className={styles.clearButton} onClick={handleClearClick}>
-        <ClearBlackIcon alt={itemLocale[language].deleteLinkAlt} />
+        <ClearBlackIcon alt={listLocale[language].deleteLinkAlt} />
       </button>
     </div>
   );
