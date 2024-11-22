@@ -1,6 +1,17 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
+
+export const page = style({
+  maxWidth: 430,
+  height: '100vh',
+  margin: 'auto',
+
+  display: 'flex',
+  flexDirection: 'column',
+
+  backgroundColor: vars.color.bggray,
+});
 
 export const navContainer = style({
   margin: '35px 0px 0px',
