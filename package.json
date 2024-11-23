@@ -24,6 +24,7 @@
     }
   },
   "dependencies": {
+    "@babel/runtime": "^7.26.0",
     "@egjs/react-grid": "^1.16.0",
     "@hello-pangea/dnd": "^17.0.0",
     "@mui/material": "^5.15.9",
