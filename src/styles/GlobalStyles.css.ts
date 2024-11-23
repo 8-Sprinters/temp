@@ -8,10 +8,6 @@ globalStyle('html', {
   backgroundColor: vars.color.white,
 });
 
-globalStyle('body', {
-  backgroundColor: '#F5F6FA !important',
-});
-
 globalStyle('body *', {
   boxSizing: 'border-box',
   fontFamily: Pretendard,
@@ -22,17 +18,12 @@ globalStyle('body, div, span, h1, h2, h3, h4, h5, h6, p, a, dl, dt, dd, ol, ul, 
   margin: 0,
   padding: 0,
   border: 0,
-  maxWidth: 430,
 });
 
 globalStyle('a', {
   textDecoration: 'none !important',
   color: vars.color.black,
   cursor: 'pointer',
-});
-
-globalStyle('ol, ul', {
-  listStyle: 'none',
 });
 
 globalStyle('button', {
