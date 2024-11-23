@@ -1,4 +1,3 @@
-import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/__font.css';
 import { style } from '@vanilla-extract/css';
 
@@ -9,8 +8,6 @@ export const body = style({
   margin: 'auto',
 
   position: 'relative',
-
-  backgroundColor: vars.color.bggray,
 });
 
 export const toastContainer = style([fonts.labelMedium]);

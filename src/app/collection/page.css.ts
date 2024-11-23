@@ -26,6 +26,8 @@ export const addFolderButtonContainer = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
+  backgroundColor: vars.color.bggray,
 });
 
 export const addFolderButton = style({

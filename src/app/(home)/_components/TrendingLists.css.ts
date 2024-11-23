@@ -168,6 +168,8 @@ export const top3ItemNoImage = style({
   backgroundColor: '#F5FAFF',
   color: '#3D95FF',
   borderRadius: '20px',
+
+  listStyle: 'none',
 });
 
 export const top3ItemWithImage = style({
@@ -176,6 +178,8 @@ export const top3ItemWithImage = style({
   color: '#ffffff',
   borderRadius: '20px',
   backgroundColor: '#F5FAFF4D',
+
+  listStyle: 'none',
 });
 
 export const top3Wrapper = style({

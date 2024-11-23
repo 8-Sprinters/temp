@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/__theme.css';
-import { titleSmall, headlineSmall } from '@/styles/__font.css';
 
 export const wrapper = style({
   padding: '0 16px',
@@ -34,8 +33,14 @@ export const recommendUsersListWrapper = style({
   },
 });
 
+export const recommendUsersList = style({
+  listStyle: 'none',
+});
+
 export const recommendUserWrapper = style({
   padding: '12px 9px',
+  paddingBottom: '84px',
+
   width: '122px',
   height: 'auto',
 
