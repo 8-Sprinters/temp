@@ -5,10 +5,13 @@ import { vars } from '@/styles/theme.css';
 export const background = style({
   margin: 'auto',
   width: '100vw',
+  maxWidth: 430,
   height: '100vh',
   zIndex: 100,
 
   position: 'fixed',
+  left: '50%',
+  transform: 'translateX(-50%)',
 
   display: 'flex',
   justifyContent: 'center',

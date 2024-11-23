@@ -76,7 +76,7 @@ export default function BottomNav() {
 
   return (
     <>
-      <nav>
+      <nav className={styles.nav}>
         <div className={styles.bottomTapContainer}>
           <Link href="/" className={styles.bottomTapVariant.left}>
             <HomeIcon fill={getIconColor(selectedTap, bottomNavTapPath.home)} />
