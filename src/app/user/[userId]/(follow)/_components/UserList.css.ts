@@ -6,6 +6,8 @@ export const container = style({
   width: '100%',
   padding: '0 18px',
 
+  flexGrow: 1,
+
   display: 'flex',
   flexDirection: 'column',
   rowGap: '12px',
