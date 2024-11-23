@@ -126,7 +126,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
   const [isPublic, setIsPublic] = useState<boolean>(getValues('isPublic'));
 
   return (
-    <>
+    <div className={styles.page}>
       <Header
         title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="back"
@@ -262,6 +262,6 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
         {/** end-field(공개여부) */}
       </div>
       {/** end-section */}
-    </>
+    </div>
   );
 }

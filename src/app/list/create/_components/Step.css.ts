@@ -2,12 +2,24 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
-export const section = style({
-  padding: '1.2rem 1.6rem',
+export const page = style({
+  maxWidth: 430,
+  minHeight: '100vh',
+  margin: 'auto',
 
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+
+  backgroundColor: vars.color.bggray,
+});
+
+export const section = style({
+  padding: '1.2rem 1.6rem',
+
+  flexGrow: 1,
+
+  display: 'flex',
+  flexDirection: 'column',
   rowGap: '3.2rem',
 });
 

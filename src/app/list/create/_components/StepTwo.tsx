@@ -130,7 +130,7 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
   };
 
   return (
-    <>
+    <div className={styles.page}>
       <Header
         title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="back"
@@ -215,6 +215,6 @@ export default function StepOne({ onBeforeClick, onNextClick, type }: StepTwoPro
         </div>
       </div>
       {/** end-section */}
-    </>
+    </div>
   );
 }
