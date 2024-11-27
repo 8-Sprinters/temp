@@ -20,34 +20,34 @@ export interface NoticeCreateType {
   contents: ItemsType[];
 }
 
-export interface NoticeListItemType {
+// 어드민 게시물 조회
+export type AdminNoticeType = Omit<NoticeListItemType, 'itemImageUrl'> & {
+  isExposed: boolean;
+  didSendAlarm: boolean;
+};
+
+// 게시물 타입
+interface NoticeType {
   id: number;
-  createdDate: string;
+  category: (typeof NOTICE_CATEGORY_NAME)[keyof typeof NOTICE_CATEGORY_NAME];
   title: string;
+  description: string;
+  createdDate: string;
+}
+
+// 게시물 리스트 조회
+export type NoticeListItemType = NoticeType & {
   itemImageUrl: string | null;
-  category: string;
-  description: string;
-}
+};
 
-export interface NoticeDetailType {
-  id: number;
-  category: string;
-  title: string;
-  description: string;
+// 게시물 상세 조회
+export type NoticeDetailType = NoticeType & {
   content: NoticeContentType[];
-  createdDate: string;
-  prevNotice: {
-    id: number;
-    title: string;
-    description: string;
-  };
-  nextNotice: {
-    id: number;
-    title: string;
-    description: string;
-  };
-}
+  prevNotice: Partial<NoticeType>;
+  nextNotice: Partial<NoticeType>;
+};
 
+// 게시물 내용(콘텐츠)
 export interface NoticeContentType {
   [key: string]: unknown;
   type: NoticeContentsType;

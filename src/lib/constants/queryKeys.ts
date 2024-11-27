@@ -1,36 +1,54 @@
 export const QUERY_KEYS = {
+  // 사용자
   userOne: 'userOne',
+  getDefaultBackgroundImages: 'getDefaultBackgroundImages',
+  getDefaultProfileImages: 'getDefaultProfileImages',
+  getRecommendedUsers: 'getRecommendedUsers',
+
+  // 리스트
   createList: 'createList',
   uploadImage: 'uploadImage',
   getAllList: 'getAllList',
   getListDetail: 'getListDetail',
   getCategories: 'getCategories',
-  getComments: 'getComments',
   getRecommendedLists: 'getRecommendedLists',
   getRecentLists: 'getRecentLists',
   getFollowingLists: 'getFollowingLists',
-  getRecommendedUsers: 'getRecommendedUsers',
   getTrendingLists: 'getTrendingLists',
+  getComments: 'getComments',
+
+  // 알림
   getNotificationAllChecked: 'getNotificationOnAllChecked',
+  notifications: 'notifications',
+
+  // 팔로우
   follow: 'follow',
   deleteFollow: 'deleteFollow',
   deleteFollower: 'deleteFollower',
   getFollowingList: 'getFollowingList',
   getFollowerList: 'getFollowerList',
-  getUsersByNicknameSearch: 'getUsersByNicknameSearch',
-  notifications: 'notifications',
+
+  // 히스토리
   getHistories: 'getHistories',
   toggleHistoryPublic: 'toggleHistoryPublic',
   deleteHistory: 'deleteHistory',
-  getDefaultBackgroundImages: 'getDefaultBackgroundImages',
-  getDefaultProfileImages: 'getDefaultProfileImages',
+
+  // 검색
   searchListResult: 'searchListResult',
   searchUserResult: 'searchUserResult',
+  getUsersByNicknameSearch: 'getUsersByNicknameSearch',
+
+  // 콜렉션
   collect: 'collect',
   getCollection: 'getCollection',
   getFolders: 'getFolders',
   getCollectionCategories: 'getCollectionCategories', // ver2.0
-  getAdminTopics: 'getAdminTopics',
+
+  // 요청주제
   getTopics: 'getTopics',
+
+  // 어드민
+  getAdminTopics: 'getAdminTopics',
   getNoticeCategories: 'getNoticeCategories',
+  getAdminAllNotice: 'getAdminAllNotice',
 };
