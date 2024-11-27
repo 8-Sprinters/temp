@@ -3,7 +3,7 @@ import { Header, BodyRegular } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
-  height: '100vh',
+  minHeight: '100vh',
   display: 'flex',
 });
 
