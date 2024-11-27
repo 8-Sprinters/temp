@@ -61,6 +61,12 @@ export const rowText = style({
   whiteSpace: 'nowrap',
 });
 
+export const buttons = style({
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '0.5rem',
+});
+
 export const button = style({
   padding: '0.5rem 1rem',
   borderRadius: '4px',
@@ -70,10 +76,4 @@ export const button = style({
   ':hover': {
     opacity: 0.7,
   },
-});
-
-export const editButtons = style({
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '0.5rem',
 });

@@ -6,6 +6,8 @@ import * as styles from './page.css';
 
 import getAdminNotices from '@/app/_api/notice/getAdminNotices';
 import deleteNotice from '@/app/_api/notice/deleteNotice';
+import sendNoticeAlarm from '@/app/_api/notice/sendNoticeAlarm';
+import updateNoticePublic from '@/app/_api/notice/updateNoticePublic';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { AdminNoticeType } from '@/lib/types/noticeType';
@@ -27,8 +29,38 @@ function NoticeItem({ notice }: NoticeItemProps) {
     },
   });
 
+  const sendAlarmMutation = useMutation({
+    mutationFn: sendNoticeAlarm,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
+    },
+  });
+
+  const updatePublicMutation = useMutation({
+    mutationFn: updateNoticePublic,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
+    },
+  });
+
   const handleDeleteNotice = () => {
     deleteMutation.mutate(notice.id);
+  };
+
+  const handleSendAlarm = () => {
+    if (!notice.isExposed) {
+      alert('공개 게시물만 알림을 보낼 수 있어요.');
+      return;
+    }
+    if (notice.didSendAlarm) {
+      alert('이미 알림을 보낸 게시물입니다.');
+      return;
+    }
+    sendAlarmMutation.mutate(notice.id);
+  };
+
+  const handleTogglePublic = () => {
+    updatePublicMutation.mutate(notice.id);
   };
 
   return (
@@ -39,7 +71,7 @@ function NoticeItem({ notice }: NoticeItemProps) {
         <span className={styles.rowText}>{notice.title}</span>
         <span className={styles.rowText}>{notice.description}</span>
       </td>
-      <td className={styles.editButtons}>
+      <td className={styles.buttons}>
         <button className={styles.button}>수정</button>
         <button className={styles.button} onClick={handleDeleteNotice}>
           삭제
@@ -49,10 +81,12 @@ function NoticeItem({ notice }: NoticeItemProps) {
         <button className={styles.button}>미리보기</button>
       </td>
       <td>
-        <button className={styles.button}>알림보내기</button>
+        <button className={styles.button} onClick={handleSendAlarm} disabled={notice.didSendAlarm}>
+          알림보내기
+        </button>
       </td>
       <td>
-        <select>
+        <select onChange={handleTogglePublic}>
           <option>{notice.isExposed ? '공개' : '비공개'}</option>
           <option>{notice.isExposed ? '비공개' : '공개'}</option>
         </select>
