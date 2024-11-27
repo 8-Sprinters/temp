@@ -1,17 +1,16 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import * as styles from './page.css';
 
 import getAdminNotices from '@/app/_api/notice/getAdminNotices';
-import deleteNotice from '@/app/_api/notice/deleteNotice';
-import sendNoticeAlarm from '@/app/_api/notice/sendNoticeAlarm';
-import updateNoticePublic from '@/app/_api/notice/updateNoticePublic';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { AdminNoticeType } from '@/lib/types/noticeType';
 import formatDate from '@/lib/utils/dateFormat';
+
+import useNotice from '@/hooks/queries/useNotice';
 
 const TABLE_ROW = ['일시', '카테고리', '제목&소개', '편집', '미리보기', '알림', '공개'];
 
@@ -20,31 +19,10 @@ interface NoticeItemProps {
 }
 
 function NoticeItem({ notice }: NoticeItemProps) {
-  const queryClient = useQueryClient();
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteNotice,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
-    },
-  });
-
-  const sendAlarmMutation = useMutation({
-    mutationFn: sendNoticeAlarm,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
-    },
-  });
-
-  const updatePublicMutation = useMutation({
-    mutationFn: updateNoticePublic,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
-    },
-  });
+  const { deletNoticeMutation, sendNoticeAlarmMutation, updateNoticePublicMutation } = useNotice();
 
   const handleDeleteNotice = () => {
-    deleteMutation.mutate(notice.id);
+    deletNoticeMutation.mutate(notice.id);
   };
 
   const handleSendAlarm = () => {
@@ -56,11 +34,11 @@ function NoticeItem({ notice }: NoticeItemProps) {
       alert('이미 알림을 보낸 게시물입니다.');
       return;
     }
-    sendAlarmMutation.mutate(notice.id);
+    sendNoticeAlarmMutation.mutate(notice.id);
   };
 
   const handleTogglePublic = () => {
-    updatePublicMutation.mutate(notice.id);
+    updateNoticePublicMutation.mutate(notice.id);
   };
 
   return (
