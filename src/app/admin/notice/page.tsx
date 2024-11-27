@@ -1,10 +1,12 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import * as styles from './page.css';
 
 import getAdminNotices from '@/app/_api/notice/getAdminNotices';
+import deleteNotice from '@/app/_api/notice/deleteNotice';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { AdminNoticeType } from '@/lib/types/noticeType';
 import formatDate from '@/lib/utils/dateFormat';
@@ -16,17 +18,32 @@ interface NoticeItemProps {
 }
 
 function NoticeItem({ notice }: NoticeItemProps) {
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteNotice,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
+    },
+  });
+
+  const handleDeleteNotice = () => {
+    deleteMutation.mutate(notice.id);
+  };
+
   return (
     <tr className={styles.bodyRow}>
       <td>{formatDate(notice.createdDate)}</td>
       <td>{notice.category}</td>
       <td className={styles.rowItem}>
-        <span> {notice.title}</span>
-        <span>{notice.description}</span>
+        <span className={styles.rowText}>{notice.title}</span>
+        <span className={styles.rowText}>{notice.description}</span>
       </td>
       <td className={styles.editButtons}>
         <button className={styles.button}>수정</button>
-        <button className={styles.button}>삭제</button>
+        <button className={styles.button} onClick={handleDeleteNotice}>
+          삭제
+        </button>
       </td>
       <td>
         <button className={styles.button}>미리보기</button>
@@ -48,6 +65,7 @@ export default function AdminNoticesPage() {
   const { data: notices } = useQuery<AdminNoticeType[]>({
     queryKey: [QUERY_KEYS.getAdminAllNotice],
     queryFn: getAdminNotices,
+    staleTime: 1000 * 60 * 30,
   });
 
   return (

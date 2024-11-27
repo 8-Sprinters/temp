@@ -55,11 +55,21 @@ export const rowItem = style({
   gap: '0.5rem',
 });
 
+export const rowText = style({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
+
 export const button = style({
   padding: '0.5rem 1rem',
   borderRadius: '4px',
   backgroundColor: vars.color.blue,
   color: vars.color.white,
+
+  ':hover': {
+    opacity: 0.7,
+  },
 });
 
 export const editButtons = style({
