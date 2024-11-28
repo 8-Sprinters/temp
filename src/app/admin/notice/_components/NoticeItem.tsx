@@ -22,7 +22,6 @@ function NoticeDetailModal({ noticeId }: NoticeDetailModalProps) {
   const { data: notices } = useQuery<NoticeDetailType>({
     queryKey: [QUERY_KEYS.getNoticeDetail],
     queryFn: () => getNoticeDetail(noticeId),
-    staleTime: 1000 * 60 * 30,
     enabled: !!noticeId,
   });
 
@@ -83,9 +82,9 @@ function NoticeItem({ notice }: NoticeItemProps) {
           </button>
         </td>
         <td>
-          <select onChange={handleTogglePublic}>
-            <option>{notice.isExposed ? '공개' : '비공개'}</option>
-            <option>{notice.isExposed ? '비공개' : '공개'}</option>
+          <select onChange={handleTogglePublic} value={notice.isExposed ? '공개' : '비공개'}>
+            <option>공개</option>
+            <option>비공개</option>
           </select>
         </td>
       </tr>
