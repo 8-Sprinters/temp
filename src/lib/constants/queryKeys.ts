@@ -49,6 +49,9 @@ export const QUERY_KEYS = {
 
   // 어드민
   getAdminTopics: 'getAdminTopics',
-  getNoticeCategories: 'getNoticeCategories',
   getAdminAllNotice: 'getAdminAllNotice',
+
+  // 공지
+  getNoticeCategories: 'getNoticeCategories',
+  getNoticeDetail: 'getNoticeDetail',
 };

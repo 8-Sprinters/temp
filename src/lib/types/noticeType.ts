@@ -42,7 +42,7 @@ export type NoticeListItemType = NoticeType & {
 
 // 게시물 상세 조회
 export type NoticeDetailType = NoticeType & {
-  content: NoticeContentType[];
+  contents: NoticeContentType[];
   prevNotice: Partial<NoticeType>;
   nextNotice: Partial<NoticeType>;
 };

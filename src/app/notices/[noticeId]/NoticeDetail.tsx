@@ -21,7 +21,7 @@ function NoticeDetailComponent() {
       </section>
       <article className={styles.articleWrapper}>
         <ul>
-          {data.content?.map((item: NoticeContentType, idx) => (
+          {data.contents?.map((item: NoticeContentType, idx) => (
             <li key={idx.toString()}>
               <NoticeContent item={item} />
             </li>

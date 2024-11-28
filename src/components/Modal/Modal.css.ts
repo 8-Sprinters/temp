@@ -45,6 +45,7 @@ export const sizeVariants = styleVariants<SizeVariantsType>({
     container,
     {
       minWidth: '327px',
+      maxWidth: '420px',
       width: '100%',
       margin: '0px 24px',
       padding: '6rem 2.5rem',
