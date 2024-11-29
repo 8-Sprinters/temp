@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { Label } from '@/styles/font.css';
 
@@ -37,7 +37,7 @@ export const buttons = style({
   gap: '0.5rem',
 });
 
-export const button = style({
+const button = style({
   padding: '0.5rem 1rem',
   borderRadius: '4px',
   backgroundColor: vars.color.blue,
@@ -46,6 +46,17 @@ export const button = style({
   ':hover': {
     opacity: 0.7,
   },
+});
+
+export const variantsButton = styleVariants({
+  default: [button],
+  disabled: [
+    button,
+    {
+      opacity: 0.7,
+      cursor: 'default',
+    },
+  ],
 });
 
 export const modal = style({

@@ -36,53 +36,61 @@ function NoticeItem({ notice }: NoticeItemProps) {
   const { deletNoticeMutation, sendNoticeAlarmMutation, updateNoticePublicMutation } = useNotice();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
+  const { id, title, description, didSendAlarm, isExposed, category, createdDate } = notice;
+
   const handleDeleteNotice = () => {
-    deletNoticeMutation.mutate(notice.id);
+    deletNoticeMutation.mutate(id);
   };
 
   const handleSendAlarm = () => {
-    if (!notice.isExposed) {
+    if (!isExposed) {
       alert('공개 게시물만 알림을 보낼 수 있어요.');
       return;
     }
-    if (notice.didSendAlarm) {
+    if (didSendAlarm) {
       alert('이미 알림을 보낸 게시물입니다.');
       return;
     }
-    sendNoticeAlarmMutation.mutate(notice.id);
+    sendNoticeAlarmMutation.mutate(id, {
+      onSuccess: () => alert('알림을 보냈어요.'),
+    });
   };
 
   const handleTogglePublic = () => {
-    updateNoticePublicMutation.mutate(notice.id);
+    updateNoticePublicMutation.mutate(id);
   };
 
   return (
     <>
       <tr className={styles.bodyRow}>
-        <td>{formatDate(notice.createdDate)}</td>
-        <td>{notice.category}</td>
+        <td>{formatDate(createdDate)}</td>
+        <td>{category}</td>
         <td className={styles.rowItem}>
-          <span className={styles.rowText}>{notice.title}</span>
-          <span className={styles.rowText}>{notice.description}</span>
+          <span className={styles.rowText}>{title}</span>
+          <span className={styles.rowText}>{description}</span>
         </td>
         <td className={styles.buttons}>
-          <button className={styles.button}>수정</button>
-          <button className={styles.button} onClick={handleDeleteNotice}>
+          <button className={styles.variantsButton.default}>수정</button>
+          <button className={styles.variantsButton.default} onClick={handleDeleteNotice}>
             삭제
           </button>
         </td>
         <td>
-          <button className={styles.button} onClick={handleSetOn}>
+          <button className={styles.variantsButton.default} onClick={handleSetOn}>
             미리보기
           </button>
         </td>
         <td>
-          <button className={styles.button} onClick={handleSendAlarm} disabled={notice.didSendAlarm}>
-            알림보내기
+          <button
+            className={didSendAlarm ? styles.variantsButton.disabled : styles.variantsButton.default}
+            onClick={handleSendAlarm}
+            disabled={didSendAlarm}
+          >
+            {`알림 ${didSendAlarm ? '완료' : '보내기'}`}
           </button>
         </td>
         <td>
-          <select onChange={handleTogglePublic} value={notice.isExposed ? '공개' : '비공개'}>
+          <select onChange={handleTogglePublic} value={isExposed ? '공개' : '비공개'}>
             <option>공개</option>
             <option>비공개</option>
           </select>
@@ -92,7 +100,7 @@ function NoticeItem({ notice }: NoticeItemProps) {
       {isOn && (
         <Modal size="large" handleModalClose={handleSetOff}>
           <section className={styles.modal}>
-            <NoticeDetailModal noticeId={notice.id} />
+            <NoticeDetailModal noticeId={id} />
           </section>
         </Modal>
       )}
