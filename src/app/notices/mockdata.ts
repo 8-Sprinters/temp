@@ -64,7 +64,7 @@ export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
   category: '소식',
   title: '서비스 점검 안내',
   description: '서비스 점검이 10월 20일에 진행될 예정입니다.',
-  content: [
+  contents: [
     {
       type: 'subtitle',
       description: '점검 일정',
