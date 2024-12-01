@@ -33,13 +33,13 @@ interface NoticeItemProps {
 }
 
 function NoticeItem({ notice }: NoticeItemProps) {
-  const { deletNoticeMutation, sendNoticeAlarmMutation, updateNoticePublicMutation } = useNotice();
+  const { deleteNoticeMutation, sendNoticeAlarmMutation, updateNoticePublicMutation } = useNotice();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const { id, title, description, didSendAlarm, isExposed, category, createdDate } = notice;
 
   const handleDeleteNotice = () => {
-    deletNoticeMutation.mutate(id);
+    deleteNoticeMutation.mutate(id);
   };
 
   const handleSendAlarm = () => {
