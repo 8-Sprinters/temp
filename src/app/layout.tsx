@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import { ReferrerEnum } from 'next/dist/lib/metadata/types/metadata-types';
 import { OpenGraphType } from 'next/dist/lib/metadata/types/opengraph-types';
 import { ToastContainer } from 'react-toastify';
@@ -44,6 +45,9 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
+  const pathname = headers().get('pathname') || '';
+  const isAdminStyle = pathname.startsWith('/admin');
+
   return (
     <html lang="ko">
       <head>
@@ -53,7 +57,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <link rel="apple-touch-icon" href="https://image.listywave.com/favicon/favicon.png" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={styles.body}>
+      <body className={isAdminStyle ? styles.adminBodyStyle : styles.basicBodyStyle}>
         <CommonProvider>
           <div id="modal-root" />
           <div>
