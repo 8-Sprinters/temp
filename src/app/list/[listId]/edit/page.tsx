@@ -158,28 +158,27 @@ export default function EditPage() {
     isSuccess,
   } = useMutation({
     mutationFn: updateList,
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.getAllList, user.id + ''],
       });
       router.replace(`/list/${param?.listId}`);
     },
+    onError: () => {
+      toasting({ type: 'error', txt: toastMessage[language].updateListError });
+    },
   });
 
   //--- 제출
   const handleSubmit = () => {
-    if (getIsAllUnique()) {
-      const { listData, imageData, imageFileList } = formatData();
-      const updateData = {
-        listId: Number(param?.listId) || 0,
-        listData: listData,
-        imageData: imageData,
-        imageFileList: imageFileList,
-      };
-      updateListMutation(updateData);
-    } else {
-      toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
-    }
+    const { listData, imageData, imageFileList } = formatData();
+    const updateData = {
+      listId: Number(param?.listId) || 0,
+      listData: listData,
+      imageData: imageData,
+      imageFileList: imageFileList,
+    };
+    updateListMutation(updateData);
   };
 
   return (

@@ -21,7 +21,7 @@ function NoticeDetailComponent() {
       </section>
       <article className={styles.articleWrapper}>
         <ul>
-          {data.content?.map((item: NoticeContentType, idx) => (
+          {data.contents?.map((item: NoticeContentType, idx) => (
             <li key={idx.toString()}>
               <NoticeContent item={item} />
             </li>
@@ -60,16 +60,16 @@ function NoticeContent({ item }: NoticeContentProps) {
       {item.type === 'body' && <p className={styles.articleDescription}>{item.description}</p>}
       {item.type === 'image' && (
         <div className={styles.articleImageWrapper}>
-          <Image src={item.imageUrl} alt={item.type} fill className={styles.articleImage} />
+          <Image src={item.imageUrl as string} alt={item.type} fill className={styles.articleImage} />
         </div>
       )}
       {item.type === 'button' && (
-        <Link href={item.buttonLink}>
+        <Link href={item.buttonLink as string}>
           <button className={styles.articleButton}>{item.buttonName}</button>
         </Link>
       )}
       {item.type === 'line' && <div className={styles.articleLine}></div>}
-      {item.type === 'notice' && <p className={styles.articleNotice}>{item.description}</p>}
+      {item.type === 'note' && <textarea value={item.description} readOnly className={styles.articleNotice} />}
     </>
   );
 }
