@@ -23,7 +23,7 @@ function FollowingPage() {
   });
 
   return (
-    <div className={styles.page}>
+    <div>
       <Header title={userLocale[language].following} />
       {followingList?.followings.length !== 0 && (
         <div

@@ -128,7 +128,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
   }, []);
 
   return (
-    <section className={styles.container}>
+    <section>
       <Collections
         collectionList={lists}
         folderName={listData?.pages[0].folderName ?? ''}

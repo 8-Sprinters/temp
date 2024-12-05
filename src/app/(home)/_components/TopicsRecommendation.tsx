@@ -16,7 +16,7 @@ function TopicsRecommendation() {
       <ul className={styles.itemsWrapper}>
         {TopicsData.map((el, idx) => {
           return (
-            <li key={idx} className={styles.topicList}>
+            <li key={idx}>
               <TopicItem title={el} />
             </li>
           );

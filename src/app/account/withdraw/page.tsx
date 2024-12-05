@@ -5,7 +5,7 @@ import * as styles from './page.css';
 
 export default function WithdrawPage() {
   return (
-    <div className={styles.page}>
+    <div>
       <WithdrawalHeader />
       <div className={styles.main}>
         <WithdrawalNotice />

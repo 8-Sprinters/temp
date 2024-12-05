@@ -33,10 +33,6 @@ export const recommendUsersListWrapper = style({
   },
 });
 
-export const recommendUsersList = style({
-  listStyle: 'none',
-});
-
 export const recommendUserWrapper = style({
   padding: '12px 9px',
   paddingBottom: '84px',

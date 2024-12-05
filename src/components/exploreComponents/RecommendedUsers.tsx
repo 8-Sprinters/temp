@@ -57,7 +57,7 @@ function UsersRecommendation() {
               <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
                 {usersList?.map((item: UserProfileType) => {
                   return (
-                    <li key={item.id} className={styles.recommendUsersList}>
+                    <li key={item.id}>
                       <UserRecommendListItem
                         data={item}
                         handleScrollToRight={handleScrollToRight}

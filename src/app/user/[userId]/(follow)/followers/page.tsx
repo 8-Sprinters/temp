@@ -23,7 +23,7 @@ function FollowersPage() {
   });
 
   return (
-    <div className={styles.page}>
+    <div>
       <Header title={userLocale[language].follower} />
       {followerList?.totalCount !== 0 && (
         <div

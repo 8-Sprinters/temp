@@ -10,8 +10,6 @@ import LoginModal from '@/components/login/LoginModal';
 import Loading from '@/components/loading/Loading';
 import Feed from '@/app/(home)/_components/Feed';
 
-import * as styles from './page.css';
-
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
@@ -40,7 +38,7 @@ function LandingPage() {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div>
         <Suspense fallback={<Loading />}>
           <PWAPrompt
             copyTitle="리스티웨이브 앱 설치하기"

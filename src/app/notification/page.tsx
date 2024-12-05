@@ -41,7 +41,7 @@ export default function NotificationPage() {
   });
 
   return (
-    <div className={styles.page}>
+    <>
       <Header
         title={notificationLocale[language].notification}
         left="back"
@@ -59,6 +59,6 @@ export default function NotificationPage() {
         }
       />
       <NotificationList />
-    </div>
+    </>
   );
 }

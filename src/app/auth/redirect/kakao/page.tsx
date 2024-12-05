@@ -73,8 +73,6 @@ export default function KakaoRedirectPage() {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
-        maxWidth: 430,
-        margin: 'auto',
       }}
     >
       <Loading />

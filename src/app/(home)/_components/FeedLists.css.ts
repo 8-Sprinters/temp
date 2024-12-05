@@ -11,10 +11,6 @@ export const wrapperOuter = style({
   flexDirection: 'column',
 });
 
-export const feedList = style({
-  listStyle: 'none',
-});
-
 export const titleWrapper = style({
   marginBottom: '26px',
 

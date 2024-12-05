@@ -98,7 +98,6 @@ export const dropdownItem = style([
   {
     padding: '7px 20px',
     color: vars.color.bluegray10,
-    listStyle: 'none',
 
     cursor: 'pointer',
     ':hover': {

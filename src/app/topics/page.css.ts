@@ -3,11 +3,8 @@ import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
 export const body = style({
-  width: '100vw',
-  maxWidth: 430,
   minHeight: '100vh',
   padding: '16px 16px 120px',
-  margin: 'auto',
 
   position: 'relative',
   overflowY: 'auto',
@@ -15,8 +12,6 @@ export const body = style({
   display: 'flex',
   flexDirection: 'column',
   rowGap: '12px',
-
-  backgroundColor: vars.color.bggray,
 });
 
 export const goBackButton = style([

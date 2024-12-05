@@ -2,8 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const wrapper = style({
-  margin: 'auto',
-  maxWidth: 430,
   height: '100vh',
 });
 
@@ -26,8 +24,6 @@ export const addFolderButtonContainer = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-
-  backgroundColor: vars.color.bggray,
 });
 
 export const addFolderButton = style({

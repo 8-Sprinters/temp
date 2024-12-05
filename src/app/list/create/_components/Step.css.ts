@@ -3,14 +3,8 @@ import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
 export const page = style({
-  maxWidth: 430,
-  minHeight: '100vh',
-  margin: 'auto',
-
   display: 'flex',
   flexDirection: 'column',
-
-  backgroundColor: vars.color.bggray,
 });
 
 export const section = style({

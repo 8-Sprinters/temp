@@ -1,12 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
-export const nav = style({
-  margin: 'auto',
-  width: '100%',
-  maxWidth: 430,
-});
-
 export const bottomTapContainer = style({
   margin: 'auto',
   width: '100%',
