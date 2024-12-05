@@ -64,7 +64,7 @@ export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
   category: '소식',
   title: '서비스 점검 안내',
   description: '서비스 점검이 10월 20일에 진행될 예정입니다.',
-  content: [
+  contents: [
     {
       type: 'subtitle',
       description: '점검 일정',
@@ -101,8 +101,8 @@ export const NOTICE_DETAIL_MOCKDATA: NoticeDetailType = {
       buttonLink: 'www.listywave.com',
     },
     {
-      type: 'notice',
-      description: '업데이트 안됨!',
+      type: 'note',
+      description: '유의사항\ntextarea로\n작성\n...\n...\n...',
       imageUrl: '',
       buttonName: '',
       buttonLink: '',
