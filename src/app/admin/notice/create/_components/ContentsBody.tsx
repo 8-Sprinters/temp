@@ -74,8 +74,12 @@ export default function ContentsBody() {
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {fields.map((field, index) => (
                   <Draggable key={field.id} draggableId={field.id} index={index}>
-                    {(provided) => (
-                      <div ref={provided.innerRef} {...provided.draggableProps}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        className={snapshot.isDragging ? styles.draggingItem : styles.item}
+                      >
                         <ContentsContainer
                           key={field.id}
                           content={field as ItemsType & { id: string }}
