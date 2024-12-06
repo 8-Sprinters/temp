@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import * as styles from './index.css';
@@ -14,7 +14,7 @@ interface ImageContentProps {
 export default function ImageContent({ order }: ImageContentProps) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [previewImage, setPreviewImage] = useState('');
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
 
   const handleUploadFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -29,6 +29,13 @@ export default function ImageContent({ order }: ImageContentProps) {
     setValue(`contents.${order}.imageUrl`, '');
     setPreviewImage('');
   };
+
+  useEffect(() => {
+    const image = getValues(`contents.${order}.imageUrl`);
+    if (image) {
+      fileToBase64(image, setPreviewImage);
+    }
+  }, [getValues, order]);
 
   return (
     <>

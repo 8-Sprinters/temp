@@ -35,7 +35,7 @@ const itemDataFormatByType = (type: NoticeContentsType) => {
 };
 
 export default function ContentsBody() {
-  const { control } = useFormContext();
+  const { setValue, getValues, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     name: 'contents',
     control,
@@ -49,16 +49,27 @@ export default function ContentsBody() {
     remove(order);
   };
 
-  // TODO 드래그 종료시 실행될 함수
-  const handleOnDragEnd = ({ draggableId, source, destination }: DropResult) => {
-    console.log(draggableId, source, destination);
+  // 드래그앤드롭 시 실행될 함수
+  const handleOnDragEnd = ({ source, destination }: DropResult) => {
+    if (!destination) return;
+
+    const currentFields = getValues('contents');
+    const draggingFieldIndex = source.index;
+    const dropFieldIndex = destination.index;
+
+    // 드래그한 필드를 기존 배열에서 삭제
+    const removeField = currentFields.splice(draggingFieldIndex, 1);
+    // 드롭한 위치에 드래그한 필드를 추가
+    currentFields.splice(dropFieldIndex, 0, removeField[0]);
+    // 전체 필드 업데이트
+    setValue('contents', currentFields);
   };
 
   return (
     <>
       <section>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <StrictModeDroppable droppableId="items">
+          <StrictModeDroppable droppableId="fields">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {fields.map((field, index) => (
