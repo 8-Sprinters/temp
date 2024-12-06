@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import { FieldArrayWithId } from 'react-hook-form';
+import { DraggableProvided } from '@hello-pangea/dnd';
 
 import * as styles from './BlockContainer.css';
 
@@ -34,15 +36,21 @@ interface ContainerProps {
   content: FieldArrayWithId<NoticeCreateType, 'contents', 'id'>;
   handleDeleteBlock: (order: number) => void;
   order: number;
+  provided: DraggableProvided;
 }
 
-export default function ContentsContainer({ content, handleDeleteBlock, order }: ContainerProps) {
+export default function ContentsContainer({ content, handleDeleteBlock, order, provided }: ContainerProps) {
   const { type } = content;
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <h3 className={styles.title}>{NOTICE_CONTENT[type]}</h3>
+        <div className={styles.titleWrapper}>
+          <div {...provided.dragHandleProps} className={styles.drag}>
+            <Image src={'/icons/dnd.svg'} width={22} height={15} alt="drag and drop" />
+          </div>
+          <h3 className={styles.title}>{NOTICE_CONTENT[type]}</h3>
+        </div>
         <button type="button" onClick={() => handleDeleteBlock(order)} className={styles.deleteButton}>
           삭제
         </button>

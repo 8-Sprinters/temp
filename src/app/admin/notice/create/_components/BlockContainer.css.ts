@@ -15,6 +15,18 @@ export const wrapper = style({
   alignItems: 'center',
 });
 
+export const titleWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1rem',
+});
+
+export const drag = style({
+  padding: '0.5rem',
+  borderRadius: '0.5rem',
+  border: `1px solid ${vars.color.lightgray}`,
+});
+
 export const title = style([BodyRegular]);
 
 export const deleteButton = style({

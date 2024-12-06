@@ -1,4 +1,5 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { DragDropContext, Draggable, DropResult } from '@hello-pangea/dnd';
 
 import * as styles from './ContentsBody.css';
 
@@ -6,6 +7,7 @@ import { NOTICE_CONTENT } from '@/lib/constants/notice';
 import { ItemsType, NoticeContentsType } from '@/lib/types/noticeType';
 
 import ContentsContainer from './BlockContainer';
+import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 
 /** 타입에 따른 Contents 블럭 포멧 지정 유틸 함수 */
 const itemDataFormatByType = (type: NoticeContentsType) => {
@@ -47,18 +49,40 @@ export default function ContentsBody() {
     remove(order);
   };
 
+  // TODO 드래그 종료시 실행될 함수
+  const handleOnDragEnd = ({ draggableId, source, destination }: DropResult) => {
+    console.log(draggableId, source, destination);
+  };
+
   return (
     <>
       <section>
-        {fields.map((field, index) => (
-          <ContentsContainer
-            key={field.id}
-            content={field as ItemsType & { id: string }}
-            order={index}
-            handleDeleteBlock={handleDeleteBlock}
-          />
-        ))}
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <StrictModeDroppable droppableId="items">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {fields.map((field, index) => (
+                  <Draggable key={field.id} draggableId={field.id} index={index}>
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.draggableProps}>
+                        <ContentsContainer
+                          key={field.id}
+                          content={field as ItemsType & { id: string }}
+                          order={index}
+                          handleDeleteBlock={handleDeleteBlock}
+                          provided={provided}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
       </section>
+
       <section className={styles.contents}>
         {Object.entries(NOTICE_CONTENT).map(([key, value], index) => (
           <button
