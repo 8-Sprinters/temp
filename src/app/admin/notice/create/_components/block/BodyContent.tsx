@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,7 +10,7 @@ interface BodyContentProps {
 
 // TODO security
 export default function BodyContent({ order }: BodyContentProps) {
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
   const [text, setText] = useState('');
 
   const handleChange = useCallback((value?: string) => {
@@ -21,6 +21,13 @@ export default function BodyContent({ order }: BodyContentProps) {
     setValue(`contents.${order}.description`, text);
     alert('본문을 저장했습니다.');
   };
+
+  useEffect(() => {
+    const markdownValue = getValues(`contents.${order}.description`);
+    if (markdownValue) {
+      setText(markdownValue);
+    }
+  }, [order, getValues]);
 
   return (
     <>
