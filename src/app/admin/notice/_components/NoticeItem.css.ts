@@ -35,6 +35,8 @@ export const buttons = style({
   display: 'flex',
   justifyContent: 'center',
   gap: '0.5rem',
+
+  whiteSpace: 'nowrap',
 });
 
 const button = style({
@@ -42,6 +44,8 @@ const button = style({
   borderRadius: '4px',
   backgroundColor: vars.color.blue,
   color: vars.color.white,
+
+  whiteSpace: 'nowrap',
 
   ':hover': {
     opacity: 0.7,

@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles/theme.css';
-import { Label } from '@/styles/font.css';
+import { LabelBold } from '@/styles/font.css';
 
 export const info = style({
   padding: '25px 16px 40px',
@@ -13,7 +13,7 @@ export const info = style({
 });
 
 export const category = style([
-  Label,
+  LabelBold,
   {
     width: 'fit-content',
     padding: '6px 12px',

@@ -17,6 +17,7 @@ export const imgaeBox = style({
 
 export const image = style({
   objectFit: 'cover',
+  borderRadius: '5px',
 });
 
 export const button = style([
