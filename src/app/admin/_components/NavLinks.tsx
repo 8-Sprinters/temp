@@ -17,7 +17,11 @@ export default function NavLinks({ links }: NavLinksProps) {
       {links.map((link) => {
         const isActive = pathname && pathname.startsWith(link.path);
         return (
-          <Link href={link.path} className={isActive ? styles.variantLink.selected : styles.variantLink.default}>
+          <Link
+            key={link.path}
+            href={link.path}
+            className={isActive ? styles.variantLink.selected : styles.variantLink.default}
+          >
             {link.label}
           </Link>
         );
