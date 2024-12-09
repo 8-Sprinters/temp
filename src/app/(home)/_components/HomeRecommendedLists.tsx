@@ -12,7 +12,7 @@ import getHomeRecommendedLists from '@/app/_api/home/getHomeRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { HomeRecommendedListType } from '@/lib/types/homeType';
 
-import * as styles from './TrendingLists.css';
+import * as styles from './HomeRecommendedLists.css';
 import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from '../../../components/exploreComponents/Skeleton';
 
