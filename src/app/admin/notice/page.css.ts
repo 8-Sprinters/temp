@@ -1,11 +1,33 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { BodyRegular } from '@/styles/font.css';
+import { Body, BodyRegular } from '@/styles/font.css';
 
 export const page = style({
   padding: '1.5rem',
   height: '100%',
 });
+
+export const button = style({
+  display: 'flex',
+  flexDirection: 'row-reverse',
+  marginBottom: '1rem',
+});
+
+export const plusNoticeButton = style([
+  Body,
+  {
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+    backgroundColor: vars.color.blue,
+    color: vars.color.white,
+
+    whiteSpace: 'nowrap',
+
+    ':hover': {
+      opacity: 0.7,
+    },
+  },
+]);
 
 export const table = style({
   maxWidth: '850px',
