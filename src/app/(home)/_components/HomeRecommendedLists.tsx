@@ -8,21 +8,21 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 
-import getTrendingLists from '@/app/_api/home/getTrendingLists';
+import getHomeRecommendedLists from '@/app/_api/home/getHomeRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { TrendingListType } from '@/lib/types/exploreType';
-import { TRENDINGLISTS_DATA } from '../mock/mockdata';
+import { HomeRecommendedListType } from '@/lib/types/homeType';
 
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from '../../../components/exploreComponents/Skeleton';
 
 function TrendingList() {
-  // 오류로인해 주석처리 해 둠
-  // const { data: trendingLists, isFetching } = useQuery({
-  //   queryKey: [QUERY_KEYS.getTrendingLists],
-  //   queryFn: () => getTrendingLists(),
-  // });
+  const { data: recommendedLists, isFetching } = useQuery({
+    queryKey: [QUERY_KEYS.getHomeRecommendedLists],
+    queryFn: () => getHomeRecommendedLists(),
+  });
+
+  console.log(recommendedLists);
 
   const SWIPER_STYLE = useMemo(
     () => ({
@@ -48,7 +48,7 @@ function TrendingList() {
     <section className={styles.wrapper}>
       <div className={styles.listWrapper}>
         <div className={styles.slide}>
-          {TRENDINGLISTS_DATA && TRENDINGLISTS_DATA.length > 0 && (
+          {recommendedLists && recommendedLists.length > 0 && (
             <Swiper
               slidesPerView={'auto'}
               grabCursor={true}
@@ -63,7 +63,7 @@ function TrendingList() {
               className="mySwiper"
               style={SWIPER_STYLE}
             >
-              {TRENDINGLISTS_DATA.map((item, index) => (
+              {recommendedLists.map((item, index) => (
                 <SwiperSlide key={index} className={styles.sliderItem} style={SWIPER_SLIDER_STYLE}>
                   <TrendingListItem item={item} index={index} />
                 </SwiperSlide>
@@ -77,7 +77,7 @@ function TrendingList() {
 }
 
 interface TrendingListItemProps {
-  item: any;
+  item: HomeRecommendedListType;
   index: number;
 }
 
@@ -116,7 +116,7 @@ function TrendingListItem({ item }: TrendingListItemProps) {
 export default TrendingList;
 
 interface TrendingListInformationType {
-  item?: TrendingListType;
+  item?: HomeRecommendedListType;
 }
 
 function TrendingListInformation({ item }: TrendingListInformationType) {

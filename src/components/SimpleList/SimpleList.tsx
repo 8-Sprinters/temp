@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { ListItemType } from '@/lib/types/exploreType';
+import { ListItemType } from '@/lib/types/homeType';
 import * as styles from './SimpleList.css';
 import HeartIcon from '/public/icons/ver3/blue_heart.svg';
 import { commonLocale } from '@/components/locale';

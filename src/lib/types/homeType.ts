@@ -4,16 +4,14 @@ interface Top3Type {
   title: string;
 }
 
-export interface TrendingListType {
+export interface HomeRecommendedListType {
   id: number;
   ownerId: number;
   ownerNickname: string;
-  ownerProfileImageUrl: string;
   title: string;
-  category: string;
-  description: string;
-  backgroundColor: string;
   itemImageUrl: string;
+  category: string;
+  backgroundColor: string;
   top3: Top3Type[];
 }
 

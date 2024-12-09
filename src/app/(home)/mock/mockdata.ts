@@ -1,4 +1,4 @@
-import { TrendingListType } from '@/lib/types/exploreType';
+import { TrendingListType } from '@/lib/types/homeType';
 
 export const TopicsData = [
   '최근 자주 듣는 팝송',

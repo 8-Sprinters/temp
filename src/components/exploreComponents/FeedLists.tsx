@@ -11,7 +11,7 @@ import SimpleList from '@/components/SimpleList/SimpleList';
 import getRecentLists from '@/app/_api/home/getRecentLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import { ListRecommendationType } from '@/lib/types/exploreType';
+import { ListRecommendationType } from '@/lib/types/homeType';
 import * as styles from './ListsRecommendation.css';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
