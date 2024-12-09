@@ -1,20 +1,23 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { BaseSyntheticEvent } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { BaseSyntheticEvent, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import * as styles from './page.css';
+import * as styles from '../../create/page.css';
 
-import createNotice from '@/app/_api/notice/createNotice';
+import updateNotice from '@/app/_api/notice/updateNotice';
 import uploadNoticeImages from '@/app/_api/notice/uploadNoticeImages';
 
-import { NoticeCreateType } from '@/lib/types/noticeType';
+import { NoticeCreateType, NoticeDetailType } from '@/lib/types/noticeType';
 import { noticeDescriptionRules, noticeTitleRules } from '@/lib/constants/formInputValidationRules';
 
-import CategoryDropdown from './_components/CategoryDropdown';
-import ContentsBody from './_components/ContentsBody';
+import CategoryDropdown from '../../create/_components/CategoryDropdown';
+import ContentsBody from '../../create/_components/ContentsBody';
+import getNoticeDetail from '@/app/_api/notice/getNoticeDetail';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { NOTICE_CATEGORY_NAME } from '@/lib/constants/notice';
 
 /** 공지 작성 데이터 포맷 유틸 함수 */
 const formatNoticeData = (originData: NoticeCreateType) => {
@@ -60,14 +63,30 @@ const formatImageData = (originData: NoticeCreateType) => {
   return { imageExtensionData, imageFileData };
 };
 
-export default function CreateNotice() {
+type NoticeCategoryNameType = (typeof NOTICE_CATEGORY_NAME)[keyof typeof NOTICE_CATEGORY_NAME];
+
+/** 카테고리 값에 해당하는 카테고리 코드 반환 */
+function getCodeByObject(value: NoticeCategoryNameType) {
+  return Object.values(NOTICE_CATEGORY_NAME).findIndex((field) => field === value) + 1;
+}
+
+export default function EditNotice({ params }: { params: { noticeId: number } }) {
+  const noticeId = params.noticeId;
+
+  const { data: notice } = useQuery<NoticeDetailType>({
+    queryKey: [QUERY_KEYS.getNoticeDetail],
+    queryFn: () => getNoticeDetail(params.noticeId),
+    enabled: !!params.noticeId,
+  });
+
   const router = useRouter();
+  const queryClient = useQueryClient();
   const methods = useForm<NoticeCreateType>({
     mode: 'onChange',
     defaultValues: {
       categoryCode: 1,
-      title: '',
-      description: '',
+      title: notice?.title,
+      description: notice?.description,
       contents: [
         {
           order: 0,
@@ -79,44 +98,58 @@ export default function CreateNotice() {
   });
 
   // prettier-ignore
-  const { register, handleSubmit, formState: { errors, isValid }} = methods;
+  const { register, handleSubmit, formState: { errors, isValid }, reset } = methods;
 
   const uploadImageMutation = useMutation({
     mutationFn: uploadNoticeImages,
     onError: () => alert('이미지 업로드를 다시 시도해주세요.'),
   });
 
-  const createNoticeMutation = useMutation({
-    mutationFn: createNotice,
-    onSuccess: (data) => {
+  const editNoticeMutation = useMutation({
+    mutationFn: updateNotice,
+    onSuccess: () => {
       const originData = methods.getValues();
       const { imageExtensionData, imageFileData } = formatImageData(originData);
 
       // 생성된 공지 ID에 이미지 업로드
       if (imageExtensionData.length !== 0) {
         uploadImageMutation.mutate({
-          noticeId: data.id,
+          noticeId,
           imageExtensionData,
           imageFileData,
         });
       }
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAdminAllNotice] });
       router.push('/admin/notice');
     },
-    onError: () => alert('게시물 생성을 다시 시도해주세요.'),
+    onError: () => alert('게시물 수정을 다시 시도해주세요.'),
   });
 
-  /** 게시물 생성 */
+  /** 게시물 수정 */
   const onSubmit = (data: NoticeCreateType, e?: BaseSyntheticEvent) => {
     e?.preventDefault();
 
     const noticeData = formatNoticeData(data);
-    createNoticeMutation.mutate(noticeData);
+    editNoticeMutation.mutate({ noticeData, noticeId });
   };
+
+  useEffect(() => {
+    if (notice) {
+      reset({
+        title: notice.title,
+        categoryCode: getCodeByObject(notice.category),
+        description: notice.description,
+        contents: notice.contents.map((obj) =>
+          Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== null))
+        ),
+      });
+    }
+  }, [notice, reset]);
 
   return (
     <FormProvider {...methods}>
       <form className={styles.container}>
-        <h1>게시물 생성</h1>
+        <h1>게시물 수정</h1>
         <CategoryDropdown />
         <div className={styles.row}>
           <label className={styles.rowLabel}>제목 *</label>
@@ -147,7 +180,7 @@ export default function CreateNotice() {
           disabled={!isValid}
           className={isValid ? styles.savedButton.active : styles.savedButton.default}
         >
-          저장하기
+          수정하기
         </button>
       </form>
     </FormProvider>

@@ -33,6 +33,10 @@ export default function ImageContent({ order }: ImageContentProps) {
   useEffect(() => {
     const image = getValues(`contents.${order}.imageUrl`);
     if (image) {
+      if (typeof image === 'string') {
+        setPreviewImage(image);
+        return;
+      }
       fileToBase64(image, setPreviewImage);
     }
   }, [getValues, order]);
