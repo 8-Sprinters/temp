@@ -5,27 +5,23 @@ import Link from 'next/link';
 
 import * as styles from './NavLinks.css';
 
-export default function NavLinks() {
+interface NavLinksProps {
+  links: Array<Record<string, string>>;
+}
+
+export default function NavLinks({ links }: NavLinksProps) {
   const pathname = usePathname();
 
   return (
     <nav className={styles.nav}>
-      <Link
-        href="/admin/topics"
-        className={
-          pathname && pathname.startsWith('/admin/topics') ? styles.variantLink.selected : styles.variantLink.default
-        }
-      >
-        요청 주제
-      </Link>
-      <Link
-        href="/admin/notice"
-        className={
-          pathname && pathname.startsWith('/admin/notice') ? styles.variantLink.selected : styles.variantLink.default
-        }
-      >
-        게시물
-      </Link>
+      {links.map((link) => {
+        const isActive = pathname && pathname.startsWith(link.path);
+        return (
+          <Link href={link.path} className={isActive ? styles.variantLink.selected : styles.variantLink.default}>
+            {link.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }

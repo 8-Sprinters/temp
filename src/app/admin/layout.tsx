@@ -12,7 +12,18 @@ export default function AdminNoticeLayout({ children }: AdminNoticeLayoutProps) 
     <section className={styles.container}>
       <div className={styles.nav}>
         <h1 className={styles.title}>🤍 리스티웨이브 관리</h1>
-        <NavLinks />
+        <NavLinks
+          links={[
+            {
+              label: '요청 주제',
+              path: '/admin/topics',
+            },
+            {
+              label: '게시물',
+              path: '/admin/notice',
+            },
+          ]}
+        />
       </div>
       <main className={styles.main}>{children}</main>
     </section>
