@@ -16,6 +16,7 @@ export const QUERY_KEYS = {
   getFollowingLists: 'getFollowingLists',
   getHomeRecommendedLists: 'getHomeRecommendLists',
   getComments: 'getComments',
+  getRecommendedTopics: 'getRecommendedTopics',
 
   // 알림
   getNotificationAllChecked: 'getNotificationOnAllChecked',

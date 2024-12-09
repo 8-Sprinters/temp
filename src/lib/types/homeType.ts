@@ -47,3 +47,8 @@ export interface ListRecommendationType {
   items: ListItemType[];
   version: number;
 }
+
+export interface recommendedTopicType {
+  id: number;
+  topic: string;
+}
