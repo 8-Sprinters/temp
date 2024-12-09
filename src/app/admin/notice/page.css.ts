@@ -8,6 +8,8 @@ export const page = style({
 });
 
 export const button = style({
+  maxWidth: '850px',
+
   display: 'flex',
   flexDirection: 'row-reverse',
   marginBottom: '1rem',

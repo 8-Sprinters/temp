@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { Header, BodyRegular } from '@/styles/font.css';
+import { Header } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
@@ -8,11 +8,11 @@ export const container = style({
 });
 
 export const nav = style({
-  padding: '1.5rem',
+  padding: '1rem',
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '3rem',
+  gap: '2rem',
 
   borderRight: '2px solid',
   borderRightColor: vars.color.bluegray6,
@@ -22,16 +22,6 @@ export const title = style([
   Header,
   {
     color: vars.color.bluegray8,
-  },
-]);
-
-export const menu = style([
-  BodyRegular,
-  {
-    width: 200,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '2rem',
   },
 ]);
 
