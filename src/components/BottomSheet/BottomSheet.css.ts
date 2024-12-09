@@ -10,9 +10,12 @@ export const backGround = style({
   right: 0,
   background: 'rgba(0,0,0,0.3)',
   zIndex: 999,
+
+  maxWidth: 430,
 });
 
 export const wrapper = style({
+  maxWidth: 430,
   padding: '37px 0 43px',
   margin: 'auto',
 

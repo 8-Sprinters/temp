@@ -3,6 +3,7 @@ import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const backGround = style({
+  maxWidth: 430,
   zIndex: 99,
   position: 'fixed',
   margin: 'auto',
@@ -19,6 +20,7 @@ const slideIn = keyframes({
 });
 
 export const bottomsheet = style({
+  maxWidth: 430,
   height: 'fit-content',
   padding: '35px 20px 49px',
   margin: 'auto',

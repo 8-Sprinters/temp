@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/__font.css';
-import { vars } from '@/styles/__theme.css';
+
+import { Header } from '@/styles/font.css';
 
 export const totalMessage = style([
-  fonts.titleMedium,
+  Header,
   {
     padding: '23px 18px',
   },

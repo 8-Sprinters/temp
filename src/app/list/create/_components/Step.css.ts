@@ -2,12 +2,18 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
+export const page = style({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 export const section = style({
   padding: '1.2rem 1.6rem',
 
+  flexGrow: 1,
+
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
   rowGap: '3.2rem',
 });
 

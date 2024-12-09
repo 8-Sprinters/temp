@@ -18,14 +18,14 @@ import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from '../../../components/exploreComponents/Skeleton';
 
 function TrendingList() {
-  const { data: trendingLists, isFetching } = useQuery({
-    queryKey: [QUERY_KEYS.getTrendingLists],
-    queryFn: () => getTrendingLists(),
-  });
+  // 오류로인해 주석처리 해 둠
+  // const { data: trendingLists, isFetching } = useQuery({
+  //   queryKey: [QUERY_KEYS.getTrendingLists],
+  //   queryFn: () => getTrendingLists(),
+  // });
 
   const SWIPER_STYLE = useMemo(
     () => ({
-      width: '100vw',
       height: '280px',
       padding: '10px 0',
     }),
@@ -40,9 +40,9 @@ function TrendingList() {
     []
   );
 
-  if (isFetching) {
-    return <TrendingListsSkeleton />;
-  }
+  // if (isFetching) {
+  //   return <TrendingListsSkeleton />;
+  // }
 
   return (
     <section className={styles.wrapper}>

@@ -36,7 +36,7 @@ function HistoryPage() {
   });
 
   return (
-    <>
+    <div className={styles.page}>
       <Header
         title={listLocale[language].history}
         left="back"
@@ -44,32 +44,30 @@ function HistoryPage() {
           router.push(`/list/${listId}`);
         }}
       />
-      <div>
-        <div className={styles.navContainer}>
-          <button
-            className={`${styles.navButton} ${type === 'graph' ? styles.activeButton : ''}`}
-            onClick={() => setType('graph')}
-          >
-            {listLocale[language].graph}
-          </button>
-          <button
-            className={`${styles.navButton} ${type === 'version' ? styles.activeButton : ''}`}
-            onClick={() => setType('version')}
-          >
-            {listLocale[language].version}
-          </button>
-        </div>
-
-        <div className={styles.contentContainer}>
-          <div className={styles.listTitle}>{listData?.title}</div>
-          {type === 'graph' ? (
-            <Graph histories={historyData ? historyData : []} />
-          ) : (
-            <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
-          )}
-        </div>
+      <div className={styles.navContainer}>
+        <button
+          className={`${styles.navButton} ${type === 'graph' ? styles.activeButton : ''}`}
+          onClick={() => setType('graph')}
+        >
+          {listLocale[language].graph}
+        </button>
+        <button
+          className={`${styles.navButton} ${type === 'version' ? styles.activeButton : ''}`}
+          onClick={() => setType('version')}
+        >
+          {listLocale[language].version}
+        </button>
       </div>
-    </>
+
+      <div className={styles.contentContainer}>
+        <div className={styles.listTitle}>{listData?.title}</div>
+        {type === 'graph' ? (
+          <Graph histories={historyData ? historyData : []} />
+        ) : (
+          <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
+        )}
+      </div>
+    </div>
   );
 }
 export default HistoryPage;

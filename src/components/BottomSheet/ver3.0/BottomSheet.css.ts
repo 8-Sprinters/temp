@@ -9,6 +9,7 @@ const containerStyle = style({
   left: 0,
   right: 0,
   margin: 'auto',
+  maxWidth: 430,
 
   display: 'flex',
   flexDirection: 'column',

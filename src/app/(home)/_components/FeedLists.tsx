@@ -73,9 +73,6 @@ function FeedLists({ category, tab = 'recent' }: FeedListsType) {
   //     </section>
   //   );
   // }
-  console.log(category);
-
-  console.log(feedLists);
 
   return (
     <section className={styles.wrapperOuter}>

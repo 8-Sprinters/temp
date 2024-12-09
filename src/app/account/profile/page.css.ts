@@ -10,6 +10,8 @@ export const content = style({
   width: '100%',
   padding: '18px 16px',
 
+  flexGrow: 1,
+
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

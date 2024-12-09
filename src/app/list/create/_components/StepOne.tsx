@@ -71,7 +71,7 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
   }, [trigger, register, watchTitle]);
 
   return (
-    <>
+    <div className={styles.page}>
       <Header
         title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="cancel"
@@ -147,6 +147,6 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
         {/** end-카테고리field*/}
       </div>
       {/** end-section*/}
-    </>
+    </div>
   );
 }

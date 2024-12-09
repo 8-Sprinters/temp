@@ -13,6 +13,7 @@ export const formWrapperOuter = style({
   margin: 'auto',
 
   width: '100%',
+  maxWidth: 430,
   height: 'auto',
 
   position: 'fixed',

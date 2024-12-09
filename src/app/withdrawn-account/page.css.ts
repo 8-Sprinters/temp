@@ -1,9 +1,11 @@
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
+  maxWidth: 430,
   height: '100vh',
   padding: '18px 16px',
+  margin: 'auto',
 
   display: 'flex',
   flexDirection: 'column',
@@ -11,6 +13,8 @@ export const wrapper = style({
   justifyContent: 'center',
 
   fontSize: '1.6rem',
+
+  backgroundColor: vars.color.bggray,
 });
 
 const baseLink = style({
@@ -30,7 +34,7 @@ export const link = style([
 export const subLink = style([
   baseLink,
   {
-    backgroundColor: vars.color.blueGray,
+    backgroundColor: vars.color.lightblue,
     color: vars.color.blue,
   },
 ]);

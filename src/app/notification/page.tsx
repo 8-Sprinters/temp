@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import checkAllNotification from '@/app/_api/notification/checkAllNotification';
 import getNotificationAllChecked from '../_api/notification/getNotificationAllChecked';
 
-import Header from '@/components/Header/__Header';
+import Header from '@/components/Header/Header';
 import useMoveToPage from '@/hooks/useMoveToPage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { notificationLocale } from '@/app/notification/locale';

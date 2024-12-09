@@ -3,8 +3,6 @@ import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
-  marginTop: 18,
-
   display: 'flex',
   flexDirection: 'column',
   gap: 12,

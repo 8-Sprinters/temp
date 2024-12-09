@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
 /**
  * @todo 공용 폰트 스타일로 지정
  */
@@ -15,7 +14,6 @@ export const wrapper = style({
   justifyContent: 'center',
   alignItems: 'center',
 
-  backgroundColor: '#fff',
   borderRadius: '20px',
 });
 

@@ -2,11 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { Subtitle } from '@/styles/font.css';
 
-export const container = style({
-  height: '100vh',
-  backgroundColor: vars.color.bggray,
-});
-
 // BottomSheet Input
 export const contentInput = style({
   padding: '2rem 2.4rem',

@@ -2,7 +2,9 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const bottomTapContainer = style({
+  margin: 'auto',
   width: '100%',
+  maxWidth: 430,
   height: '8.4rem',
 
   position: 'fixed',

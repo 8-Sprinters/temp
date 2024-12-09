@@ -56,6 +56,7 @@ export const cards = style({
 });
 
 export const stickyContainer = style({
+  paddingTop: '0.5rem',
   position: 'sticky',
   top: '-1px', // observer API로 sticky 영역이 stuck 상태임을 감지하기 위해
 
@@ -81,6 +82,7 @@ export const scrollDivBottom = style({
   bottom: '84px',
 
   width: '100%',
+  maxWidth: 430,
   height: '83px',
 
   background: 'linear-gradient(180deg, rgba(245, 246, 250, 0.00) 0%, #F5F6FA 100%)',
@@ -90,7 +92,7 @@ export const scrollDivBottom = style({
 });
 
 export const visibleScrollDivTop = style({
-  top: '83.5px',
+  top: '104px',
   height: '83px',
   opacity: 1,
 });

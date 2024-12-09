@@ -1,10 +1,4 @@
-import { vars } from '@/styles/__theme.css';
 import { style } from '@vanilla-extract/css';
-
-export const page = style({
-  height: '100vh',
-  overflow: 'hidden',
-});
 
 export const main = style({
   height: '100%',

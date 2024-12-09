@@ -57,7 +57,9 @@ export const testItem = style({
   height: '100%',
 });
 
-export const slide = style({});
+export const slide = style({
+  width: '100%',
+});
 
 export const itemWrapper = style({
   width: '100%',
