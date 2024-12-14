@@ -6,7 +6,7 @@ import * as styles from './ContentsBody.css';
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
 import { ItemsType, NoticeContentsType } from '@/lib/types/noticeType';
 
-import ContentsContainer from './BlockContainer';
+import BlockContainer from './BlockContainer';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 
 /** 타입에 따른 Contents 블럭 포멧 지정 유틸 함수 */
@@ -80,7 +80,7 @@ export default function ContentsBody() {
                         {...provided.draggableProps}
                         className={snapshot.isDragging ? styles.draggingItem : styles.item}
                       >
-                        <ContentsContainer
+                        <BlockContainer
                           key={field.id}
                           content={field as ItemsType & { id: string }}
                           order={index}

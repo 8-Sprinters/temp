@@ -39,7 +39,7 @@ interface ContainerProps {
   provided: DraggableProvided;
 }
 
-export default function ContentsContainer({ content, handleDeleteBlock, order, provided }: ContainerProps) {
+export default function BlockContainer({ content, handleDeleteBlock, order, provided }: ContainerProps) {
   const { type } = content;
 
   return (
