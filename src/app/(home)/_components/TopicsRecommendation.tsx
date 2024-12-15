@@ -7,13 +7,12 @@ import getRecommendedTopics from '@/app/_api/home/getRecommendedTopics';
 
 import * as styles from './TopicsRecommendation.css';
 
+/* @TODO 스켈레톤 구현 */
 function TopicsRecommendation() {
   const { data: topicLists, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.getRecommendedTopics],
     queryFn: () => getRecommendedTopics(),
   });
-
-  console.log(topicLists);
 
   return (
     <section className={styles.wrapper}>

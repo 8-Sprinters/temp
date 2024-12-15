@@ -22,8 +22,6 @@ function TrendingList() {
     queryFn: () => getHomeRecommendedLists(),
   });
 
-  console.log(recommendedLists);
-
   const SWIPER_STYLE = useMemo(
     () => ({
       height: '280px',
