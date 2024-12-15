@@ -70,18 +70,6 @@ export default function AdminTopicsPage() {
             {topics && topics?.topicsList.map((topic, index) => <AdminTopicBox key={index} topic={topic} />)}
           </tbody>
         </table>
-        {/* {topics &&
-          topics?.topicsList.map((topic: any, index: number) => {
-            return <AdminTopicBox key={index} topic={topic} />;
-          })} */}
-        {/* 추후 페이지네이션으로 전환하기 위한 코드 */}
-        {/* <ul className={styles.pagesList}>
-          {pages.map((page) => (
-            <li key={page}>
-              <button className={styles.page}>{page}</button>
-            </li>
-          ))}
-        </ul> */}
       </div>
       {/* {옵저버를 위한 요소} */}
       <div ref={ref}></div>
