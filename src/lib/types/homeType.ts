@@ -12,7 +12,7 @@ export interface HomeRecommendedListType {
   itemImageUrl: string;
   category: string;
   backgroundColor: string;
-  top3: Top3Type[];
+  items: Top3Type[];
 }
 
 export interface UsersRecommendationItemType {
@@ -50,5 +50,5 @@ export interface ListRecommendationType {
 
 export interface recommendedTopicType {
   id: number;
-  topic: string;
+  title: string;
 }

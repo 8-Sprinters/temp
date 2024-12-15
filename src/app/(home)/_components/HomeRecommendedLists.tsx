@@ -133,11 +133,12 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
         <p className={styles.listOwner}>{item.ownerNickname}</p>
       </div>
       <ul className={styles.top3Wrapper}>
-        {item.top3.map((el, idx) => (
-          <li key={idx} className={item.itemImageUrl ? styles.top3ItemWithImage : styles.top3ItemNoImage}>
-            {`${idx + 1}. ${el.title}`}
-          </li>
-        ))}
+        {item &&
+          item?.items?.map((el, idx) => (
+            <li key={idx} className={item.itemImageUrl ? styles.top3ItemWithImage : styles.top3ItemNoImage}>
+              {`${idx + 1}. ${el.title}`}
+            </li>
+          ))}
       </ul>
     </div>
   );

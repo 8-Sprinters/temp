@@ -49,6 +49,7 @@ export const topic = style({
   fontSize: '1.5rem',
   letterSpacing: '-3%',
   color: '#292929',
+  cursor: 'pointer',
 });
 
 export const topicButton = style([

@@ -15,9 +15,11 @@ import * as styles from './RecommendedUsers.css';
 import { UserListsSkeleton } from './Skeleton';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 function UsersRecommendation() {
   const { language } = useLanguage();
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
   //zustand로 관리하는 user정보 불러오기
   const { user: userMe } = useUser();
   const myId = userMe.id;
@@ -26,7 +28,6 @@ function UsersRecommendation() {
   const { data: usersList, isFetching } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
-    enabled: userMe && !!myId,
     retry: 1,
   });
 
@@ -39,9 +40,9 @@ function UsersRecommendation() {
     }
   };
 
-  if (!userMe) {
-    return null;
-  }
+  // if (!userMe) {
+  //   return null;
+  // }
 
   return (
     <section>
@@ -49,7 +50,7 @@ function UsersRecommendation() {
         <UserListsSkeleton />
       ) : (
         <>
-          {myId && usersList?.length !== 0 && (
+          {usersList && usersList?.length !== 0 && (
             <div className={styles.wrapper}>
               <div className={styles.titleWrapper}>
                 <h2 className={styles.sectionTitle}>추천 리스터</h2>
@@ -61,7 +62,7 @@ function UsersRecommendation() {
                       <UserRecommendListItem
                         data={item}
                         handleScrollToRight={handleScrollToRight}
-                        userId={userMe?.id}
+                        userId={userMe?.id as number}
                       />
                     </li>
                   );
@@ -93,8 +94,10 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
   };
 
   const handleFollowButtonClick = () => {
-    handleFollowingState();
-    handleScrollToRight();
+    if (userId) {
+      handleFollowingState();
+      handleScrollToRight();
+    }
   };
 
   return (

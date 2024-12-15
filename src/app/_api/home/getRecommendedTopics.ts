@@ -3,7 +3,7 @@ import axiosInstance from '@/lib/axios/axiosInstance';
 import { recommendedTopicType } from '@/lib/types/homeType';
 
 const getRecommendedTopics = async () => {
-  const response = await axiosInstance.get<recommendedTopicType[]>(`/lists/recommendedTopics`);
+  const response = await axiosInstance.get<recommendedTopicType[]>(`/topics/recommend`);
   return response.data;
 };
 

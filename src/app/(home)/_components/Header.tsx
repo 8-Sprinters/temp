@@ -24,7 +24,11 @@ import BellIcon from '/public/icons/ver3/bell.svg';
 import Avatar from '/public/icons/ver3/Avatar.svg';
 
 function Header() {
-  const { isOn: isSearchBarOpened, handleSetOn: handleSearchBarOpened } = useBooleanOutput();
+  const {
+    isOn: isSearchBarOpened,
+    handleSetOn: handleSearchBarOpened,
+    handleSetOff: handleSearchBarClosed,
+  } = useBooleanOutput();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 useState 추가
 
@@ -41,7 +45,7 @@ function Header() {
   };
 
   const handleInactivateSearchBar = () => {
-    handleSearchBarOpened();
+    handleSearchBarClosed();
   };
 
   const handleSearchIconClick = () => {
