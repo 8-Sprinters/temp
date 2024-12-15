@@ -6,6 +6,7 @@ import BottomSheet from './BottomSheet';
 
 import { RequestedTopicType } from '@/lib/types/requestedTopicType';
 import editAdminTopic from '@/app/_api/adminTopics/editAdminTopic';
+import formatDate from '@/lib/utils/dateFormat';
 import * as styles from './AdminTopicBox.css';
 
 interface TopicBoxProps {
@@ -25,38 +26,39 @@ function TopicBox({ topic }: TopicBoxProps) {
     //   }),
   });
 
-  const clickToggleExposeButton = () => {
+  const handleClickEditButton = () => {
     setIsBottomSheetOpen(true);
-    editTopicMutation.mutate();
+  };
+
+  const handleToggleExposeButton = () => {
+    // editTopicMutation()
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.topicWrapper}>
-          <div className={styles.category}>{topic?.categoryKorName}</div>
-          <div className={styles.topic}>{topic?.title}</div>
-        </div>
-        <div className={styles.contentWrapper}>
-          <div>{topic?.description}</div>
-        </div>
-        <div className={styles.bottomWrapper}>
-          <div className={styles.author}>{topic?.ownerNickname}</div>
-          <div className={styles.author}>{topic?.createdDate}</div>
-          <div className={styles.anonymous}>{topic?.isAnonymous && '익명'}</div>
-        </div>
-        {/* <button className={styles.addBtn}>
-        <PlusIcon />
-        </button> */}
-      </div>
-      <div className={styles.buttonWrapper}>
-        <button className={topic?.isExposed ? styles.exposedButton : styles.notExposedButton}>
-          {topic?.isExposed ? '노출' : '미노출'}
-        </button>
-        <button className={styles.editButton} onClick={clickToggleExposeButton}>
-          수정하기
-        </button>
-      </div>
+    <>
+      <tr className={styles.bodyRow}>
+        <td>{formatDate(topic?.createdDate)}</td>
+        <td>{topic?.categoryKorName}</td>
+        <td className={styles.rowItem}>
+          <span className={styles.rowText}>{topic?.title}</span>
+          <span className={styles.rowText}>{topic?.description}</span>
+        </td>
+        <td className={styles.buttons}>
+          <span className={styles.rowText}>{topic?.isAnonymous ? 'O' : 'X'}</span>
+        </td>
+        <td className={styles.buttons}>
+          <button className={styles.editButton} onClick={handleClickEditButton}>
+            수정하기
+          </button>
+        </td>
+        <td>
+          <select onChange={handleToggleExposeButton} value={topic?.isExposed ? '공개' : '비공개'}>
+            <option>공개</option>
+            <option>비공개</option>
+          </select>
+        </td>
+      </tr>
+
       {isBottomSheetOpen && (
         <BottomSheet
           onClose={() => {
@@ -67,7 +69,7 @@ function TopicBox({ topic }: TopicBoxProps) {
           isExposed={topic.isExposed}
         />
       )}
-    </div>
+    </>
   );
 }
 

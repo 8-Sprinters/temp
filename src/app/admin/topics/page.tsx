@@ -15,6 +15,8 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 import * as styles from './page.css';
 
+const TABLE_ROW = ['일시', '카테고리', '주제&소개', '요청자', '익명', '수정', '노출'];
+
 export default function AdminTopicsPage() {
   //페이지네이션 코드
   // const pages = useMemo(() => Array.from({ length: 5 }, (_, idx) => idx + 1), []);
@@ -54,10 +56,24 @@ export default function AdminTopicsPage() {
     <section>
       <div className={styles.body}>
         <h1 className={styles.title}>요청 주제 관리</h1>
-        {topics &&
+        <table className={styles.table}>
+          <thead>
+            <tr className={styles.headRow}>
+              {TABLE_ROW.map((item, index) => (
+                <th key={index} className={item === '제목&소개' ? styles.rowItem : ''}>
+                  {item}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {topics && topics?.topicsList.map((topic, index) => <AdminTopicBox key={index} topic={topic} />)}
+          </tbody>
+        </table>
+        {/* {topics &&
           topics?.topicsList.map((topic: any, index: number) => {
             return <AdminTopicBox key={index} topic={topic} />;
-          })}
+          })} */}
         {/* 추후 페이지네이션으로 전환하기 위한 코드 */}
         {/* <ul className={styles.pagesList}>
           {pages.map((page) => (
