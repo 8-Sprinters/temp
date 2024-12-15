@@ -1,11 +1,13 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { DragDropContext, Draggable, DropResult } from '@hello-pangea/dnd';
 
 import * as styles from './ContentsBody.css';
 
 import { NOTICE_CONTENT } from '@/lib/constants/notice';
 import { ItemsType, NoticeContentsType } from '@/lib/types/noticeType';
 
-import ContentsContainer from './BlockContainer';
+import BlockContainer from './BlockContainer';
+import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 
 /** 타입에 따른 Contents 블럭 포멧 지정 유틸 함수 */
 const itemDataFormatByType = (type: NoticeContentsType) => {
@@ -33,7 +35,7 @@ const itemDataFormatByType = (type: NoticeContentsType) => {
 };
 
 export default function ContentsBody() {
-  const { control } = useFormContext();
+  const { setValue, getValues, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     name: 'contents',
     control,
@@ -47,18 +49,55 @@ export default function ContentsBody() {
     remove(order);
   };
 
+  // 드래그앤드롭 시 실행될 함수
+  const handleOnDragEnd = ({ source, destination }: DropResult) => {
+    if (!destination) return;
+
+    const currentFields = getValues('contents');
+    const draggingFieldIndex = source.index;
+    const dropFieldIndex = destination.index;
+
+    // 드래그한 필드를 기존 배열에서 삭제
+    const removeField = currentFields.splice(draggingFieldIndex, 1);
+    // 드롭한 위치에 드래그한 필드를 추가
+    currentFields.splice(dropFieldIndex, 0, removeField[0]);
+    // 전체 필드 업데이트
+    setValue('contents', currentFields);
+  };
+
   return (
     <>
       <section>
-        {fields.map((field, index) => (
-          <ContentsContainer
-            key={field.id}
-            content={field as ItemsType & { id: string }}
-            order={index}
-            handleDeleteBlock={handleDeleteBlock}
-          />
-        ))}
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <StrictModeDroppable droppableId="fields">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {fields.map((field, index) => (
+                  <Draggable key={field.id} draggableId={field.id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        className={snapshot.isDragging ? styles.draggingItem : styles.item}
+                      >
+                        <BlockContainer
+                          key={field.id}
+                          content={field as ItemsType & { id: string }}
+                          order={index}
+                          handleDeleteBlock={handleDeleteBlock}
+                          provided={provided}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
       </section>
+
       <section className={styles.contents}>
         {Object.entries(NOTICE_CONTENT).map(([key, value], index) => (
           <button

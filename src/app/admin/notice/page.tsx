@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 import * as styles from './page.css';
@@ -21,6 +22,11 @@ export default function AdminNoticesPage() {
 
   return (
     <section className={styles.page}>
+      <div className={styles.button}>
+        <Link href="/admin/notice/create" className={styles.plusNoticeButton}>
+          + 작성하기
+        </Link>
+      </div>
       <table className={styles.table}>
         <thead>
           <tr className={styles.headRow}>

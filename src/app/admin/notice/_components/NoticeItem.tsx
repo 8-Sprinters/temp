@@ -4,6 +4,7 @@ import * as styles from './NoticeItem.css';
 
 import useNotice from '@/hooks/queries/useNotice';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import useMoveToPage from '@/hooks/useMoveToPage';
 
 import Modal from '@/components/Modal/Modal';
 import NoticeDetailInfo from '@/components/NoticeDetail/NoticeDetailInfo';
@@ -35,6 +36,7 @@ interface NoticeItemProps {
 function NoticeItem({ notice }: NoticeItemProps) {
   const { deleteNoticeMutation, sendNoticeAlarmMutation, updateNoticePublicMutation } = useNotice();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
+  const { onClickMoveToPage } = useMoveToPage();
 
   const { id, title, description, didSendAlarm, isExposed, category, createdDate } = notice;
 
@@ -70,7 +72,9 @@ function NoticeItem({ notice }: NoticeItemProps) {
           <span className={styles.rowText}>{description}</span>
         </td>
         <td className={styles.buttons}>
-          <button className={styles.variantsButton.default}>수정</button>
+          <button onClick={onClickMoveToPage(`/admin/notice/${id}/edit`)} className={styles.variantsButton.default}>
+            수정
+          </button>
           <button className={styles.variantsButton.default} onClick={handleDeleteNotice}>
             삭제
           </button>
