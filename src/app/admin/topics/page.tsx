@@ -50,8 +50,6 @@ export default function AdminTopicsPage() {
     }
   });
 
-  console.log(topicsData);
-
   return (
     <section>
       <div className={styles.body}>

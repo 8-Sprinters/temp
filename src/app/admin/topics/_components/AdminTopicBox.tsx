@@ -7,6 +7,10 @@ import BottomSheet from './BottomSheet';
 import { RequestedTopicType } from '@/lib/types/requestedTopicType';
 import editAdminTopic from '@/app/_api/adminTopics/editAdminTopic';
 import formatDate from '@/lib/utils/dateFormat';
+import getCategories from '@/app/_api/category/getCategories';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { CategoryType } from '@/lib/types/categoriesType';
+
 import * as styles from './AdminTopicBox.css';
 
 interface TopicBoxProps {
@@ -19,10 +23,10 @@ function TopicBox({ topic }: TopicBoxProps) {
   const editTopicMutation = useMutation({
     // mutationFn: () =>
     //   editAdminTopic({
+    //     // topicId: topic?.id,
     //     isExposed: !topic.isExposed,
-    //     title,
-    //     categoryCode,
-    //     topicId,
+    //     title: topic?.title,
+    //     categoryCode: topic?.categoryKorName,
     //   }),
   });
 
@@ -31,7 +35,7 @@ function TopicBox({ topic }: TopicBoxProps) {
   };
 
   const handleToggleExposeButton = () => {
-    // editTopicMutation()
+    editTopicMutation.mutate();
   };
 
   return (
@@ -64,9 +68,11 @@ function TopicBox({ topic }: TopicBoxProps) {
           onClose={() => {
             setIsBottomSheetOpen(false);
           }}
-          topicTitle={topic.title}
-          category={topic.categoryKorName}
-          isExposed={topic.isExposed}
+          topicTitle={topic?.title}
+          category={topic?.categoryKorName}
+          isExposed={topic?.isExposed}
+          // {topicI수정필요}
+          topicId={0}
         />
       )}
     </>

@@ -19,9 +19,10 @@ interface BottomSheetProps {
   topicTitle: string;
   category: string;
   isExposed: boolean;
+  topicId: number;
 }
 // TODO: 컴포넌트 공통화 작업
-function BottomSheet({ onClose, topicTitle, category, isExposed }: BottomSheetProps) {
+function BottomSheet({ onClose, topicTitle, category, isExposed, topicId }: BottomSheetProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
 
@@ -38,6 +39,7 @@ function BottomSheet({ onClose, topicTitle, category, isExposed }: BottomSheetPr
   const editTopicMutation = useMutation({
     // mutationFn: () =>
     //   editAdminTopic({
+    //     topicId
     //     isExposed,
     //     title,
     //     categoryCode,
@@ -131,7 +133,7 @@ function BottomSheet({ onClose, topicTitle, category, isExposed }: BottomSheetPr
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={!title || title.length > 30}>
-            요청 보내기
+            수정하기
           </button>
         </form>
       </div>
