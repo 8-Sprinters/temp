@@ -3,6 +3,7 @@
 */
 
 export interface RequestedTopicType {
+  categoryCode: string;
   categoryEngName: string;
   categoryKorName: string;
   title: string;
@@ -12,6 +13,7 @@ export interface RequestedTopicType {
   ownerNickname: string;
   isAnonymous: boolean;
   isExposed: boolean;
+  id: number;
 }
 
 export interface RequestedTopicsListType {

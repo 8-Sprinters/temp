@@ -2,8 +2,7 @@
 
 import * as styles from './BottomSheet.css';
 import { MouseEventHandler, useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useUser } from '@/store/useUser';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import getCategories from '@/app/_api/category/getCategories';
@@ -11,11 +10,9 @@ import editAdminTopic from '@/app/_api/adminTopics/editAdminTopic';
 
 import { CategoryType } from '@/lib/types/categoriesType';
 import ArrowDown from '/public/icons/down_chevron.svg';
-import useBooleanOutput from '@/hooks/useBooleanOutput';
-import Modal from '@/components/Modal/Modal';
 
 interface BottomSheetProps {
-  onClose: MouseEventHandler<HTMLDivElement>;
+  onClose: () => void;
   topicTitle: string;
   category: string;
   isExposed: boolean;
@@ -24,7 +21,7 @@ interface BottomSheetProps {
 // TODO: 컴포넌트 공통화 작업
 function BottomSheet({ onClose, topicTitle, category, isExposed, topicId }: BottomSheetProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { isOn: isModalOn, handleSetOn: openModal, handleSetOff: closeModal } = useBooleanOutput(false);
+  const queryClient = useQueryClient();
 
   const [title, setTitle] = useState(topicTitle);
   const [selectedCategory, setSelectedCategory] = useState<string>(category);
@@ -36,18 +33,26 @@ function BottomSheet({ onClose, topicTitle, category, isExposed, topicId }: Bott
     queryFn: getCategories,
   });
 
+  const convertCategoryKorNameToCode = (korName: string) => {
+    const category = categories?.find((cat) => cat.korName === korName);
+    return category ? category.code : null; // 찾지 못하면 null 반환
+  };
+
   const editTopicMutation = useMutation({
-    // mutationFn: () =>
-    //   editAdminTopic({
-    //     topicId
-    //     isExposed,
-    //     title,
-    //     categoryCode,
-    //   }),
+    mutationFn: () =>
+      editAdminTopic({
+        topicId,
+        isExposed,
+        title,
+        categoryCode: convertCategoryKorNameToCode(selectedCategory as string) || '',
+      }),
     onSuccess: () => {
       setTitle('');
       setSelectedCategory(selectedCategory);
-      openModal();
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getAdminTopics],
+      });
+      onClose();
     },
     onError: (error) => {
       setErrorMessage('요청 중 오류가 발생했습니다. 다시 시도해 주세요. :(');
@@ -137,20 +142,6 @@ function BottomSheet({ onClose, topicTitle, category, isExposed, topicId }: Bott
           </button>
         </form>
       </div>
-      {isModalOn && (
-        <Modal handleModalClose={closeModal} size="large">
-          <div className={styles.modalText}>{`요청 주제 수정이 완료되었어요.`} </div>
-          <button
-            className={styles.modalButton}
-            onClick={() => {
-              closeModal();
-              setIsDropdownOpen(false); //실행안됨
-            }}
-          >
-            닫기
-          </button>
-        </Modal>
-      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import BottomSheet from './BottomSheet';
 
@@ -18,16 +18,22 @@ interface TopicBoxProps {
 }
 
 function TopicBox({ topic }: TopicBoxProps) {
+  const queryClient = useQueryClient();
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const editTopicMutation = useMutation({
-    // mutationFn: () =>
-    //   editAdminTopic({
-    //     // topicId: topic?.id,
-    //     isExposed: !topic.isExposed,
-    //     title: topic?.title,
-    //     categoryCode: topic?.categoryKorName,
-    //   }),
+    mutationFn: () =>
+      editAdminTopic({
+        topicId: topic?.id,
+        isExposed: !topic.isExposed,
+        title: topic?.title,
+        categoryCode: topic?.categoryCode,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getAdminTopics],
+      });
+    },
   });
 
   const handleClickEditButton = () => {
@@ -71,8 +77,7 @@ function TopicBox({ topic }: TopicBoxProps) {
           topicTitle={topic?.title}
           category={topic?.categoryKorName}
           isExposed={topic?.isExposed}
-          // {topicI수정필요}
-          topicId={0}
+          topicId={topic?.id}
         />
       )}
     </>
