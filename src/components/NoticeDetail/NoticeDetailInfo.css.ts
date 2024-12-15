@@ -48,7 +48,7 @@ export const created = style({
 });
 
 export const contents = style({
-  paddingTop: '2rem',
+  padding: '2rem 1.6rem 0 1.6rem',
 
   display: 'flex',
   flexDirection: 'column',

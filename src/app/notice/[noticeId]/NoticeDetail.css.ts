@@ -19,6 +19,18 @@ export const category = style({
   borderRadius: '16px',
 });
 
+export const header = style({
+  padding: '10px 16px 0',
+
+  backgroundColor: vars.color.blue,
+});
+
+export const back = style({
+  fontSize: '1.4rem',
+  color: vars.color.lightgray,
+  cursor: 'pointer',
+});
+
 export const title = style({
   marginTop: '14px',
   marginBottom: '11px',
