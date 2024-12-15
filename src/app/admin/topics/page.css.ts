@@ -3,7 +3,7 @@ import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
 export const body = style({
-  width: '100vw',
+  width: '100%',
   minHeight: '100vh',
   padding: '16px 16px 120px',
 

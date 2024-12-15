@@ -10,18 +10,18 @@ import * as styles from './AdminTopicBox.css';
 
 interface TopicBoxProps {
   topic: RequestedTopicType;
-  onClick: () => void;
 }
 
-function TopicBox({ topic, onClick }: TopicBoxProps) {
+function TopicBox({ topic }: TopicBoxProps) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const editTopicMutation = useMutation({
     // mutationFn: () =>
     //   editAdminTopic({
-    //     isExposed : !topic.isExposed,
+    //     isExposed: !topic.isExposed,
     //     title,
     //     categoryCode,
+    //     topicId,
     //   }),
   });
 
@@ -32,25 +32,27 @@ function TopicBox({ topic, onClick }: TopicBoxProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.wrapper} onClick={onClick}>
+      <div className={styles.wrapper}>
         <div className={styles.topicWrapper}>
-          <div className={styles.category}>{topic.categoryKorName}</div>
-          <div className={styles.topic}>{topic.title}</div>
+          <div className={styles.category}>{topic?.categoryKorName}</div>
+          <div className={styles.topic}>{topic?.title}</div>
         </div>
         <div className={styles.contentWrapper}>
-          <div>{topic.description}</div>
+          <div>{topic?.description}</div>
         </div>
         <div className={styles.bottomWrapper}>
-          <div className={styles.author}>{topic.ownerNickname}</div>
-          <div className={styles.author}>{topic.createdDate}</div>
-          <div className={styles.anonymous}>{topic.isAnonymous && '익명'}</div>
+          <div className={styles.author}>{topic?.ownerNickname}</div>
+          <div className={styles.author}>{topic?.createdDate}</div>
+          <div className={styles.anonymous}>{topic?.isAnonymous && '익명'}</div>
         </div>
         {/* <button className={styles.addBtn}>
         <PlusIcon />
         </button> */}
       </div>
       <div className={styles.buttonWrapper}>
-        <button className={styles.exposeToggleButton}>{topic.isExposed ? '노출' : '미노출'}</button>
+        <button className={topic?.isExposed ? styles.exposedButton : styles.notExposedButton}>
+          {topic?.isExposed ? '노출' : '미노출'}
+        </button>
         <button className={styles.editButton} onClick={clickToggleExposeButton}>
           수정하기
         </button>

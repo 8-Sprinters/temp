@@ -50,13 +50,21 @@ export const button = style({
 
   flexShrink: 0,
 
-  borderRadius: '14px',
+  borderRadius: '4px',
 });
 
-export const exposeToggleButton = style([
+export const exposedButton = style([
   button,
   {
     backgroundColor: vars.color.blue,
+    color: vars.color.white,
+  },
+]);
+
+export const notExposedButton = style([
+  button,
+  {
+    backgroundColor: vars.color.lightgray,
     color: vars.color.white,
   },
 ]);
