@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 
-import SearchBarComponent from '@/components/SearchBar';
+import SearchBarArea from './SearchBarArea';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 
@@ -59,7 +59,7 @@ function Header() {
 
   return (
     <header className={styles.headerWrapper}>
-      {isSearchBarOpened && <SearchBarComponent handleCancel={handleInactivateSearchBar} />}
+      {isSearchBarOpened && <SearchBarArea handleCancel={handleInactivateSearchBar} />}
       {!isSearchBarOpened && (
         <div className={styles.entireWrapper}>
           <div className={styles.homeTitleContainer}>
