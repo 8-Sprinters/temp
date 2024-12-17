@@ -16,7 +16,7 @@ import ItemAccordion from './ItemAccordion';
 import AddIcon from '/public/icons/add.svg';
 
 import * as styles from './Step.css';
-import { ItemType, ListCreateType } from '@/lib/types/listType';
+import { ItemType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import NoDataComponent from '@/components/NoData/NoDataComponent';

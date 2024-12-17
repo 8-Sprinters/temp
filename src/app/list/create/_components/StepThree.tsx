@@ -42,7 +42,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
     register: labelRegister,
     setError,
     clearErrors,
-    formState: { errors: labelError, isValid: isLabelValid },
+    formState: { errors: labelError },
   } = useForm<{ newLabel: string }>({
     mode: 'onChange',
     defaultValues: {
@@ -244,7 +244,7 @@ export default function StepThree({ onBeforeClick, onNextClick, type, isSubmitti
                   className={styles.radioInput}
                   type="radio"
                   checked={!isPublic}
-                  onChange={(e) => {
+                  onChange={() => {
                     setIsPublic(false);
                     setValue('isPublic', false);
                   }}
