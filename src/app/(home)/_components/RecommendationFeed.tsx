@@ -1,11 +1,11 @@
-import UsersRecommendation from '@/components/exploreComponents/RecommendedUsers';
+import UsersRecommendation from '@/app/(home)/_components/RecommendedUsers';
 import TopicsRecommendation from '@/app/(home)/_components/TopicsRecommendation';
-import TrendingList from '@/app/(home)/_components/TrendingLists';
+import HomeRecommendedLists from '@/app/(home)/_components/HomeRecommendedLists';
 
 function RecommendationFeed() {
   return (
     <>
-      <TrendingList />
+      <HomeRecommendedLists />
       <TopicsRecommendation />
       <UsersRecommendation />
     </>
