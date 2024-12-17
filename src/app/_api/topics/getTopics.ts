@@ -1,5 +1,3 @@
-// GET "/topics?cursorId={}&size={}"
-
 import axiosInstance from '@/lib/axios/axiosInstance';
 
 interface GetTopicsType {
