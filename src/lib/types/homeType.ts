@@ -48,7 +48,7 @@ export interface ListRecommendationType {
   version: number;
 }
 
-export interface recommendedTopicType {
+export interface RecommendedTopicType {
   id: number;
   title: string;
 }

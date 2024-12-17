@@ -14,7 +14,6 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import * as styles from './FeedLists.css';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
-import { LIST_DATA as feedLists } from '@/app/(home)/mock/mockdata';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import NoDataButton from '@/components/NoData/NoDataButton';
 

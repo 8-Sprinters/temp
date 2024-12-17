@@ -14,9 +14,8 @@ import { HomeRecommendedListType } from '@/lib/types/homeType';
 
 import * as styles from './HomeRecommendedLists.css';
 import { vars } from '@/styles/theme.css';
-import { TrendingListsSkeleton } from '../../../components/exploreComponents/Skeleton';
 
-function TrendingList() {
+function HomeRecommendedLists() {
   const { data: recommendedLists, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.getHomeRecommendedLists],
     queryFn: () => getHomeRecommendedLists(),
@@ -37,10 +36,6 @@ function TrendingList() {
     }),
     []
   );
-
-  // if (isFetching) {
-  //   return <TrendingListsSkeleton />;
-  // }
 
   return (
     <section className={styles.wrapper}>
@@ -63,7 +58,7 @@ function TrendingList() {
             >
               {recommendedLists.map((item, index) => (
                 <SwiperSlide key={index} className={styles.sliderItem} style={SWIPER_SLIDER_STYLE}>
-                  <TrendingListItem item={item} index={index} />
+                  <RecommendedListsItem item={item} index={index} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -74,12 +69,14 @@ function TrendingList() {
   );
 }
 
+export default HomeRecommendedLists;
+
 interface TrendingListItemProps {
   item: HomeRecommendedListType;
   index: number;
 }
 
-function TrendingListItem({ item }: TrendingListItemProps) {
+function RecommendedListsItem({ item }: TrendingListItemProps) {
   if (!item) return null;
 
   return (
@@ -93,7 +90,7 @@ function TrendingListItem({ item }: TrendingListItemProps) {
               [styles.customBorderRadius]: '50%',
             })}
           >
-            <TrendingListInformation item={item} />
+            <RecommendedListsInfo item={item} />
           </div>
         ) : (
           <div
@@ -103,7 +100,7 @@ function TrendingListItem({ item }: TrendingListItemProps) {
               [styles.customBackgroundColor]: '#ffffff',
             })}
           >
-            <TrendingListInformation item={item} />
+            <RecommendedListsInfo item={item} />
           </div>
         )}
       </div>
@@ -111,14 +108,12 @@ function TrendingListItem({ item }: TrendingListItemProps) {
   );
 }
 
-export default TrendingList;
-
-interface TrendingListInformationType {
+interface RecommendedListsInfoType {
   item?: HomeRecommendedListType;
 }
 
-function TrendingListInformation({ item }: TrendingListInformationType) {
-  if (!item) return null; // item이 없으면 null을 반환하여 렌더링을 중지합니다.
+function RecommendedListsInfo({ item }: RecommendedListsInfoType) {
+  if (!item) return null;
 
   return (
     <div className={styles.itemInformationWrapper}>
