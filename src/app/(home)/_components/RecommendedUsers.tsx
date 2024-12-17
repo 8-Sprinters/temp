@@ -15,11 +15,8 @@ import * as styles from './RecommendedUsers.css';
 import { UserListsSkeleton } from './Skeleton';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
-import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 function UsersRecommendation() {
-  const { language } = useLanguage();
-  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
   //zustand로 관리하는 user정보 불러오기
   const { user: userMe } = useUser();
   const myId = userMe.id;
