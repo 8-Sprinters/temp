@@ -16,7 +16,7 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import { useLanguage } from '@/store/useLanguage';
 
-import Modal from '@/components/Modal/Modal';
+import DeleteModal from '@/components/DeleteModal/DeleteModal';
 
 interface OptionToggleButtonType {
   listId: string;
@@ -93,21 +93,17 @@ function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleBut
       </div>
 
       {isModalOpen && (
-        <Modal handleModalClose={handleModalOff}>
-          <Modal.Title>{modalLocale[language].deleteMessage}</Modal.Title>
-          <Modal.Button
-            onCancel={(e) => {
-              e.stopPropagation();
-              handleModalOff();
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteListMutation.mutate();
-            }}
-          >
-            {modalLocale[language].confirm}
-          </Modal.Button>
-        </Modal>
+        <DeleteModal
+          handleClose={handleModalOff}
+          handleDelete={(e) => {
+            e.stopPropagation();
+            deleteListMutation.mutate();
+          }}
+          handleCancel={(e) => {
+            e.stopPropagation();
+            handleModalOff();
+          }}
+        />
       )}
     </>
   );

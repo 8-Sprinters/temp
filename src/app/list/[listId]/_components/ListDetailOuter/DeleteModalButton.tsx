@@ -1,17 +1,15 @@
-import { ReactNode } from 'react';
-import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import * as styles from './ModalButtonStyle.css';
 import DeleteButton from '/public/icons/trash_can.svg';
 import { modalLocale } from '@/app/list/[listId]/locale';
 import { useLanguage } from '@/store/useLanguage';
+import DeleteModal from '@/components/DeleteModal/DeleteModal';
 
-interface DeleteModalProps {
-  children?: ReactNode;
+interface DeleteModalButtonProps {
   onDelete: () => void;
 }
 
-export default function DeleteModal({ children, onDelete }: DeleteModalProps) {
+export default function DeleteModalButton({ onDelete }: DeleteModalButtonProps) {
   const { language } = useLanguage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //모달 열림,닫힘 상태 관리
   const handleConfirmButtonClick = () => {
@@ -28,13 +26,7 @@ export default function DeleteModal({ children, onDelete }: DeleteModalProps) {
 
       {/*✨ 조합한 모달 */}
       {isOn && (
-        <Modal handleModalClose={handleSetOff}>
-          <Modal.Title>{modalLocale[language].deleteMessage}</Modal.Title>
-          {children}
-          <Modal.Button onCancel={handleSetOff} onClick={handleConfirmButtonClick}>
-            {modalLocale[language].confirm}
-          </Modal.Button>
-        </Modal>
+        <DeleteModal handleClose={handleSetOff} handleDelete={handleConfirmButtonClick} handleCancel={handleSetOff} />
       )}
     </>
   );
