@@ -30,11 +30,11 @@ function FollowersPage() {
   return (
     <div>
       <Header left={'back'} leftClick={handleBackButtonClick} title={userLocale[language].follower} />
-      {followerList?.totalCount !== 0 && (
+      {/* {followerList?.totalCount !== 0 && (
         <div
           className={styles.totalMessage}
         >{`${userLocale[language].total} ${followerList?.totalCount}${userLocale[language].people}`}</div>
-      )}
+      )} */}
       <UserList type="follower" list={followerList?.followers || []} />
     </div>
   );

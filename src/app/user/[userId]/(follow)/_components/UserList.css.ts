@@ -1,23 +1,14 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/__font.css';
-import { vars } from '@/styles/__theme.css';
+import * as fonts from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
-export const container = style({
-  width: '100%',
-  padding: '0 18px',
-
-  display: 'flex',
-  flexDirection: 'column',
-  rowGap: '12px',
-});
-
-export const profileContainer = style({
+export const item = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
 });
 
-export const wrapper = style({
+export const profile = style({
   display: 'flex',
   alignItems: 'center',
   columnGap: '12px',
@@ -26,28 +17,31 @@ export const wrapper = style({
   fontWeight: '600',
 });
 
+export const nickname = style([fonts.BodyBold]);
+
 export const button = style([
-  fonts.caption,
+  fonts.LabelBold,
   {
-    height: '24px',
-    padding: '8px 12px',
+    padding: '0.6rem 1.2rem',
 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    color: vars.color.bluegray10,
 
-    fontSize: '1.6rem',
-    color: vars.color.blue,
-    backgroundColor: '#EBF4FF',
-
-    borderRadius: '50px',
+    borderRadius: '1.5rem',
   },
 ]);
 
-export const emptyMessage = style({
-  marginTop: '69px',
+export const container = style({
+  width: 'auto',
+  margin: '8px 16px',
+  padding: '12px 12px',
+  borderRadius: '2rem',
 
-  fontSize: '1.6rem',
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: '16px',
 
-  textAlign: 'center',
+  backgroundColor: vars.color.white,
 });

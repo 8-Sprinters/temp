@@ -30,11 +30,11 @@ function FollowingPage() {
   return (
     <div>
       <Header left={'back'} leftClick={handleBackButtonClick} title={userLocale[language].following} />
-      {followingList?.followings.length !== 0 && (
+      {/* {followingList?.followings.length !== 0 && (
         <div
           className={styles.totalMessage}
         >{`${userLocale[language].total} ${followingList?.followings.length}${userLocale[language].people}`}</div>
-      )}
+      )} */}
       <UserList type="following" list={followingList?.followings || []} />
     </div>
   );
