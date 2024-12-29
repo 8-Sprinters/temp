@@ -15,6 +15,8 @@ export const profile = style({
 
   fontSize: '1.6rem',
   fontWeight: '600',
+
+  cursor: 'pointer',
 });
 
 export const nickname = style([fonts.BodyBold]);
