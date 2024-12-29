@@ -1,8 +1,8 @@
 'use client';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
-import Header from '../_components/Header';
+import Header from '@/components/Header/Header';
 import UserList from '../_components/UserList';
 
 import getFollowerList from '@/app/_api/follow/getFollowerList';
@@ -15,7 +15,12 @@ import { useLanguage } from '@/store/useLanguage';
 
 function FollowersPage() {
   const { language } = useLanguage();
+  const router = useRouter();
   const param = useParams<{ userId: string }>();
+
+  const handleBackButtonClick = () => {
+    router.push(`/user/${param?.userId}/mylist`);
+  };
 
   const { data: followerList } = useQuery<FollowerListType>({
     queryKey: [QUERY_KEYS.getFollowerList, param?.userId],
@@ -24,7 +29,7 @@ function FollowersPage() {
 
   return (
     <div>
-      <Header title={userLocale[language].follower} />
+      <Header left={'back'} leftClick={handleBackButtonClick} title={userLocale[language].follower} />
       {followerList?.totalCount !== 0 && (
         <div
           className={styles.totalMessage}

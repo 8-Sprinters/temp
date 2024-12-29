@@ -1,10 +1,10 @@
 import { style } from '@vanilla-extract/css';
 
-import { Header } from '@/styles/font.css';
+import * as fonts from '@/styles/font.css';
 
 export const totalMessage = style([
-  Header,
+  fonts.BodyBold,
   {
-    padding: '23px 18px',
+    padding: '1.2rem 1.6rem',
   },
 ]);
