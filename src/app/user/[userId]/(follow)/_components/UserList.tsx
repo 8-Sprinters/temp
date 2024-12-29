@@ -1,24 +1,26 @@
 'use client';
-
 import { ReactNode } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import UserProfileImage from '@/components/UserProfileImage/UserProfileImage';
 import deleteFollower from '@/app/_api/follow/deleteFollower';
+import { userLocale } from '@/app/user/locale';
 import { useUser } from '@/store/useUser';
+import { useLanguage } from '@/store/useLanguage';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import DeleteModal from '@/components/DeleteModal/DeleteModal';
+import UserProfileImage from '@/components/UserProfileImage/UserProfileImage';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 import * as styles from './UserList.css';
-import NoDataComponent from '@/components/NoData/NoDataComponent';
-import { userLocale } from '@/app/user/locale';
-import { useLanguage } from '@/store/useLanguage';
 
 function DeleteFollowerButton({ userId }: { userId: number }) {
   const { language } = useLanguage();
   const { user } = useUser();
   const queryClient = useQueryClient();
+  const { handleSetOff, handleSetOn, isOn } = useBooleanOutput();
 
   const deleteUser = useMutation({
     mutationKey: [QUERY_KEYS.deleteFollower, userId],
@@ -31,14 +33,14 @@ function DeleteFollowerButton({ userId }: { userId: number }) {
   });
 
   return (
-    <button
-      className={styles.button}
-      onClick={() => {
-        deleteUser.mutate();
-      }}
-    >
-      {userLocale[language].delete}
-    </button>
+    <>
+      <button className={styles.button} onClick={handleSetOn}>
+        {userLocale[language].delete}
+      </button>
+      {isOn && (
+        <DeleteModal handleClose={handleSetOff} handleCancel={handleSetOff} handleDelete={() => deleteUser.mutate()} />
+      )}
+    </>
   );
 }
 
