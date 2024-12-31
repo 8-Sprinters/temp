@@ -41,7 +41,7 @@ export const profilePlaceholder = {
 
 export const searchPlaceholer = {
   ko: {
-    keyword: '검색어를 입력해주세요.',
+    keyword: '리스트 혹은 리스터를 검색해 보세요',
   },
   en: {
     keyword: 'Please enter a search term.',

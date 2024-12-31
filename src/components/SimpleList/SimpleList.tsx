@@ -1,4 +1,5 @@
 import { ListItemType } from '@/lib/types/exploreType';
+
 import * as styles from './SimpleList.css';
 import HeartIcon from '/public/icons/ver3/blue_heart.svg';
 

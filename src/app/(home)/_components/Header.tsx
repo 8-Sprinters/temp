@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 
-import SearchBarComponent from '@/components/SearchBar';
+import SearchBarArea from './SearchBarArea';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 
@@ -24,7 +24,11 @@ import BellIcon from '/public/icons/ver3/bell.svg';
 import Avatar from '/public/icons/ver3/Avatar.svg';
 
 function Header() {
-  const { isOn: isSearchBarOpened, handleSetOn: handleSearchBarOpened } = useBooleanOutput();
+  const {
+    isOn: isSearchBarOpened,
+    handleSetOn: handleSearchBarOpened,
+    handleSetOff: handleSearchBarClosed,
+  } = useBooleanOutput();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 useState 추가
 
@@ -41,7 +45,7 @@ function Header() {
   };
 
   const handleInactivateSearchBar = () => {
-    handleSearchBarOpened();
+    handleSearchBarClosed();
   };
 
   const handleSearchIconClick = () => {
@@ -55,7 +59,7 @@ function Header() {
 
   return (
     <header className={styles.headerWrapper}>
-      {isSearchBarOpened && <SearchBarComponent handleCancel={handleInactivateSearchBar} />}
+      {isSearchBarOpened && <SearchBarArea handleCancel={handleInactivateSearchBar} />}
       {!isSearchBarOpened && (
         <div className={styles.entireWrapper}>
           <div className={styles.homeTitleContainer}>

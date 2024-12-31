@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { useRouter } from 'next/navigation';
 
 import SimpleList from '@/components/SimpleList/SimpleList';
 import getRecentLists from '@/app/_api/home/getRecentLists';
@@ -14,13 +15,13 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import * as styles from './FeedLists.css';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
-import { LIST_DATA as feedLists } from '@/app/(home)/mock/mockdata';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import NoDataButton from '@/components/NoData/NoDataButton';
 
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
 import { useTab } from '@/store/useTab';
+import useMoveToPage from '@/hooks/useMoveToPage';
 
 interface FeedListsType {
   category?: string;
@@ -30,6 +31,7 @@ interface FeedListsType {
 function FeedLists({ category, tab = 'recent' }: FeedListsType) {
   const current_QueryKey = tab === 'recent' ? [QUERY_KEYS.getRecentLists, category] : [QUERY_KEYS.getFollowingLists];
   const { setCurrentTab } = useTab();
+  const { onClickMoveToPage } = useMoveToPage();
 
   //리스트 무한스크롤 리액트 쿼리 함수
   const {
@@ -83,11 +85,9 @@ function FeedLists({ category, tab = 'recent' }: FeedListsType) {
           {feedLists && feedLists?.length !== 0 ? (
             feedLists?.map((item, index) => {
               return (
-                <Link href={`/list/${item.id}`} key={item.id}>
-                  <li>
-                    <FeedListItem item={item} index={index} />
-                  </li>
-                </Link>
+                <li key={item.id} onClick={onClickMoveToPage(`/list/${item.id}`)} className={styles.listItemWrapper}>
+                  <FeedListItem item={item} index={index} />
+                </li>
               );
             })
           ) : (
@@ -117,6 +117,7 @@ interface FeedListItemType {
 
 function FeedListItem({ item, index }: FeedListItemType) {
   const { language } = useLanguage();
+  const { onClickMoveToPage } = useMoveToPage();
 
   const COLOR_INDEX = (num: number) => num % 5;
 
@@ -126,8 +127,8 @@ function FeedListItem({ item, index }: FeedListItemType) {
       style={assignInlineVars({ [styles.listBackground]: exploreBackgroundColors[COLOR_INDEX(index)] })}
     >
       <div className={styles.listTopWrapper}>
-        <div className={styles.ownerInformationWrapper}>
-          <Link href={`/user/${item.ownerId}/mylist`} className={styles.profileImageWrapper}>
+        <div className={styles.ownerInformationWrapper} onClick={onClickMoveToPage(`/user/${item.ownerId}/mylist`)}>
+          <div className={styles.profileImageWrapper}>
             {item?.ownerProfileImage ? (
               <Image
                 src={item.ownerProfileImage}
@@ -151,7 +152,7 @@ function FeedListItem({ item, index }: FeedListItemType) {
                 sizes="100vw 100vh"
               />
             )}
-          </Link>
+          </div>
           <div className={styles.ownerNicknameText}>{item.ownerNickname}</div>
         </div>
         <div className={styles.version}>{`업데이트 ${item.updateCount}회째`}</div>
