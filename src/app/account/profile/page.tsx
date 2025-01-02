@@ -55,7 +55,7 @@ export default function ProfilePage() {
     });
     setProfilePreviewUrl(userData?.profileImageUrl ?? '');
     setBackgroundPreviewUrl(userData?.backgroundImageUrl ?? '');
-  }, [userData, methods]);
+  }, [userData]);
 
   //미리보기 이미지 변경
   const handleProfilePreviewChange = async (image: File | string) => {
