@@ -1,16 +1,16 @@
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-react';
 import animation from './Animation - 1708700954738.json';
 
 function Loading() {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animation,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
-  return <Lottie options={defaultOptions} height={100} width={100} />;
+  return (
+    <Lottie
+      animationData={animation}
+      loop
+      autoPlay
+      rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
+      style={{ height: '100px', width: '100px' }}
+    />
+  );
 }
 
 export default Loading;

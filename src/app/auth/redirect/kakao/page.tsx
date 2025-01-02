@@ -11,6 +11,8 @@ import { setCookie } from '@/lib/utils/cookie';
 
 import Loading from '@/components/loading/Loading';
 
+import { vars } from '@/styles/theme.css';
+
 export default function KakaoRedirectPage() {
   const router = useRouter();
   const { updateUser } = useUser();
@@ -73,6 +75,7 @@ export default function KakaoRedirectPage() {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
+        backgroundColor: vars.color.white,
       }}
     >
       <Loading />
