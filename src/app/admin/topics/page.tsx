@@ -1,21 +1,15 @@
-// 임시 요청 주제 페이지
 'use client';
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import AdminTopicBox from './_components/AdminTopicBox';
-import { useRouter } from 'next/navigation';
-import BottomSheet from './_components/BottomSheet';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getAdminTopics from '@/app/_api/adminTopics/getAdminTopics';
-import { RequestedTopicType } from '@/lib/types/requestedTopicType';
-import { useUser } from '@/store/useUser';
-import { requestedTopicData } from './_components/AdminTopicMock';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 import * as styles from './page.css';
 
-const TABLE_ROW = ['일시', '카테고리', '주제&소개', '요청자', '익명', '수정', '노출'];
+const TABLE_ROW = ['일시', '카테고리', '주제&소개', '요청자', '닉네임', '수정', '노출'];
 
 export default function AdminTopicsPage() {
   //페이지네이션 코드
@@ -26,7 +20,6 @@ export default function AdminTopicsPage() {
     data: topicsData,
     hasNextPage,
     fetchNextPage,
-    isFetching,
   } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.getAdminTopics],
     queryFn: ({ pageParam: cursorId }) => {
@@ -38,8 +31,10 @@ export default function AdminTopicsPage() {
 
   //댓글 주요 정보 변수화
   const topics = useMemo(() => {
-    const totalCount = topicsData ? topicsData.pages[topicsData.pages.length - 1].totalCount : 0;
-    const topicsList = topicsData ? topicsData.pages.flatMap(({ topics }) => topics) : [];
+    if (!topicsData) return { topicsList: [], totalCount: 0 };
+
+    const totalCount = topicsData.pages[topicsData.pages.length - 1]?.totalCount || 0;
+    const topicsList = topicsData.pages.flatMap(({ topics }) => topics) || [];
     return { topicsList, totalCount };
   }, [topicsData]);
 
@@ -64,9 +59,7 @@ export default function AdminTopicsPage() {
               ))}
             </tr>
           </thead>
-          <tbody>
-            {topics && topics?.topicsList.map((topic, index) => <AdminTopicBox key={index} topic={topic} />)}
-          </tbody>
+          <tbody>{topics && topics?.topicsList.map((topic) => <AdminTopicBox key={topic.id} topic={topic} />)}</tbody>
         </table>
       </div>
       {/* {옵저버를 위한 요소} */}

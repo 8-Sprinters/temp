@@ -1,15 +1,13 @@
 'use client';
-import { useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import BottomSheet from './BottomSheet';
 
 import { RequestedTopicType } from '@/lib/types/requestedTopicType';
 import editAdminTopic from '@/app/_api/adminTopics/editAdminTopic';
 import formatDate from '@/lib/utils/dateFormat';
-import getCategories from '@/app/_api/category/getCategories';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { CategoryType } from '@/lib/types/categoriesType';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import * as styles from './AdminTopicBox.css';
 
@@ -19,7 +17,7 @@ interface TopicBoxProps {
 
 function TopicBox({ topic }: TopicBoxProps) {
   const queryClient = useQueryClient();
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { isOn: isBottomSheetOpen, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const editTopicMutation = useMutation({
     mutationFn: () =>
@@ -37,7 +35,7 @@ function TopicBox({ topic }: TopicBoxProps) {
   });
 
   const handleClickEditButton = () => {
-    setIsBottomSheetOpen(true);
+    handleSetOn();
   };
 
   const handleToggleExposeButton = () => {
@@ -54,7 +52,9 @@ function TopicBox({ topic }: TopicBoxProps) {
           <span className={styles.rowText}>{topic?.description}</span>
         </td>
         <td className={styles.buttons}>
-          <span className={styles.rowText}>{topic?.isAnonymous ? 'O' : 'X'}</span>
+          <span className={styles.rowText}>
+            {topic?.isAnonymous ? `${topic?.ownerNickname}(익명 요청)` : topic?.ownerNickname}
+          </span>
         </td>
         <td className={styles.buttons}>
           <button className={styles.editButton} onClick={handleClickEditButton}>
@@ -72,7 +72,7 @@ function TopicBox({ topic }: TopicBoxProps) {
       {isBottomSheetOpen && (
         <BottomSheet
           onClose={() => {
-            setIsBottomSheetOpen(false);
+            handleSetOff();
           }}
           topicTitle={topic?.title}
           category={topic?.categoryKorName}
