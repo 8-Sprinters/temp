@@ -6,7 +6,7 @@ interface SaveImageFromHtmlProps {
   element: HTMLElement;
 }
 
-async function saveImageFromHtml({ filename, element }: SaveImageFromHtmlProps) {
+async function saveImageFromHtml({ filename }: SaveImageFromHtmlProps) {
   const saveElement: HTMLElement | null = document.querySelector('#rankList');
   if (!saveElement) {
     console.error('리스트를 찾을 수 없습니다.');

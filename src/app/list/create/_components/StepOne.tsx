@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
@@ -11,7 +11,6 @@ import { listCategoryRules, listDescriptionRules, listTitleRules } from '@/lib/c
 import { useLanguage } from '@/store/useLanguage';
 import Header from '@/components/Header/Header';
 
-import { getListDetail } from '@/app/_api/list/getLists'; //TODO: 확인하기
 import getCategories from '@/app/_api/category/getCategories';
 
 import { listError, listLocale } from '@/app/list/create/locale';

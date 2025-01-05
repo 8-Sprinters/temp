@@ -3,7 +3,7 @@ import * as styles from './SegmentedCotrol.css';
 interface SegmentedControlProps {
   options: string[];
   selected: string;
-  handleSelect: (option: any) => void;
+  handleSelect: (option: string) => void;
 }
 
 export default function SegmentedControl({ options, selected, handleSelect }: SegmentedControlProps) {

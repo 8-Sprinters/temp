@@ -1,6 +1,6 @@
+import axios from 'axios';
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { ItemImagesType, PresignedUrlListType } from '@/lib/types/listType';
-import axios from 'axios';
 
 interface UploadItemImagesProps {
   listId: number;
