@@ -125,7 +125,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
     if (listData) {
       setValue(listData.pages[0].folderName);
     }
-  }, []);
+  }, [listData]);
 
   return (
     <section>

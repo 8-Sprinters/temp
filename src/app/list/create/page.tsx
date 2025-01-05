@@ -91,7 +91,7 @@ export default function CreatePage() {
     //데이터 쪼개기
     const listData: ListCreateType = {
       ...originData,
-      items: originData.items.map(({ imageUrl, ...rest }) => {
+      items: originData.items.map(({ ...rest }) => {
         return {
           ...rest,
           imageUrl: '',

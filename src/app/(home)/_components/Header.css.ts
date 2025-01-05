@@ -5,7 +5,7 @@ export const headerWrapper = style({
   width: '100%',
   height: '40px',
   padding: '10px 16px',
-  margin: '0 0 12px',
+  margin: '0 0 16px',
 });
 
 export const entireWrapper = style({

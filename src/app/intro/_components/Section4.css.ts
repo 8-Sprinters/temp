@@ -1,5 +1,4 @@
 import { style, keyframes } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
 import * as fonts from '@/styles/__font.css';
 
 export const background = style({

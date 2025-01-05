@@ -8,21 +8,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 
-import getTrendingLists from '@/app/_api/home/getTrendingLists';
+import getHomeRecommendedLists from '@/app/_api/home/getHomeRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { TrendingListType } from '@/lib/types/exploreType';
-import { TRENDINGLISTS_DATA } from '../mock/mockdata';
+import { HomeRecommendedListType } from '@/lib/types/homeType';
 
-import * as styles from './TrendingLists.css';
+import * as styles from './HomeRecommendedLists.css';
 import { vars } from '@/styles/theme.css';
-import { TrendingListsSkeleton } from '../../../components/exploreComponents/Skeleton';
 
-function TrendingList() {
-  // 오류로인해 주석처리 해 둠
-  // const { data: trendingLists, isFetching } = useQuery({
-  //   queryKey: [QUERY_KEYS.getTrendingLists],
-  //   queryFn: () => getTrendingLists(),
-  // });
+function HomeRecommendedLists() {
+  const { data: recommendedLists, isFetching } = useQuery({
+    queryKey: [QUERY_KEYS.getHomeRecommendedLists],
+    queryFn: () => getHomeRecommendedLists(),
+  });
 
   const SWIPER_STYLE = useMemo(
     () => ({
@@ -40,15 +37,11 @@ function TrendingList() {
     []
   );
 
-  // if (isFetching) {
-  //   return <TrendingListsSkeleton />;
-  // }
-
   return (
     <section className={styles.wrapper}>
       <div className={styles.listWrapper}>
         <div className={styles.slide}>
-          {TRENDINGLISTS_DATA && TRENDINGLISTS_DATA.length > 0 && (
+          {recommendedLists && recommendedLists.length > 0 && (
             <Swiper
               slidesPerView={'auto'}
               grabCursor={true}
@@ -63,9 +56,9 @@ function TrendingList() {
               className="mySwiper"
               style={SWIPER_STYLE}
             >
-              {TRENDINGLISTS_DATA.map((item, index) => (
+              {recommendedLists.map((item, index) => (
                 <SwiperSlide key={index} className={styles.sliderItem} style={SWIPER_SLIDER_STYLE}>
-                  <TrendingListItem item={item} index={index} />
+                  <RecommendedListsItem item={item} index={index} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -76,12 +69,14 @@ function TrendingList() {
   );
 }
 
+export default HomeRecommendedLists;
+
 interface TrendingListItemProps {
-  item: any;
+  item: HomeRecommendedListType;
   index: number;
 }
 
-function TrendingListItem({ item }: TrendingListItemProps) {
+function RecommendedListsItem({ item }: TrendingListItemProps) {
   if (!item) return null;
 
   return (
@@ -95,7 +90,7 @@ function TrendingListItem({ item }: TrendingListItemProps) {
               [styles.customBorderRadius]: '50%',
             })}
           >
-            <TrendingListInformation item={item} />
+            <RecommendedListsInfo item={item} />
           </div>
         ) : (
           <div
@@ -105,7 +100,7 @@ function TrendingListItem({ item }: TrendingListItemProps) {
               [styles.customBackgroundColor]: '#ffffff',
             })}
           >
-            <TrendingListInformation item={item} />
+            <RecommendedListsInfo item={item} />
           </div>
         )}
       </div>
@@ -113,14 +108,12 @@ function TrendingListItem({ item }: TrendingListItemProps) {
   );
 }
 
-export default TrendingList;
-
-interface TrendingListInformationType {
-  item?: TrendingListType;
+interface RecommendedListsInfoType {
+  item?: HomeRecommendedListType;
 }
 
-function TrendingListInformation({ item }: TrendingListInformationType) {
-  if (!item) return null; // item이 없으면 null을 반환하여 렌더링을 중지합니다.
+function RecommendedListsInfo({ item }: RecommendedListsInfoType) {
+  if (!item) return null;
 
   return (
     <div className={styles.itemInformationWrapper}>
@@ -133,11 +126,12 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
         <p className={styles.listOwner}>{item.ownerNickname}</p>
       </div>
       <ul className={styles.top3Wrapper}>
-        {item.top3.map((el, idx) => (
-          <li key={idx} className={item.itemImageUrl ? styles.top3ItemWithImage : styles.top3ItemNoImage}>
-            {`${idx + 1}. ${el.title}`}
-          </li>
-        ))}
+        {item &&
+          item?.items?.map((el, idx) => (
+            <li key={idx} className={item.itemImageUrl ? styles.top3ItemWithImage : styles.top3ItemNoImage}>
+              {`${idx + 1}. ${el.title}`}
+            </li>
+          ))}
       </ul>
     </div>
   );
