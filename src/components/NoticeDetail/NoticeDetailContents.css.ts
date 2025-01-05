@@ -10,6 +10,11 @@ export const subtitle = style([
   },
 ]);
 
+export const editor = style({
+  backgroundColor: vars.color.white,
+  color: vars.color.black,
+});
+
 export const imgaeBox = style({
   position: 'relative',
   height: '400px',

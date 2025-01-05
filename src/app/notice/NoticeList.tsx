@@ -19,8 +19,8 @@ function NoticeList() {
 
   return (
     <ul className={styles.noticeListWrapper}>
-      {notices?.map((item: NoticeListItemType, index) => (
-        <li key={index}>
+      {notices?.map((item: NoticeListItemType) => (
+        <li key={item.id}>
           <NoticeListItem item={item} />
         </li>
       ))}

@@ -1,9 +1,15 @@
 import NoticeDetailComponent from './NoticeDetail';
 
-function NoticeDetailPage() {
+interface NoticeDetailPageProps {
+  params: {
+    noticeId: string; // Next.js에서 params는 기본적으로 string 타입으로 전달됩니다.
+  };
+}
+
+function NoticeDetailPage({ params }: NoticeDetailPageProps) {
   return (
     <section>
-      <NoticeDetailComponent />
+      <NoticeDetailComponent params={params} />
     </section>
   );
 }

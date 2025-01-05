@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 import getNoticeDetail from '@/app/_api/notice/getNoticeDetail';
@@ -12,17 +11,12 @@ import { NoticeDetailType } from '@/lib/types/noticeType';
 import * as styles from './NoticeDetail.css';
 import NoticeDetailInfo from '@/components/NoticeDetail/NoticeDetailInfo';
 
-function NoticeDetailComponent() {
-  const pathname = usePathname();
-  const noticeId = pathname?.split('/').pop();
+function NoticeDetailComponent({ params }: { params: { noticeId: string } }) {
+  const noticeId = params.noticeId;
   const noticeIdNumber = noticeId ? Number(noticeId) : null;
   const router = useRouter();
 
-  const {
-    data: notice,
-    isLoading,
-    isError,
-  } = useQuery<NoticeDetailType>({
+  const { data: notice } = useQuery<NoticeDetailType>({
     queryKey: [QUERY_KEYS.getNoticeDetail, noticeIdNumber],
     queryFn: () => getNoticeDetail(noticeIdNumber as number),
     enabled: noticeIdNumber !== null, // noticeIdNumber가 유효한 경우에만 실행
