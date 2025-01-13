@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 
 import MotionWrapper from './MotionWrapper';
 import * as styles from './Section3.css';

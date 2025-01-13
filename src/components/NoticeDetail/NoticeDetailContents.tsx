@@ -7,7 +7,7 @@ import * as styles from './NoticeDetailContents.css';
 import { NoticeContentType } from '@/lib/types/noticeType';
 
 function BodyContent({ description }: Pick<NoticeContentType, 'description'>) {
-  return <MDEditor.Markdown source={description} />;
+  return <MDEditor.Markdown source={description} className={styles.editor} />;
 }
 
 function SubTitleContent({ description }: Pick<NoticeContentType, 'description'>) {

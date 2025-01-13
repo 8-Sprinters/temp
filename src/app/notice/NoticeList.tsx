@@ -1,15 +1,25 @@
+'use client';
+
 import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import getNotices from '../_api/notice/getNotices';
 
 import { NoticeListItemType } from '@/lib/types/noticeType';
-import { NOTICE_LIST_MOCKDATA } from './mockdata';
 
 import * as styles from './NoticeList.css';
 import Link from 'next/link';
 
 function NoticeList() {
+  const { data: notices } = useQuery<NoticeListItemType[]>({
+    queryKey: [QUERY_KEYS.getAllNotices],
+    queryFn: getNotices,
+    staleTime: 1000 * 60 * 30,
+  });
+
   return (
     <ul className={styles.noticeListWrapper}>
-      {NOTICE_LIST_MOCKDATA?.map((item: NoticeListItemType) => (
+      {notices?.map((item: NoticeListItemType) => (
         <li key={item.id}>
           <NoticeListItem item={item} />
         </li>
@@ -26,7 +36,7 @@ interface NoticeListItemProps {
 
 function NoticeListItem({ item }: NoticeListItemProps) {
   return (
-    <Link href={`/notices/${item.id}`} className={styles.listItemWrapper}>
+    <Link href={`/notice/${item.id}`} className={styles.listItemWrapper}>
       <div>
         <h3 className={styles.noticeTitle}>{item.title}</h3>
         <p className={styles.noticeDescription}>{item.description}</p>

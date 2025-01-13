@@ -1,6 +1,4 @@
 import Skeleton from '@/components/Skeleton/Skeleton';
-import * as pageStyles from '../page.css';
-import * as previewStyles from './ImagePreview.css';
 import * as styles from './ProfileForm.css';
 
 const NUMBER_OF_BACKGROUND_OPTIONS = 8;

@@ -90,7 +90,7 @@ export default function EditPage() {
     }
 
     methods.trigger(['title']);
-  }, [listDetailData, categories, methods]);
+  }, [listDetailData, categories, methods, user.id]);
 
   /** Request 보내기 */
   //--- 포맷 맞추기

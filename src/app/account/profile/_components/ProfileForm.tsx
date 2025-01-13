@@ -164,7 +164,7 @@ export default function ProfileForm({
   useEffect(() => {
     setSelectedBackground(getValues('backgroundImageUrl') as string);
     setSelectedProfile(getValues('profileImageUrl') as string);
-  }, []);
+  }, [getValues]);
 
   return (
     <>

@@ -53,6 +53,7 @@ export const QUERY_KEYS = {
   getAdminAllNotice: 'getAdminAllNotice',
 
   // 공지
+  getAllNotices: 'getAllNotices',
   getNoticeCategories: 'getNoticeCategories',
   getNoticeDetail: 'getNoticeDetail',
 };

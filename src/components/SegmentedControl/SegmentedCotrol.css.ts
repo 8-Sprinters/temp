@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const track = style({

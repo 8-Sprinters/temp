@@ -8,7 +8,7 @@
  */
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useUser } from '@/store/useUser';
 import getUserOne from '../_api/user/getUserOne';
@@ -36,7 +36,7 @@ export default function StartListyPage() {
     setStepIndex((prev) => prev + 1);
   };
 
-  const handleBackControl = () => {
+  const handleBackControl = useCallback(() => {
     /**
      TODO
      * 뒤로가기 클릭시, [온보딩을 종료할까요?] 모달
@@ -47,7 +47,7 @@ export default function StartListyPage() {
 
     alert(startListyLocale[language].endOnboardingMessage);
     // 다른 페이지로 이동
-  };
+  }, [language]);
 
   useEffect(() => {
     history.pushState('onboard', '', '/intro'); // 브라우저 기본 동작으로 온보딩페이지에 접근하지 못하도록 설정
@@ -55,7 +55,7 @@ export default function StartListyPage() {
     return () => {
       window.removeEventListener('popstate', handleBackControl);
     };
-  }, []);
+  }, [handleBackControl]);
 
   return (
     <>
