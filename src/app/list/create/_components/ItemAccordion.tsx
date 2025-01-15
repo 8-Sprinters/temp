@@ -94,7 +94,7 @@ export default function ItemAccordion({
     <div className={styles.accordion}>
       <div className={styles.header}>
         <Image src={'/icons/dnd.svg'} width={16} height={13} alt="drag and drop" />
-        <div className={rank === 1 ? styles.variantRank.first : styles.variantRank.default}>{rank}위</div>
+        <div className={rank === 1 ? styles.variantRankBadge.first : styles.variantRankBadge.default}>{rank}위</div>
         <input
           {...titleRegister}
           className={styles.titleInput}
