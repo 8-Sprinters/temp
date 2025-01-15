@@ -67,8 +67,9 @@ export const accordionIconWrapper = style({
 //콘텐트
 export const hr = style({
   width: '100%',
-  strokeWidth: '0.4rem ',
-  stroke: vars.color.bluegray8,
+  height: '0.4px',
+  backgroundColor: vars.color.bluegray6,
+  border: 0,
 });
 
 export const content = style({
