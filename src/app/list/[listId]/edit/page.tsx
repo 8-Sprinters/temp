@@ -34,8 +34,21 @@ export default function EditPage() {
   const handleNext = () => setStep((prev) => prev + 1);
   const handleBack = () => setStep((prev) => prev - 1);
 
-  /** React Hook Form */
-  //-- 초기세팅
+  //--- 기존 데이터 불러오기
+  // 카테고리 목록
+  const { data: categories } = useQuery<CategoryType[]>({
+    queryKey: [QUERY_KEYS.getCategories],
+    queryFn: () => getCategories(),
+  });
+
+  //기존 리스트 데이터
+  const { data: listDetailData } = useQuery<ListDetailType>({
+    queryKey: [QUERY_KEYS.getListDetail, param?.listId],
+    queryFn: () => getListDetail(Number(param?.listId)),
+  });
+
+  /** 초기 세팅 */
+  //-- React-Hook-Form
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
@@ -51,21 +64,8 @@ export default function EditPage() {
     },
   });
 
-  //--- 기존 데이터 불러오기
-  //기존 리스트 데이터
-  const { data: listDetailData } = useQuery<ListDetailType>({
-    queryKey: [QUERY_KEYS.getListDetail, param?.listId],
-    queryFn: () => getListDetail(Number(param?.listId)),
-  });
-
-  // 카테고리 목록
-  const { data: categories } = useQuery<CategoryType[]>({
-    queryKey: [QUERY_KEYS.getCategories],
-    queryFn: () => getCategories(),
-  });
-
-  //데이터 채워넣기
-  useEffect(() => {
+  //기존 데이터로 채우기
+  const initializeFormValues = () => {
     if (listDetailData) {
       methods.reset({
         category: categories?.find((category) => category.korName === listDetailData.categoryKorName)?.engName,
@@ -76,21 +76,22 @@ export default function EditPage() {
         isPublic: listDetailData.isPublic,
         backgroundPalette: listDetailData.backgroundPalette,
         backgroundColor: listDetailData.backgroundColor,
-        items: listDetailData.items.map(({ id, rank, title, comment, link, imageUrl }) => {
-          return {
-            rank: rank,
-            id: id,
-            title: title,
-            comment: comment ? comment : '',
-            link: link ? link : '',
-            imageUrl: typeof imageUrl === 'string' ? imageUrl : '',
-          };
-        }),
+        items: listDetailData.items.map(({ id, rank, title, comment, link, imageUrl }) => ({
+          rank,
+          id,
+          title,
+          comment: comment || '',
+          link: link || '',
+          imageUrl: typeof imageUrl === 'string' ? imageUrl : '',
+        })),
       });
     }
+  };
 
-    methods.trigger(['title']);
-  }, [listDetailData, categories, methods, user.id]);
+  //데이터 채워넣기
+  useEffect(() => {
+    initializeFormValues();
+  }, [listDetailData, categories, user.id]); //gpt: 여기 dependency list에 빼야할 게 있을까?
 
   /** Request 보내기 */
   //--- 포맷 맞추기
