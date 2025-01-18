@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 
@@ -31,6 +31,7 @@ interface StepOneProps {
 export default function StepOne({ onNextClick, type }: StepOneProps) {
   const { language } = useLanguage();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   /** 데이터 가져오기 */
   //--- 카테고리 가져오기
@@ -65,9 +66,21 @@ export default function StepOne({ onNextClick, type }: StepOneProps) {
   useEffect(() => {
     //카테고리 규칙 추가
     register('category', listCategoryRules);
-    //페이지 로드 시  'title', 'category'필 드 유효성 검사 강제 실행
+    //페이지 로드 시  'title', 'category'필드 유효성 검사 강제 실행
     trigger(['title', 'category']);
   }, [trigger, register, watchTitle]);
+
+  useEffect(() => {
+    //---주소에서 title, category 가져오기
+    const title = searchParams?.get('title');
+    const category = searchParams?.get('category');
+    /**TODO: 리스트 상세 '이 타이틀로 리스트 생성에도 encode단계 넣어주기 */
+
+    if (title) setValue('title', title);
+    if (category) {
+      setValue('category', categories?.find((c) => c.korName === category)?.engName);
+    }
+  }, [searchParams, categories]);
 
   return (
     <div className={styles.page}>

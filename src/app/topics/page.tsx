@@ -41,7 +41,9 @@ export default function TopicPage() {
   });
 
   const handleTopicClick = (topic: TopicType) => {
-    router.push(`/list/create?title=${topic.title}&category=${topic.categoryKorName}`);
+    const encodedTitle = encodeURIComponent(topic.title);
+    const encodedCategory = encodeURIComponent(topic.categoryKorName);
+    router.push(`/list/create?title=${encodedTitle}&category=${encodedCategory}`);
   };
 
   const handleBottomSheetClose = () => {

@@ -49,7 +49,8 @@ function TopicItem({ title }: TopicItemProps) {
   const router = useRouter();
 
   const handleTopicClick = (title: string) => {
-    router.push(`/list/create?title=${title}`);
+    const encodedTitle = encodeURIComponent(title);
+    router.push(`/list/create?title=${encodedTitle}`);
   };
 
   return (
