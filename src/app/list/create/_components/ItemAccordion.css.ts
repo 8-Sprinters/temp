@@ -45,8 +45,8 @@ export const variantRankBadge = styleVariants({
 export const titleInput = style([
   fonts.BodyBold,
   {
-    flexGrow: 1, //남는 공간 차지하게
-    minWidth: '0', //부모컨테이너에 맞춰 줄어들 수 있도록 강제 (안넣을 경우 내용에 맞춰서 크기 유지)
+    flexGrow: 1,
+    minWidth: '0',
 
     color: vars.color.bluegray10,
     '::placeholder': { color: vars.color.bluegray6 },
@@ -61,7 +61,7 @@ export const accordionIconWrapper = style({
 
   width: '2rem',
   height: '2.6rem',
-  flexShrink: 0, //아이콘은 줄어들지 않도록 설정
+  flexShrink: 0,
 });
 
 //콘텐트
