@@ -91,7 +91,7 @@ export default function EditPage() {
   //데이터 채워넣기
   useEffect(() => {
     initializeFormValues();
-  }, [listDetailData, categories, user.id]); //gpt: 여기 dependency list에 빼야할 게 있을까?
+  }, [listDetailData, categories, user.id]);
 
   /** Request 보내기 */
   //--- 포맷 맞추기
